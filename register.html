@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar - ITacademy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="screen">
+        <div class="auth-card">
+            <div class="logo-wrapper">
+                <img src="logo_ITacademy.png" alt="Logo" class="main-logo">
+            </div>
+            <h2>Daftar <span>ITacademy</span></h2>
+            <p class="subtitle">Lengkapi data untuk akses materi berbasis proyek</p>
+
+            <form action="login.html">
+                <div class="input-group">
+                    <input type="text" placeholder="Nama Lengkap" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <select required>
+                        <option value="" disabled selected>Pilih Tipe Akun</option>
+                        <option value="free">User (Free)</option>
+                        <option value="premium">User (Premium)</option>
+                        <option value="mentor">Mentor</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn-auth">REGISTER</button>
+            </form>
+
+            <div class="auth-footer">
+                Sudah punya akun? <a href="login.html">Masuk di sini</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

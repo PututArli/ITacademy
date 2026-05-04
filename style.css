@@ -8,7 +8,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
   background: linear-gradient(
     to bottom,
     #1ec8ff,
@@ -17,65 +16,107 @@ body {
   );
 }
 
-.content {
-  width: 300px;
+.auth-card {
+  background: white;
+  width: 100%;
+  max-width: 500px;
+  padding: 40px;
+  border-radius: 25px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   text-align: center;
-  color: white;
 }
 
-.icon {
-  font-size: 70px;
+.logo-wrapper {
   margin-bottom: 20px;
 }
 
+.main-logo {
+  width: 100px;
+  height: auto;
+}
+
 h2 {
-  margin: 10px 0;
-  letter-spacing: 2px;
+  color: #03045E;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
 }
 
-h3 {
-  margin: 10px 0;
-  font-weight: 500;
+h2 span {
+  color: #0077B6;
 }
 
-p {
-  font-size: 13px;
-  opacity: 0.8;
-  line-height: 1.5;
+p.subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 25px;
+  opacity: 1;
 }
 
-.btn {
-  margin-top: 20px;
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.input-group input, 
+.input-group select {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
+  border: 1.5px solid #eee;
+  border-radius: 12px;
+  background: #fdfdfd;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.input-group input:focus {
+  border-color: #1a73e8;
+}
+
+.btn-auth {
+  width: 100%;
+  padding: 14px;
   border: none;
   border-radius: 25px;
   background: linear-gradient(to right, #00e0ff, #00bfff);
   color: white;
   font-weight: bold;
+  font-size: 16px;
   cursor: pointer;
   transition: 0.3s;
+  margin-top: 10px;
 }
 
-.btn:hover {
-  transform: scale(1.05);
+.btn-auth:hover {
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(0, 224, 255, 0.3);
 }
 
-.dots {
+/* FOOTER & SOCIAL */
+.auth-footer {
   margin-top: 20px;
+  font-size: 13px;
+  color: #666;
 }
 
-.dots span {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  margin: 3px;
-  background: rgba(255,255,255,0.5);
-  border-radius: 50%;
+.auth-footer a {
+  color: #1a73e8;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-.dots .active {
-  width: 20px;
+.social-btns {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.social-btns button {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
   border-radius: 10px;
   background: white;
+  cursor: pointer;
+  font-size: 13px;
 }
