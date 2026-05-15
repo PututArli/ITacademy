@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ITacademy - Platform E-Learning Berbasis Project dan Mentorship</title>
-    <link rel="stylesheet" href="../css/style.css?v=<?= time(); ?>">
+    <link rel="stylesheet" href="assets/css/style.css?v=<?= time(); ?>">
     <style>
         .how-section { padding: 80px 60px; }
         .how-grid { display: flex; gap: 0; margin-top: 48px; position: relative; justify-content: center; flex-wrap: wrap; }
@@ -69,7 +69,7 @@
         <a href="#cara-kerja" class="btn btn-ghost" style="padding:8px 16px;">Cara Kerja</a>
         <a href="#harga" class="btn btn-ghost" style="padding:8px 16px;">Harga</a>
         <a href="login.php" class="btn btn-outline">Masuk</a>
-        <a href="register.html" class="btn btn-primary">Daftar</a>
+        <a href="register.php" class="btn btn-primary">Daftar</a>
     </div>
 </nav>
 
@@ -80,7 +80,7 @@
         <h1 class="hero-title fade-up">Bangun Portofolio IT<br>dengan <span>Bimbingan Mentor</span></h1>
         <p class="hero-desc fade-up delay-1">Belajar Web Development sambil mengerjakan proyek nyata. Tugas kamu direview langsung oleh mentor — bukan dinilai otomatis oleh sistem.</p>
         <div class="hero-actions fade-up delay-2">
-            <a href="register.html" class="btn btn-primary btn-lg">Mulai Belajar Gratis</a>
+            <a href="register.php" class="btn btn-primary btn-lg">Mulai Belajar Gratis</a>
             <a href="#cara-kerja" class="btn btn-ghost btn-lg">Lihat Cara Kerja</a>
         </div>
     </div>
@@ -237,7 +237,7 @@
                 <li><span class="cross">&#10007;</span> Review dari mentor</li>
                 <li><span class="cross">&#10007;</span> Sertifikat digital</li>
             </ul>
-            <a href="register.html" class="btn btn-outline btn-full">Daftar Gratis</a>
+            <a href="register.php" class="btn btn-outline btn-full">Daftar Gratis</a>
         </div>
         <div class="price-card featured">
             <div style="margin-bottom:12px;"><span class="badge badge-gold">Rekomendasi</span></div>
@@ -251,7 +251,7 @@
                 <li><span class="check">&#10003;</span> Review & feedback mentor</li>
                 <li><span class="check">&#10003;</span> Sertifikat digital (PDF)</li>
             </ul>
-            <a href="register.html" class="btn btn-primary btn-full">Daftar Premium</a>
+            <a href="register.php" class="btn btn-primary btn-full">Daftar Premium</a>
         </div>
     </div>
 </section>
@@ -260,7 +260,7 @@
     <div class="cta-box">
         <h2 class="cta-title">Siap mulai belajar?</h2>
         <p class="cta-desc">Daftar sekarang dan mulai bangun portofolio IT pertamamu. Kamu bisa mulai dari paket gratis.</p>
-        <a href="register.html" class="btn btn-primary btn-lg">Daftar Sekarang</a>
+        <a href="register.php" class="btn btn-primary btn-lg">Daftar Sekarang</a>
     </div>
 </section>
 

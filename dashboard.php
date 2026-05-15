@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - ITacademy</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         .welcome-bar { background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.06)); border: 1px solid rgba(59,130,246,0.2); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
         .welcome-text { font-size: 18px; font-weight: 700; }

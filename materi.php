@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Materi Belajar - ITacademy</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         .materi-layout { display: grid; grid-template-columns: 300px 1fr; gap: 20px; height: calc(100vh - 64px); overflow: hidden; }
         .module-sidebar { background: var(--bg-secondary); border-right: 1px solid var(--border); overflow-y: auto; padding: 20px 12px; }

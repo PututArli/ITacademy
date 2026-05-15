@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sertifikat - ITacademy</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         .cert-locked-page { max-width: 560px; margin: 0 auto; text-align: center; padding: 60px 20px; }
         .cert-big-icon { font-size: 72px; margin-bottom: 20px; }

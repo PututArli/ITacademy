@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tugas Proyek - ITacademy</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         .tugas-layout { display: grid; grid-template-columns: 1fr 340px; gap: 20px; }
         @media (max-width: 900px) { .tugas-layout { grid-template-columns: 1fr; } }

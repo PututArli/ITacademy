@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuis Latihan - ITacademy</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         .kuis-wrap { max-width: 720px; margin: 0 auto; padding: 28px; }
         .kuis-header { background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(59,130,246,0.08)); border: 1px solid rgba(139,92,246,0.25); border-radius: var(--radius); padding: 24px 28px; margin-bottom: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
