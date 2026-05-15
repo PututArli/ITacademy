@@ -43,19 +43,19 @@
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Belajar</div>
-            <a href="view/dashboard.php" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
-            <a href="view/materi.php" class="nav-item"><span class="nav-icon">📖</span> Materi</a>
-            <a href="view/kuis.php" class="nav-item"><span class="nav-icon">✔</span> Kuis</a>
-            <a href="view/tugas.php" class="nav-item"><span class="nav-icon">📤</span> Tugas Proyek</a>
-            <a href="view/sertifikat.php" class="nav-item active"><span class="nav-icon">🏅</span> Sertifikat</a>
+            <a href="dashboard.php" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="materi.php" class="nav-item"><span class="nav-icon">📖</span> Materi</a>
+            <a href="kuis.php" class="nav-item"><span class="nav-icon">✔</span> Kuis</a>
+            <a href="tugas.php" class="nav-item"><span class="nav-icon">📤</span> Tugas Proyek</a>
+            <a href="sertifikat.php" class="nav-item active"><span class="nav-icon">🏅</span> Sertifikat</a>
             <div class="nav-label">Akun</div>
-            <a href="view/profil.php" class="nav-item"><span class="nav-icon">👤</span> Profil</a>
+            <a href="profil.php" class="nav-item"><span class="nav-icon">👤</span> Profil</a>
         </nav>
         <div class="sidebar-footer">
             <div class="user-info">
                 <div class="user-avatar">RF</div>
                 <div><div class="user-name">Rafael</div><div class="user-role">Premium</div></div>
-                <a href="view/login.php" class="user-logout" title="Keluar">←</a>
+                <a href="login.php" class="user-logout" title="Keluar">←</a>
             </div>
         </div>
     </aside>
@@ -101,7 +101,7 @@
                     </ul>
 
                     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-                        <a href="view/tugas.php" class="btn btn-outline">Lihat Status Tugas</a>
+                        <a href="tugas.php" class="btn btn-outline">Lihat Status Tugas</a>
                         <button class="btn btn-primary" onclick="showPreview()">Lihat Preview Sertifikat</button>
                     </div>
                 </div>

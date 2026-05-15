@@ -20,7 +20,7 @@
         <h1 class="auth-title">Buat Akun Baru</h1>
         <p class="auth-subtitle">Bergabung dan mulai kuasai dunia IT hari ini</p>
 
-        <form action="view/login.php" id="registerForm">
+        <form action="login.php" id="registerForm">
             <div class="form-group">
                 <label class="form-label">Nama Lengkap</label>
                 <input id="nama" type="text" class="form-input" placeholder="Nama lengkapmu" required>
@@ -52,7 +52,7 @@
         </form>
 
         <div class="auth-footer">
-            Sudah punya akun? <a href="view/login.php">Masuk di sini</a>
+            Sudah punya akun? <a href="login.php">Masuk di sini</a>
         </div>
     </div>
 </div>

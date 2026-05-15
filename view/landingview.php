@@ -17,8 +17,8 @@
         <a href="#kursus" class="btn btn-ghost" style="padding:8px 16px;">Kursus</a>
         <a href="#cara-kerja" class="btn btn-ghost" style="padding:8px 16px;">Cara Kerja</a>
         <a href="#harga" class="btn btn-ghost" style="padding:8px 16px;">Harga</a>
-        <a href="view/login.php" class="btn btn-outline">Masuk</a>
-        <a href="view/register.php" class="btn btn-primary">Daftar</a>
+        <a href="login.php" class="btn btn-outline">Masuk</a>
+        <a href="register.php" class="btn btn-primary">Daftar</a>
     </div>
 </nav>
 
@@ -29,7 +29,7 @@
         <h1 class="hero-title fade-up">Bangun Portofolio IT<br>dengan <span>Bimbingan Mentor</span></h1>
         <p class="hero-desc fade-up delay-1">Belajar Web Development sambil mengerjakan proyek nyata. Tugas kamu direview langsung oleh mentor — bukan dinilai otomatis oleh sistem.</p>
         <div class="hero-actions fade-up delay-2">
-            <a href="view/register.php" class="btn btn-primary btn-lg">Mulai Belajar Gratis</a>
+            <a href="register.php" class="btn btn-primary btn-lg">Mulai Belajar Gratis</a>
             <a href="#cara-kerja" class="btn btn-ghost btn-lg">Lihat Cara Kerja</a>
         </div>
     </div>
@@ -159,7 +159,7 @@
                     <li><span class="<?= $feat['class']; ?>"><?= $feat['icon'] === 'check' ? '&check;' : '&times;'; ?></span> <?= $feat['text']; ?></li>
                 <?php endforeach; ?>
             </ul>
-            <a href="view/register.php" class="btn <?= $plan['btn_class']; ?> btn-full"><?= $plan['btn_text']; ?></a>
+            <a href="register.php" class="btn <?= $plan['btn_class']; ?> btn-full"><?= $plan['btn_text']; ?></a>
         </div>
         <?php endforeach; ?>
     </div>
@@ -169,7 +169,7 @@
     <div class="cta-box">
         <h2 class="cta-title">Siap mulai belajar?</h2>
         <p class="cta-desc">Daftar sekarang dan mulai bangun portofolio IT pertamamu. Kamu bisa mulai dari paket gratis.</p>
-        <a href="view/register.php" class="btn btn-primary btn-lg">Daftar Sekarang</a>
+        <a href="register.php" class="btn btn-primary btn-lg">Daftar Sekarang</a>
     </div>
 </section>
 

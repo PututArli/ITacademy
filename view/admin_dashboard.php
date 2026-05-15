@@ -37,12 +37,12 @@
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Manajemen</div>
-            <a href="view/admin_dashboard.php" class="nav-item active"><span class="nav-icon">&#9776;</span> Dashboard</a>
-            <a href="view/admin_pengguna.php" class="nav-item"><span class="nav-icon">&#9786;</span> Pengguna</a>
-            <a href="view/admin_mentor.php" class="nav-item"><span class="nav-icon">&#9998;</span> Mentor</a>
-            <a href="view/admin_kursus.php" class="nav-item"><span class="nav-icon">&#9650;</span> Kursus</a>
+            <a href="admin_dashboard.php" class="nav-item active"><span class="nav-icon">&#9776;</span> Dashboard</a>
+            <a href="admin_pengguna.php" class="nav-item"><span class="nav-icon">&#9786;</span> Pengguna</a>
+            <a href="admin_mentor.php" class="nav-item"><span class="nav-icon">&#9998;</span> Mentor</a>
+            <a href="admin_kursus.php" class="nav-item"><span class="nav-icon">&#9650;</span> Kursus</a>
             <div class="nav-label">Akun</div>
-            <a href="view/admin_profil.php" class="nav-item"><span class="nav-icon">&#9651;</span> Profil Admin</a>
+            <a href="admin_profil.php" class="nav-item"><span class="nav-icon">&#9651;</span> Profil Admin</a>
         </nav>
         <div class="sidebar-footer">
             <div class="user-info">
@@ -51,7 +51,7 @@
                     <div class="user-name">Admin</div>
                     <div class="user-role">Administrator</div>
                 </div>
-                <a href="view/login.php" class="user-logout" title="Keluar">&#8592;</a>
+                <a href="login.php" class="user-logout" title="Keluar">&#8592;</a>
             </div>
         </div>
     </aside>

@@ -49,7 +49,7 @@
         </form>
 
         <div class="auth-footer">
-            Belum punya akun? <a href="view/register.php">Daftar di sini</a>
+            Belum punya akun? <a href="register.php">Daftar di sini</a>
         </div>
     </div>
 </div>
@@ -58,11 +58,11 @@ function handleLogin(e) {
     e.preventDefault();
     const role = document.getElementById('role').value;
     if (role === 'mentor') {
-        window.location.href = 'view/mentor_dashboard.php';
+        window.location.href = 'mentor_dashboard.php';
     } else if (role === 'admin') {
-        window.location.href = 'view/admin_dashboard.php';
+        window.location.href = 'admin_dashboard.php';
     } else {
-        window.location.href = 'view/dashboard.php';
+        window.location.href = 'dashboard.php';
     }
 }
 </script>
