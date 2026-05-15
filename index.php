@@ -173,22 +173,22 @@
     </div>
     <div class="features-grid">
         <div class="feature-card">
-            <div class="feature-icon" style="background:rgba(59,130,246,0.15);">&#128218;</div>
+            <div class="feature-icon" style="background:rgba(59,130,246,0.15);"></div>
             <div class="feature-title">Materi Terstruktur</div>
             <p class="feature-desc">Video dan teks yang disusun bertahap oleh mentor berpengalaman di bidang Web Development.</p>
         </div>
         <div class="feature-card">
-            <div class="feature-icon" style="background:rgba(139,92,246,0.15);">&#9997;</div>
+            <div class="feature-icon" style="background:rgba(139,92,246,0.15);"></div>
             <div class="feature-title">Review oleh Manusia</div>
             <p class="feature-desc">Tugas proyek kamu diperiksa langsung oleh mentor — bukan auto-grading. Dapat feedback yang relevan.</p>
         </div>
         <div class="feature-card">
-            <div class="feature-icon" style="background:rgba(6,182,212,0.15);">&#128196;</div>
+            <div class="feature-icon" style="background:rgba(6,182,212,0.15);"></div>
             <div class="feature-title">Sertifikat Tervalidasi</div>
             <p class="feature-desc">Sertifikat PDF hanya diterbitkan setelah mentor menyetujui hasil proyek kamu. Bukan kelulusan otomatis.</p>
         </div>
         <div class="feature-card">
-            <div class="feature-icon" style="background:rgba(245,158,11,0.15);">&#128640;</div>
+            <div class="feature-icon" style="background:rgba(245,158,11,0.15);"></div>
             <div class="feature-title">Portofolio Nyata</div>
             <p class="feature-desc">Setiap proyek yang kamu kerjakan bisa langsung dipakai sebagai portofolio untuk melamar kerja.</p>
         </div>
@@ -231,11 +231,11 @@
             <div class="price-amount">Rp 0</div>
             <div class="price-period">Gratis selamanya</div>
             <ul class="price-features">
-                <li><span class="check">&#10003;</span> Akses materi dasar</li>
-                <li><span class="check">&#10003;</span> Kuis latihan</li>
-                <li><span class="cross">&#10007;</span> Kirim tugas proyek</li>
-                <li><span class="cross">&#10007;</span> Review dari mentor</li>
-                <li><span class="cross">&#10007;</span> Sertifikat digital</li>
+                <li><span class="check">&check;</span> Akses materi dasar</li>
+                <li><span class="check">&check;</span> Kuis latihan</li>
+                <li><span class="cross">&times;</span> Kirim tugas proyek</li>
+                <li><span class="cross">&times;</span> Review dari mentor</li>
+                <li><span class="cross">&times;</span> Sertifikat digital</li>
             </ul>
             <a href="register.php" class="btn btn-outline btn-full">Daftar Gratis</a>
         </div>
@@ -245,11 +245,11 @@
             <div class="price-amount" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Rp 99.000</div>
             <div class="price-period">per bulan</div>
             <ul class="price-features">
-                <li><span class="check">&#10003;</span> Semua materi & video</li>
-                <li><span class="check">&#10003;</span> Kuis latihan</li>
-                <li><span class="check">&#10003;</span> Kirim tugas proyek</li>
-                <li><span class="check">&#10003;</span> Review & feedback mentor</li>
-                <li><span class="check">&#10003;</span> Sertifikat digital (PDF)</li>
+                <li><span class="check">&check;</span> Semua materi & video</li>
+                <li><span class="check">&check;</span> Kuis latihan</li>
+                <li><span class="check">&check;</span> Kirim tugas proyek</li>
+                <li><span class="check">&check;</span> Review & feedback mentor</li>
+                <li><span class="check">&check;</span> Sertifikat digital (PDF)</li>
             </ul>
             <a href="register.php" class="btn btn-primary btn-full">Daftar Premium</a>
         </div>
@@ -270,11 +270,6 @@
         <span class="brand-name">IT<span>academy</span></span>
     </div>
     <div class="footer-text">&copy; 2025 ITacademy</div>
-    <div class="footer-links">
-        <a href="#">Privasi</a>
-        <a href="#">Syarat</a>
-        <a href="#">Kontak</a>
-    </div>
 </footer>
 
 <script>

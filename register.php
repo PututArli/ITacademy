@@ -17,7 +17,7 @@
             <span class="brand-name">IT<span>academy</span></span>
         </div>
 
-        <h1 class="auth-title">Buat Akun Baru 🚀</h1>
+        <h1 class="auth-title">Buat Akun Baru</h1>
         <p class="auth-subtitle">Bergabung dan mulai kuasai dunia IT hari ini</p>
 
         <form action="login.php" id="registerForm">
@@ -33,9 +33,9 @@
                 <label class="form-label">Tipe Akun</label>
                 <select id="tipe" class="form-input" required>
                     <option value="" disabled selected>Pilih tipe akun...</option>
-                    <option value="free">👤 User (Free) — Gratis</option>
-                    <option value="premium">⭐ User (Premium) — Rp 99k/bln</option>
-                    <option value="mentor">🎓 Mentor</option>
+                    <option value="free">User (Free) — Gratis</option>  
+                    <option value="premium">User (Premium) — Rp 99k/bln</option>
+                    <option value="mentor">Mentor</option>
                 </select>
             </div>
             <div class="form-group">
@@ -47,12 +47,6 @@
                 <input id="konfirmasi" type="password" class="form-input" placeholder="Ulangi password" required>
             </div>
 
-            <div style="margin-bottom:20px;">
-                <label style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--text-secondary);cursor:pointer;">
-                    <input type="checkbox" style="accent-color:var(--accent-blue);margin-top:2px;" required>
-                    Saya setuju dengan <a href="#" style="color:var(--accent-blue);margin-left:4px;">Syarat & Ketentuan</a>
-                </label>
-            </div>
 
             <button type="submit" class="btn btn-primary btn-full btn-lg">Buat Akun</button>
         </form>

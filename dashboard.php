@@ -123,7 +123,7 @@
                     </div>
                     <div class="module-list">
                         <div class="module-row">
-                            <div class="module-num done">&#10003;</div>
+                            <div class="module-num done">&check;</div>
                             <div class="module-info">
                                 <div class="module-name">Pengenalan HTML</div>
                                 <div class="module-detail">4 video &middot; Kuis selesai (92/100)</div>
@@ -131,7 +131,7 @@
                             <span class="badge badge-green">Selesai</span>
                         </div>
                         <div class="module-row">
-                            <div class="module-num done">&#10003;</div>
+                            <div class="module-num done">&check;</div>
                             <div class="module-info">
                                 <div class="module-name">CSS Dasar & Styling</div>
                                 <div class="module-detail">3 video &middot; Kuis selesai (88/100)</div>
@@ -139,7 +139,7 @@
                             <span class="badge badge-green">Selesai</span>
                         </div>
                         <div class="module-row">
-                            <div class="module-num done">&#10003;</div>
+                            <div class="module-num done">&check;</div>
                             <div class="module-info">
                                 <div class="module-name">Flexbox & Grid Layout</div>
                                 <div class="module-detail">3 video &middot; Kuis selesai (80/100)</div>
@@ -176,7 +176,7 @@
                             </div>
                             <div style="font-size:15px;font-weight:600;margin-bottom:8px;">Landing Page Portfolio</div>
                             <div class="task-file">
-                                <span class="task-file-icon">&#128193;</span>
+                                <span class="task-file-icon"></span>
                                 <span>portfolio-rafael.zip (2.4 MB)</span>
                             </div>
                             <div class="task-feedback">
@@ -192,7 +192,7 @@
                         <div class="section-title">Sertifikat</div>
                     </div>
                     <div class="cert-box locked">
-                        <div class="cert-icon">&#128274;</div>
+                        <div class="cert-icon"></div>
                         <div class="cert-title">Belum tersedia</div>
                         <p class="cert-desc">Sertifikat akan diterbitkan setelah mentor menyetujui tugas proyek akhir kamu.</p>
                     </div>

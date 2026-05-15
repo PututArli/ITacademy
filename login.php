@@ -17,10 +17,10 @@
             <span class="brand-name">IT<span>academy</span></span>
         </div>
 
-        <h1 class="auth-title">Selamat Datang Kembali 👋</h1>
+        <h1 class="auth-title">Selamat Datang Kembali</h1>
         <p class="auth-subtitle">Masuk untuk lanjutkan perjalanan belajarmu</p>
 
-        <form action="dashboard.php" id="loginForm">
+        <form id="loginForm" onsubmit="handleLogin(event)">
             <div class="form-group">
                 <label class="form-label">Email</label>
                 <input id="email" type="email" class="form-input" placeholder="email@contoh.com" required>
@@ -33,17 +33,16 @@
                 <label class="form-label">Masuk Sebagai</label>
                 <select id="role" class="form-input" required>
                     <option value="" disabled selected>Pilih peran...</option>
-                    <option value="user">👤 User (Free / Premium)</option>
-                    <option value="mentor">🎓 Mentor</option>
-                    <option value="admin">🛡️ Admin</option>
+                    <option value="user">User (Free / Premium)</option>
+                    <option value="mentor">Mentor</option>
+                    <option value="admin">Admin</option>
                 </select>
             </div>
 
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <div style="margin-bottom:20px;">
                 <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);cursor:pointer;">
                     <input type="checkbox" style="accent-color:var(--accent-blue);"> Ingat saya
                 </label>
-                <a href="#" style="font-size:13px;color:var(--accent-blue);">Lupa password?</a>
             </div>
 
             <button type="submit" class="btn btn-primary btn-full btn-lg">Masuk Sekarang</button>
@@ -54,5 +53,18 @@
         </div>
     </div>
 </div>
+<script>
+function handleLogin(e) {
+    e.preventDefault();
+    const role = document.getElementById('role').value;
+    if (role === 'mentor') {
+        window.location.href = 'mentor_dashboard.php';
+    } else if (role === 'admin') {
+        window.location.href = 'admin_dashboard.php';
+    } else {
+        window.location.href = 'dashboard.php';
+    }
+}
+</script>
 </body>
 </html>

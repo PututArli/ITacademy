@@ -189,7 +189,7 @@ function renderQ() {
     document.getElementById('progressFill').style.width = ((current+1)/5*100)+'%';
     document.getElementById('progressLabel').textContent = `Soal ${current+1} dari 5`;
     document.getElementById('prevBtn').disabled = current === 0;
-    document.getElementById('nextBtn').textContent = current === 4 ? 'Selesai & Kirim ✔' : 'Berikutnya →';
+    document.getElementById('nextBtn').textContent = current === 4 ? 'Selesai & Kirim' : 'Berikutnya →';
     document.getElementById('nextBtn').onclick = current === 4 ? submitKuis : nextQ;
     document.getElementById('questionsContainer').innerHTML = `
         <div class="question-card">
