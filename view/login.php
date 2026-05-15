@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masuk - ITacademy</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 <div class="auth-screen">
@@ -49,7 +49,7 @@
         </form>
 
         <div class="auth-footer">
-            Belum punya akun? <a href="register.php">Daftar di sini</a>
+            Belum punya akun? <a href="view/register.php">Daftar di sini</a>
         </div>
     </div>
 </div>
@@ -58,11 +58,11 @@ function handleLogin(e) {
     e.preventDefault();
     const role = document.getElementById('role').value;
     if (role === 'mentor') {
-        window.location.href = 'mentor_dashboard.php';
+        window.location.href = 'view/mentor_dashboard.php';
     } else if (role === 'admin') {
-        window.location.href = 'admin_dashboard.php';
+        window.location.href = 'view/admin_dashboard.php';
     } else {
-        window.location.href = 'dashboard.php';
+        window.location.href = 'view/dashboard.php';
     }
 }
 </script>

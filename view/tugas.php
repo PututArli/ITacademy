@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tugas Proyek - ITacademy</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         .tugas-layout { display: grid; grid-template-columns: 1fr 340px; gap: 20px; }
         @media (max-width: 900px) { .tugas-layout { grid-template-columns: 1fr; } }
@@ -65,19 +65,19 @@
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Belajar</div>
-            <a href="dashboard.php" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
-            <a href="materi.php" class="nav-item"><span class="nav-icon">📖</span> Materi</a>
-            <a href="kuis.php" class="nav-item"><span class="nav-icon">✔</span> Kuis</a>
-            <a href="tugas.php" class="nav-item active"><span class="nav-icon">📤</span> Tugas Proyek</a>
-            <a href="sertifikat.php" class="nav-item"><span class="nav-icon">🏅</span> Sertifikat</a>
+            <a href="view/dashboard.php" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="view/materi.php" class="nav-item"><span class="nav-icon">📖</span> Materi</a>
+            <a href="view/kuis.php" class="nav-item"><span class="nav-icon">✔</span> Kuis</a>
+            <a href="view/tugas.php" class="nav-item active"><span class="nav-icon">📤</span> Tugas Proyek</a>
+            <a href="view/sertifikat.php" class="nav-item"><span class="nav-icon">🏅</span> Sertifikat</a>
             <div class="nav-label">Akun</div>
-            <a href="profil.php" class="nav-item"><span class="nav-icon">👤</span> Profil</a>
+            <a href="view/profil.php" class="nav-item"><span class="nav-icon">👤</span> Profil</a>
         </nav>
         <div class="sidebar-footer">
             <div class="user-info">
                 <div class="user-avatar">RF</div>
                 <div><div class="user-name">Rafael</div><div class="user-role">Premium</div></div>
-                <a href="login.php" class="user-logout" title="Keluar">←</a>
+                <a href="view/login.php" class="user-logout" title="Keluar">←</a>
             </div>
         </div>
     </aside>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - ITacademy</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         .welcome-bar { background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.06)); border: 1px solid rgba(59,130,246,0.2); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
         .welcome-text { font-size: 18px; font-weight: 700; }
@@ -56,13 +56,13 @@
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Belajar</div>
-            <a href="dashboard.php" class="nav-item active"><span class="nav-icon">📊</span> Dashboard</a>
-            <a href="materi.php" class="nav-item"><span class="nav-icon">📖</span> Materi</a>
-            <a href="kuis.php" class="nav-item"><span class="nav-icon">✔</span> Kuis</a>
-            <a href="tugas.php" class="nav-item"><span class="nav-icon">📤</span> Tugas Proyek</a>
-            <a href="sertifikat.php" class="nav-item"><span class="nav-icon">🏅</span> Sertifikat</a>
+            <a href="view/dashboard.php" class="nav-item active"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="view/materi.php" class="nav-item"><span class="nav-icon">📖</span> Materi</a>
+            <a href="view/kuis.php" class="nav-item"><span class="nav-icon">✔</span> Kuis</a>
+            <a href="view/tugas.php" class="nav-item"><span class="nav-icon">📤</span> Tugas Proyek</a>
+            <a href="view/sertifikat.php" class="nav-item"><span class="nav-icon">🏅</span> Sertifikat</a>
             <div class="nav-label">Akun</div>
-            <a href="profil.php" class="nav-item"><span class="nav-icon">👤</span> Profil</a>
+            <a href="view/profil.php" class="nav-item"><span class="nav-icon">👤</span> Profil</a>
         </nav>
         <div class="sidebar-footer">
             <div class="user-info">
@@ -71,7 +71,7 @@
                     <div class="user-name">Rafael</div>
                     <div class="user-role">Premium</div>
                 </div>
-                <a href="login.php" class="user-logout" title="Keluar">←</a>
+                <a href="view/login.php" class="user-logout" title="Keluar">←</a>
             </div>
         </div>
     </aside>
@@ -81,7 +81,7 @@
             <div class="topbar-title">Dashboard</div>
             <div class="topbar-actions">
                 <span class="badge badge-gold">Premium</span>
-                <a href="profil.php"><div class="user-avatar" style="cursor:pointer;">RF</div></a>
+                <a href="view/profil.php"><div class="user-avatar" style="cursor:pointer;">RF</div></a>
             </div>
         </div>
 
@@ -92,23 +92,23 @@
                     <div class="welcome-text">Selamat datang, Rafael 👋</div>
                     <div class="welcome-sub">Lanjutkan belajar Web Development — kamu sudah 66% selesai.</div>
                 </div>
-                <a href="materi.php" class="btn btn-primary">Lanjut Belajar →</a>
+                <a href="view/materi.php" class="btn btn-primary">Lanjut Belajar →</a>
             </div>
 
             <div class="stats-grid">
-                <a href="materi.php" class="stat-card" style="text-decoration:none;">
+                <a href="view/materi.php" class="stat-card" style="text-decoration:none;">
                     <div class="stat-icon blue">📖</div>
                     <div><div class="stat-value">8/12</div><div class="stat-label">Modul Selesai</div></div>
                 </a>
-                <a href="kuis.php" class="stat-card" style="text-decoration:none;">
+                <a href="view/kuis.php" class="stat-card" style="text-decoration:none;">
                     <div class="stat-icon purple">✔</div>
                     <div><div class="stat-value">2/3</div><div class="stat-label">Kuis Lulus</div></div>
                 </a>
-                <a href="tugas.php" class="stat-card" style="text-decoration:none;">
+                <a href="view/tugas.php" class="stat-card" style="text-decoration:none;">
                     <div class="stat-icon gold">📤</div>
                     <div><div class="stat-value">1</div><div class="stat-label">Tugas Dikirim</div></div>
                 </a>
-                <a href="sertifikat.php" class="stat-card" style="text-decoration:none;">
+                <a href="view/sertifikat.php" class="stat-card" style="text-decoration:none;">
                     <div class="stat-icon green">🏅</div>
                     <div><div class="stat-value">0</div><div class="stat-label">Sertifikat</div></div>
                 </a>
@@ -119,7 +119,7 @@
                 <div>
                     <div class="section-header">
                         <div class="section-title">Modul Pembelajaran</div>
-                        <a href="materi.php" class="btn btn-ghost" style="font-size:13px;padding:6px 12px;">Lihat Semua</a>
+                        <a href="view/materi.php" class="btn btn-ghost" style="font-size:13px;padding:6px 12px;">Lihat Semua</a>
                     </div>
                     <div class="module-list">
                         <div class="module-row">
@@ -167,7 +167,7 @@
                     <div class="task-section">
                         <div class="section-header">
                             <div class="section-title">Tugas Proyek</div>
-                            <a href="tugas.php" class="btn btn-ghost" style="font-size:13px;padding:6px 12px;">Kirim Tugas</a>
+                            <a href="view/tugas.php" class="btn btn-ghost" style="font-size:13px;padding:6px 12px;">Kirim Tugas</a>
                         </div>
                         <div class="task-card">
                             <div class="task-status">

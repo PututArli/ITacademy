@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Materi Belajar - ITacademy</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         .materi-layout { display: grid; grid-template-columns: 300px 1fr; gap: 20px; height: calc(100vh - 64px); overflow: hidden; }
         .module-sidebar { background: var(--bg-secondary); border-right: 1px solid var(--border); overflow-y: auto; padding: 20px 12px; }
@@ -53,19 +53,19 @@
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Belajar</div>
-            <a href="dashboard.php" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
-            <a href="materi.php" class="nav-item active"><span class="nav-icon">📖</span> Materi</a>
-            <a href="kuis.php" class="nav-item"><span class="nav-icon">✔</span> Kuis</a>
-            <a href="tugas.php" class="nav-item"><span class="nav-icon">📤</span> Tugas Proyek</a>
-            <a href="sertifikat.php" class="nav-item"><span class="nav-icon">🏅</span> Sertifikat</a>
+            <a href="view/dashboard.php" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="view/materi.php" class="nav-item active"><span class="nav-icon">📖</span> Materi</a>
+            <a href="view/kuis.php" class="nav-item"><span class="nav-icon">✔</span> Kuis</a>
+            <a href="view/tugas.php" class="nav-item"><span class="nav-icon">📤</span> Tugas Proyek</a>
+            <a href="view/sertifikat.php" class="nav-item"><span class="nav-icon">🏅</span> Sertifikat</a>
             <div class="nav-label">Akun</div>
-            <a href="profil.php" class="nav-item"><span class="nav-icon">👤</span> Profil</a>
+            <a href="view/profil.php" class="nav-item"><span class="nav-icon">👤</span> Profil</a>
         </nav>
         <div class="sidebar-footer">
             <div class="user-info">
                 <div class="user-avatar">RF</div>
                 <div><div class="user-name">Rafael</div><div class="user-role">Premium</div></div>
-                <a href="login.php" class="user-logout" title="Keluar">←</a>
+                <a href="view/login.php" class="user-logout" title="Keluar">←</a>
             </div>
         </div>
     </aside>
@@ -179,7 +179,7 @@
                         <button class="btn btn-primary" style="flex:1;">Video Berikutnya →</button>
                     </div>
                     <div style="margin-top:12px;text-align:center;">
-                        <a href="kuis.php" class="btn btn-outline btn-full">Selesai Modul ini — Kerjakan Kuis ✔</a>
+                        <a href="view/kuis.php" class="btn btn-outline btn-full">Selesai Modul ini — Kerjakan Kuis ✔</a>
                     </div>
                 </div>
 
@@ -202,7 +202,7 @@
                         </div>
                     </div>
                     <div style="margin-top:12px;">
-                        <a href="kuis.php" class="btn btn-primary btn-full">Kerjakan Kuis Modul Ini ✔</a>
+                        <a href="view/kuis.php" class="btn btn-primary btn-full">Kerjakan Kuis Modul Ini ✔</a>
                     </div>
                 </div>
 
@@ -211,7 +211,7 @@
                         <div style="font-size:36px;margin-bottom:14px;">🧩</div>
                         <div style="font-size:17px;font-weight:700;margin-bottom:8px;">Kuis Modul 3: CSS Flexbox & Grid</div>
                         <div style="font-size:14px;color:var(--text-secondary);margin-bottom:20px;">5 soal pilihan ganda · Waktu 10 menit · Nilai minimum lulus: 75</div>
-                        <a href="kuis.php?modul=3" class="btn btn-primary btn-lg">Mulai Kuis Sekarang</a>
+                        <a href="view/kuis.php?modul=3" class="btn btn-primary btn-lg">Mulai Kuis Sekarang</a>
                     </div>
                 </div>
             </div>

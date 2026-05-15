@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin - ITacademy</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         .admin-tabs { display: flex; gap: 2px; background: var(--bg-secondary); border-radius: 10px; padding: 4px; width: fit-content; margin-bottom: 24px; }
         .admin-tab { padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-secondary); transition: var(--transition); border: none; background: transparent; }
@@ -37,12 +37,12 @@
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Manajemen</div>
-            <a href="admin_dashboard.php" class="nav-item active"><span class="nav-icon">&#9776;</span> Dashboard</a>
-            <a href="admin_pengguna.php" class="nav-item"><span class="nav-icon">&#9786;</span> Pengguna</a>
-            <a href="admin_mentor.php" class="nav-item"><span class="nav-icon">&#9998;</span> Mentor</a>
-            <a href="admin_kursus.php" class="nav-item"><span class="nav-icon">&#9650;</span> Kursus</a>
+            <a href="view/admin_dashboard.php" class="nav-item active"><span class="nav-icon">&#9776;</span> Dashboard</a>
+            <a href="view/admin_pengguna.php" class="nav-item"><span class="nav-icon">&#9786;</span> Pengguna</a>
+            <a href="view/admin_mentor.php" class="nav-item"><span class="nav-icon">&#9998;</span> Mentor</a>
+            <a href="view/admin_kursus.php" class="nav-item"><span class="nav-icon">&#9650;</span> Kursus</a>
             <div class="nav-label">Akun</div>
-            <a href="admin_profil.php" class="nav-item"><span class="nav-icon">&#9651;</span> Profil Admin</a>
+            <a href="view/admin_profil.php" class="nav-item"><span class="nav-icon">&#9651;</span> Profil Admin</a>
         </nav>
         <div class="sidebar-footer">
             <div class="user-info">
@@ -51,7 +51,7 @@
                     <div class="user-name">Admin</div>
                     <div class="user-role">Administrator</div>
                 </div>
-                <a href="login.php" class="user-logout" title="Keluar">&#8592;</a>
+                <a href="view/login.php" class="user-logout" title="Keluar">&#8592;</a>
             </div>
         </div>
     </aside>
@@ -96,7 +96,6 @@
                 <button class="admin-tab" onclick="switchTab(this,'tab-tugas')">Tugas Masuk</button>
             </div>
 
-            <!-- Tab: Pengguna -->
             <div id="tab-pengguna">
                 <div class="section-header" style="margin-bottom:14px;">
                     <div class="section-title">Daftar Pengguna</div>
@@ -175,7 +174,6 @@
                 </div>
             </div>
 
-            <!-- Tab: Mentor -->
             <div id="tab-mentor" style="display:none;">
                 <div class="section-header" style="margin-bottom:14px;">
                     <div class="section-title">Daftar Mentor</div>
@@ -232,7 +230,6 @@
                 </div>
             </div>
 
-            <!-- Tab: Tugas Masuk -->
             <div id="tab-tugas" style="display:none;">
                 <div class="section-header" style="margin-bottom:14px;">
                     <div class="section-title">Semua Tugas Masuk</div>
@@ -293,7 +290,6 @@
     </div>
 </div>
 
-<!-- Modal Tambah User -->
 <div class="modal-overlay" id="modal-tambah-user" onclick="closeModal('modal-tambah-user')">
     <div class="modal-box" onclick="event.stopPropagation()">
         <div class="modal-title">Tambah Pengguna Baru</div>
@@ -319,7 +315,6 @@
     </div>
 </div>
 
-<!-- Modal Tambah Mentor -->
 <div class="modal-overlay" id="modal-tambah-mentor" onclick="closeModal('modal-tambah-mentor')">
     <div class="modal-box" onclick="event.stopPropagation()">
         <div class="modal-title">Tambah Mentor Baru</div>
@@ -342,7 +337,6 @@
     </div>
 </div>
 
-<!-- Modal Edit -->
 <div class="modal-overlay" id="modal-edit" onclick="closeModal('modal-edit')">
     <div class="modal-box" onclick="event.stopPropagation()">
         <div class="modal-title" id="modal-edit-title">Edit Pengguna</div>

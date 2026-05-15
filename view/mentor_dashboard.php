@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Mentor - ITacademy</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         .review-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 12px; transition: var(--transition); }
         .review-card:hover { border-color: var(--border-accent); }
@@ -41,11 +41,11 @@
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Mentor</div>
-            <a href="mentor_dashboard.php" class="nav-item active"><span class="nav-icon">&#9776;</span> Dashboard</a>
-            <a href="mentor_tugas.php" class="nav-item"><span class="nav-icon">&#9998;</span> Review Tugas</a>
-            <a href="mentor_siswa.php" class="nav-item"><span class="nav-icon">&#9786;</span> Siswa Saya</a>
+            <a href="view/mentor_dashboard.php" class="nav-item active"><span class="nav-icon">&#9776;</span> Dashboard</a>
+            <a href="view/mentor_tugas.php" class="nav-item"><span class="nav-icon">&#9998;</span> Review Tugas</a>
+            <a href="view/mentor_siswa.php" class="nav-item"><span class="nav-icon">&#9786;</span> Siswa Saya</a>
             <div class="nav-label">Akun</div>
-            <a href="mentor_profil.php" class="nav-item"><span class="nav-icon">&#9650;</span> Profil</a>
+            <a href="view/mentor_profil.php" class="nav-item"><span class="nav-icon">&#9650;</span> Profil</a>
         </nav>
         <div class="sidebar-footer">
             <div class="user-info">
@@ -54,7 +54,7 @@
                     <div class="user-name">Budi Santoso</div>
                     <div class="user-role">Mentor</div>
                 </div>
-                <a href="login.php" class="user-logout" title="Keluar">&#8592;</a>
+                <a href="view/login.php" class="user-logout" title="Keluar">&#8592;</a>
             </div>
         </div>
     </aside>
