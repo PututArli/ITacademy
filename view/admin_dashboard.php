@@ -51,7 +51,7 @@
                     <div class="user-name">Admin</div>
                     <div class="user-role">Administrator</div>
                 </div>
-                <a href="login.php" class="user-logout" title="Keluar">&#8592;</a>
+                <a href="../" class="user-logout" title="Keluar">&#8592;</a>
             </div>
         </div>
     </aside>

@@ -71,7 +71,7 @@
                     <div class="user-name">Rafael</div>
                     <div class="user-role">Premium</div>
                 </div>
-                <a href="login.php" class="user-logout" title="Keluar">←</a>
+                <a href="../" class="user-logout" title="Keluar">←</a>
             </div>
         </div>
     </aside>

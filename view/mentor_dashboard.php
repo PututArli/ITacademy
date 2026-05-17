@@ -54,7 +54,7 @@
                     <div class="user-name">Budi Santoso</div>
                     <div class="user-role">Mentor</div>
                 </div>
-                <a href="login.php" class="user-logout" title="Keluar">&#8592;</a>
+                <a href="../" class="user-logout" title="Keluar">&#8592;</a>
             </div>
         </div>
     </aside>

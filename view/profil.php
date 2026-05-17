@@ -62,7 +62,7 @@
             <div class="user-info">
                 <div class="user-avatar">RF</div>
                 <div><div class="user-name">Rafael</div><div class="user-role">Premium</div></div>
-                <a href="login.php" class="user-logout" title="Keluar">←</a>
+                <a href="../" class="user-logout" title="Keluar">←</a>
             </div>
         </div>
     </aside>
@@ -95,7 +95,7 @@
                         <div class="profil-stat"><span class="profil-stat-label">Mentor</span><span class="profil-stat-val">Budi Santoso</span></div>
                         <div class="profil-stat"><span class="profil-stat-label">Paket</span><span class="profil-stat-val" style="color:var(--accent-gold);">Premium</span></div>
                         <div class="profil-stat"><span class="profil-stat-label">Aktif hingga</span><span class="profil-stat-val">12 Jun 2025</span></div>
-                        <a href="login.php" class="profil-logout">🚪 Keluar dari Akun</a>
+                        <a href="../" class="profil-logout">🚪 Keluar dari Akun</a>
                     </div>
                 </div>
 

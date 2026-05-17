@@ -5,7 +5,7 @@ class CourseModel {
             [
                 'thumb_class' => 't1', 
                 'icon' => '</>', 
-                'label' => 'Modul 1–4',
+                'label' => 'Modul 1 - 4',
                 'title' => 'HTML & CSS Dasar',
                 'desc' => 'Pelajari struktur halaman web, styling, dan layout modern menggunakan Flexbox serta Grid. Cocok untuk pemula absolut.',
                 'tags' => ['12 Video', '4 Kuis', '1 Proyek']
@@ -13,7 +13,7 @@ class CourseModel {
             [
                 'thumb_class' => 't2', 
                 'icon' => '{ }', 
-                'label' => 'Modul 5–8',
+                'label' => 'Modul 5 - 8',
                 'title' => 'JavaScript Fundamental',
                 'desc' => 'Kuasai variabel, fungsi, DOM manipulation, dan event handling untuk membuat halaman web interaktif dan dinamis.',
                 'tags' => ['10 Video', '3 Kuis', '1 Proyek']
@@ -21,7 +21,7 @@ class CourseModel {
             [
                 'thumb_class' => 't3', 
                 'icon' => '⚙', 
-                'label' => 'Modul 9–12',
+                'label' => 'Modul 9 - 12',
                 'title' => 'Proyek Akhir: Landing Page',
                 'desc' => 'Gabungkan semua skill yang sudah dipelajari ke dalam satu proyek utuh. Hasilnya akan direview dan dinilai oleh mentor.',
                 'tags' => ['4 Video', 'Proyek Akhir', 'Sertifikat']
