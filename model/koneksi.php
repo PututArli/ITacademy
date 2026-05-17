@@ -1,8 +1,12 @@
 <?php
-// File ini untuk koneksi database
-// \System.Management.Automation.Internal.Host.InternalHost = 'localhost';
-// \ = 'root';
-// \ = '';
-// \   = 'itacademy';
-// \ = mysqli_connect(\System.Management.Automation.Internal.Host.InternalHost, \, \, \);
+$host = 'localhost';
+$user = 'root';
+$pass = '';
+$db   = 'it_academy';
+
+$conn = mysqli_connect($host, $user, $pass, $db);
+
+if (!$conn) {
+    die("Koneksi database gagal: " . mysqli_connect_error());
+}
 ?>
