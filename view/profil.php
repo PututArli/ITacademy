@@ -1,48 +1,44 @@
+<?php
+$nama_user = isset($_GET['nama']) ? htmlspecialchars($_GET['nama']) : "User";
+$role_user = isset($_GET['role']) ? htmlspecialchars($_GET['role']) : "free";
+
+$status_keanggotaan = "Siswa " . ucfirst($role_user);
+
+$pecah_nama = explode(" ", $nama_user);
+$nama_depan = $pecah_nama[0]; // Kata pertama
+$nama_belakang = isset($pecah_nama[1]) ? implode(" ", array_slice($pecah_nama, 1)) : ""; // Sisa kata berikutnya
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil - ITacademy</title>
+    <title>Profil Saya - ITacademy</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
-        .profil-layout { display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
-        @media (max-width: 900px) { .profil-layout { grid-template-columns: 1fr; } }
-
-        .profil-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; text-align: center; position: sticky; top: 0; }
-        .profil-avatar-big { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: white; margin: 0 auto 14px; border: 3px solid rgba(59,130,246,0.3); cursor: pointer; transition: var(--transition); }
-        .profil-avatar-big:hover { transform: scale(1.05); }
-        .profil-name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-        .profil-email { font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; }
-        .profil-divider { height: 1px; background: var(--border); margin: 16px 0; }
-        .profil-stat { display: flex; justify-content: space-between; padding: 8px 0; font-size: 13px; }
-        .profil-stat-label { color: var(--text-muted); }
-        .profil-stat-val { font-weight: 600; }
-        .profil-logout { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; color: #ef4444; font-size: 14px; font-weight: 600; cursor: pointer; transition: var(--transition); margin-top: 16px; justify-content: center; border: 1px solid rgba(239,68,68,0.2); }
-        .profil-logout:hover { background: rgba(239,68,68,0.08); }
-
-        .edit-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
-        .edit-title { font-size: 16px; font-weight: 700; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
-
-        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        @media (max-width: 600px) { .input-row { grid-template-columns: 1fr; } }
-
-        .activity-item { display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border); }
-        .activity-item:last-child { border-bottom: none; }
-        .activity-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
-        .activity-dot.blue { background: var(--accent-blue); }
-        .activity-dot.green { background: #10b981; }
-        .activity-dot.purple { background: var(--accent-purple); }
-        .activity-dot.gold { background: var(--accent-gold); }
-        .activity-text { font-size: 13px; color: var(--text-secondary); flex: 1; line-height: 1.5; }
-        .activity-text strong { color: var(--text-primary); }
-        .activity-time { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
-
-        .toast { position: fixed; bottom: 28px; right: 28px; background: #10b981; color: white; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 600; z-index: 1000; display: none; align-items: center; gap: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+        /* Tetap mempertahankan style layout asli bawaan temanmu */
+        .profile-container { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; max-width: 600px; margin: 0 auto; }
+        .profile-header { display: flex; align-items: center; gap: 20px; margin-bottom: 32px; border-bottom: 1px solid var(--border); padding-bottom: 24px; }
+        .profile-avatar-big { width: 80px; height: 80px; border-radius: 50%; background: var(--accent-blue); color: white; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; }
+        .profile-title-text { font-size: 20px; font-weight: 700; }
+        .profile-subtitle-text { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        @media (max-width: 480px) { .form-grid { grid-template-columns: 1fr; } }
+        
+        .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+        .form-group label { font-size: 13px; font-weight: 600; color: var(--text-secondary); }
+        .form-input { padding: 10px 14px; background: var(--glass); border: 1px solid var(--border); border-radius: 8px; color: var(--text-main); font-size: 14px; transition: var(--transition); }
+        .form-input:focus { border-color: var(--accent-blue); outline: none; }
+        .form-input[readonly] { opacity: 0.6; cursor: not-allowed; }
+        
+        .btn-save { background: var(--accent-blue); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: var(--transition); width: 100%; margin-top: 12px; }
+        .btn-save:hover { background: #2563eb; }
     </style>
 </head>
 <body>
 <div class="app-layout">
+
     <aside class="sidebar">
         <div class="sidebar-brand">
             <div class="brand-icon">IT</div>
@@ -50,162 +46,76 @@
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Belajar</div>
-            <a href="dashboard.php" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
-            <a href="materi.php" class="nav-item"><span class="nav-icon">📖</span> Materi</a>
-            <a href="kuis.php" class="nav-item"><span class="nav-icon">✔</span> Kuis</a>
-            <a href="tugas.php" class="nav-item"><span class="nav-icon">📤</span> Tugas Proyek</a>
-            <a href="sertifikat.php" class="nav-item"><span class="nav-icon">🏅</span> Sertifikat</a>
+            <a href="dashboard.php?nama=<?= urlencode($nama_user); ?>&role=<?= urlencode($role_user); ?>" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="materi.php?nama=<?= urlencode($nama_user); ?>&role=<?= urlencode($role_user); ?>" class="nav-item"><span class="nav-icon">📖</span> Materi Belajar</a>
+            <a href="kuis.php?nama=<?= urlencode($nama_user); ?>&role=<?= urlencode($role_user); ?>" class="nav-item"><span class="nav-icon">🧩</span> Kuis Latihan</a>
+            <a href="tugas.php?nama=<?= urlencode($nama_user); ?>&role=<?= urlencode($role_user); ?>" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
+            <a href="sertifikat.php?nama=<?= urlencode($nama_user); ?>&role=<?= urlencode($role_user); ?>" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
             <div class="nav-label">Akun</div>
-            <a href="profil.php" class="nav-item active"><span class="nav-icon">👤</span> Profil</a>
+            <a href="profil.php?nama=<?= urlencode($nama_user); ?>&role=<?= urlencode($role_user); ?>" class="nav-item active"><span class="nav-icon">👤</span> Profil Saya</a>
+            <a href="login.php" class="nav-item" style="color: #f87171;"><span class="nav-icon">🚪</span> Keluar</a>
         </nav>
         <div class="sidebar-footer">
             <div class="user-info">
-                <div class="user-avatar">RF</div>
-                <div><div class="user-name">Rafael</div><div class="user-role">Premium</div></div>
-                <a href="../" class="user-logout" title="Keluar">←</a>
+                <div class="user-avatar"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
+                <div>
+                    <div class="user-name"><?= $nama_user; ?></div>
+                    <div class="user-role" style="font-size: 12px; color: var(--text-muted);"><?= $status_keanggotaan; ?></div>
+                </div>
             </div>
         </div>
     </aside>
 
     <div class="main-content">
         <div class="topbar">
-            <div class="topbar-title">Profil Saya</div>
+            <div class="topbar-title">Pengaturan Akun</div>
             <div class="topbar-actions">
-                <span class="badge badge-gold">Premium</span>
-                <div class="user-avatar">RF</div>
+                <a href="profil.php?nama=<?= urlencode($nama_user); ?>&role=<?= urlencode($role_user); ?>">
+                    <div class="user-avatar" style="cursor:pointer;"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
+                </a>
             </div>
         </div>
 
         <div class="page-content">
-            <div class="profil-layout">
-
-                <div>
-                    <div class="profil-card">
-                        <div class="profil-avatar-big" title="Klik untuk ganti foto">RF</div>
-                        <div class="profil-name">Rafael Arlianto</div>
-                        <div class="profil-email">rafael@email.com</div>
-                        <span class="badge badge-gold" style="margin-bottom:8px;">⭐ User Premium</span>
-                        <div style="font-size:12px;color:var(--text-muted);">Bergabung: Januari 2025</div>
-                        <div class="profil-divider"></div>
-                        <div class="profil-stat"><span class="profil-stat-label">Modul Selesai</span><span class="profil-stat-val">8 / 12</span></div>
-                        <div class="profil-stat"><span class="profil-stat-label">Kuis Lulus</span><span class="profil-stat-val">2 / 3</span></div>
-                        <div class="profil-stat"><span class="profil-stat-label">Tugas Dikirim</span><span class="profil-stat-val">1</span></div>
-                        <div class="profil-stat"><span class="profil-stat-label">Sertifikat</span><span class="profil-stat-val">0</span></div>
-                        <div class="profil-divider"></div>
-                        <div class="profil-stat"><span class="profil-stat-label">Mentor</span><span class="profil-stat-val">Budi Santoso</span></div>
-                        <div class="profil-stat"><span class="profil-stat-label">Paket</span><span class="profil-stat-val" style="color:var(--accent-gold);">Premium</span></div>
-                        <div class="profil-stat"><span class="profil-stat-label">Aktif hingga</span><span class="profil-stat-val">12 Jun 2025</span></div>
-                        <a href="../" class="profil-logout">🚪 Keluar dari Akun</a>
+            <div class="profile-container">
+                
+                <div class="profile-header">
+                    <div class="profile-avatar-big"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
+                    <div>
+                        <div class="profile-title-text"><?= $nama_user; ?></div>
+                        <div class="profile-subtitle-text"><?= $status_keanggotaan; ?> &middot; Anggota sejak Mei 2026</div>
                     </div>
                 </div>
 
-                <div>
-                    <div class="edit-section">
-                        <div class="edit-title">Informasi Akun</div>
-                        <div class="input-row">
-                            <div class="form-group">
-                                <label class="form-label">Nama Depan</label>
-                                <input type="text" class="form-input" value="Rafael" id="firstName">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Nama Belakang</label>
-                                <input type="text" class="form-input" value="Arlianto" id="lastName">
-                            </div>
+                <form action="#" method="POST" onsubmit="event.preventDefault();">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Nama Depan</label>
+                            <input type="text" class="form-input" value="<?= $nama_depan; ?>">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-input" value="rafael@email.com" id="emailInput">
+                            <label>Nama Belakang</label>
+                            <input type="text" class="form-input" value="<?= $nama_belakang; ?>">
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">Nomor Telepon <span style="color:var(--text-muted);font-weight:400;">(opsional)</span></label>
-                            <input type="tel" class="form-input" placeholder="08xxxxxxxxxx" id="phoneInput">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Bio Singkat <span style="color:var(--text-muted);font-weight:400;">(opsional)</span></label>
-                            <textarea class="form-input" rows="2" placeholder="Ceritakan sedikit tentang dirimu..." id="bioInput" style="resize:vertical;"></textarea>
-                        </div>
-                        <button class="btn btn-primary" onclick="saveProfile()">Simpan Perubahan</button>
                     </div>
 
-                    <div class="edit-section">
-                        <div class="edit-title">Ganti Password</div>
-                        <div class="form-group">
-                            <label class="form-label">Password Lama</label>
-                            <input type="password" class="form-input" placeholder="Password saat ini" id="oldPass">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Password Baru</label>
-                            <input type="password" class="form-input" placeholder="Min. 8 karakter" id="newPass">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Konfirmasi Password Baru</label>
-                            <input type="password" class="form-input" placeholder="Ulangi password baru" id="confirmPass">
-                        </div>
-                        <button class="btn btn-outline" onclick="changePassword()">Update Password</button>
+                    <div class="form-group">
+                        <label>Alamat Email</label>
+                        <input type="email" class="form-input" value="rizkaaprilia567@gmail.com" readonly>
                     </div>
 
-                    <div class="edit-section">
-                        <div class="edit-title">Aktivitas Terakhir</div>
-                        <div>
-                            <div class="activity-item">
-                                <div class="activity-dot blue"></div>
-                                <div class="activity-text">Menonton video <strong>CSS Flexbox — Konsep Dasar</strong> (Modul 3)</div>
-                                <div class="activity-time">12 Mei · 15:40</div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-dot gold"></div>
-                                <div class="activity-text">Mengirim tugas proyek <strong>Landing Page Portfolio</strong></div>
-                                <div class="activity-time">10 Mei · 14:32</div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-dot green"></div>
-                                <div class="activity-text">Lulus kuis <strong>Modul 2: CSS Dasar</strong> dengan skor 88/100</div>
-                                <div class="activity-time">8 Mei · 10:15</div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-dot green"></div>
-                                <div class="activity-text">Lulus kuis <strong>Modul 1: HTML Dasar</strong> dengan skor 92/100</div>
-                                <div class="activity-time">5 Mei · 09:00</div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-dot purple"></div>
-                                <div class="activity-text">Bergabung ke kursus <strong>Web Development Dasar</strong></div>
-                                <div class="activity-time">1 Mei · 08:30</div>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label>Tipe Keanggotaan</label>
+                        <input type="text" class="form-input" value="<?= $status_keanggotaan; ?>" readonly>
                     </div>
-                </div>
+
+                    <button type="submit" class="btn-save">Simpan Perubahan</button>
+                </form>
+
             </div>
         </div>
     </div>
+
 </div>
-
-<div class="toast" id="toast">✓ <span id="toastMsg">Tersimpan!</span></div>
-
-<script>
-function showToast(msg) {
-    const t = document.getElementById('toast');
-    document.getElementById('toastMsg').textContent = msg;
-    t.style.display = 'flex';
-    setTimeout(() => t.style.display = 'none', 3000);
-}
-function saveProfile() {
-    const fn = document.getElementById('firstName').value.trim();
-    if (!fn) { alert('Nama tidak boleh kosong!'); return; }
-    showToast('Profil berhasil disimpan!');
-}
-function changePassword() {
-    const op = document.getElementById('oldPass').value;
-    const np = document.getElementById('newPass').value;
-    const cp = document.getElementById('confirmPass').value;
-    if (!op || !np || !cp) { alert('Lengkapi semua field password!'); return; }
-    if (np !== cp) { alert('Konfirmasi password tidak cocok!'); return; }
-    if (np.length < 8) { alert('Password baru minimal 8 karakter!'); return; }
-    document.getElementById('oldPass').value = '';
-    document.getElementById('newPass').value = '';
-    document.getElementById('confirmPass').value = '';
-    showToast('Password berhasil diperbarui!');
-}
-</script>
 </body>
 </html>

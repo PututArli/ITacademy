@@ -1,3 +1,10 @@
+<?php
+$nama_user = isset($_GET['nama']) ? htmlspecialchars($_GET['nama']) : "User";
+$role_user = isset($_GET['role']) ? htmlspecialchars($_GET['role']) : "free";
+
+$status_keanggotaan = "Siswa " . ucfirst($role_user);
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -52,19 +59,20 @@
             <span class="brand-name">IT<span>academy</span></span>
         </div>
         <nav class="sidebar-nav">
-            <div class="nav-label">Belajar</div>
-            <a href="dashboard.php" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
-            <a href="materi.php" class="nav-item active"><span class="nav-icon">📖</span> Materi</a>
-            <a href="kuis.php" class="nav-item"><span class="nav-icon">✔</span> Kuis</a>
-            <a href="tugas.php" class="nav-item"><span class="nav-icon">📤</span> Tugas Proyek</a>
-            <a href="sertifikat.php" class="nav-item"><span class="nav-icon">🏅</span> Sertifikat</a>
-            <div class="nav-label">Akun</div>
-            <a href="profil.php" class="nav-item"><span class="nav-icon">👤</span> Profil</a>
-        </nav>
+    <div class="nav-label">Belajar</div>
+    <a href="dashboard.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+    <a href="materi.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">📖</span> Materi Belajar</a>
+    <a href="kuis.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">🧩</span> Kuis Latihan</a>
+    <a href="tugas.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
+    <a href="sertifikat.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
+    <div class="nav-label">Akun</div>
+    <a href="profil.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">👤</span> Profil Saya</a>
+</nav>
         <div class="sidebar-footer">
             <div class="user-info">
                 <div class="user-avatar">RF</div>
-                <div><div class="user-name">Rafael</div><div class="user-role">Premium</div></div>
+                <div><div class="user-name"><?= $nama_user; ?></div>
+<div class="user-role" style="font-size: 12px; color: var(--text-muted);"><?= $status_keanggotaan; ?></div></div>
                 <a href="../" class="user-logout" title="Keluar">←</a>
             </div>
         </div>
@@ -74,7 +82,7 @@
         <div class="topbar">
             <div class="topbar-title">Materi Belajar</div>
             <div class="topbar-actions">
-                <span class="badge badge-gold">Premium</span>
+                <span class="badge badge-gold"><?= $status_keanggotaan; ?></span>
                 <div class="user-avatar">RF</div>
             </div>
         </div>

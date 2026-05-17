@@ -1,3 +1,10 @@
+<?php
+$nama_user = isset($_GET['nama']) ? htmlspecialchars($_GET['nama']) : "User";
+$role_user = isset($_GET['role']) ? htmlspecialchars($_GET['role']) : "free";
+
+$status_keanggotaan = "Siswa " . ucfirst($role_user);
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -56,32 +63,33 @@
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Belajar</div>
-            <a href="dashboard.php" class="nav-item active"><span class="nav-icon">📊</span> Dashboard</a>
-            <a href="materi.php" class="nav-item"><span class="nav-icon">📖</span> Materi</a>
-            <a href="kuis.php" class="nav-item"><span class="nav-icon">✔</span> Kuis</a>
-            <a href="tugas.php" class="nav-item"><span class="nav-icon">📤</span> Tugas Proyek</a>
-            <a href="sertifikat.php" class="nav-item"><span class="nav-icon">🏅</span> Sertifikat</a>
+            <a href="dashboard.php?nama=<?= urlencode($nama_user); ?>" class="nav-item active"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="materi.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">📖</span> Materi Belajar</a>
+            <a href="kuis.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">🧩</span> Kuis Latihan</a>
+            <a href="tugas.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
+            <a href="sertifikat.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
             <div class="nav-label">Akun</div>
-            <a href="profil.php" class="nav-item"><span class="nav-icon">👤</span> Profil</a>
+            <a href="profil.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">👤</span> Profil Saya</a>
+            <a href="login.php" class="nav-item" style="color: #f87171;"><span class="nav-icon">🚪</span> Keluar</a>
         </nav>
         <div class="sidebar-footer">
             <div class="user-info">
-                <div class="user-avatar">RF</div>
+                <div class="user-avatar"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
                 <div>
-                    <div class="user-name">Rafael</div>
-                    <div class="user-role">Premium</div>
+                    <div class="user-name"><?= $nama_user; ?></div>
+                    <div class="user-role" style="font-size: 12px; color: var(--text-muted);"><?= $status_keanggotaan; ?></div>
                 </div>
-                <a href="../" class="user-logout" title="Keluar">←</a>
             </div>
         </div>
     </aside>
 
     <div class="main-content">
         <div class="topbar">
-            <div class="topbar-title">Dashboard</div>
+            <div class="topbar-title">Ringkasan Belajar</div>
             <div class="topbar-actions">
-                <span class="badge badge-gold">Premium</span>
-                <a href="profil.php"><div class="user-avatar" style="cursor:pointer;">RF</div></a>
+                <a href="profil.php?nama=<?= urlencode($nama_user); ?>">
+                    <div class="user-avatar" style="cursor:pointer;"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
+                </a>
             </div>
         </div>
 
@@ -89,76 +97,76 @@
 
             <div class="welcome-bar">
                 <div>
-                    <div class="welcome-text">Selamat datang, Rafael 👋</div>
-                    <div class="welcome-sub">Lanjutkan belajar Web Development — kamu sudah 66% selesai.</div>
+                    <div class="welcome-text">Selamat datang, <?= $nama_user; ?>! 👋</div>
+                    <div class="welcome-sub">Lanjutkan progress belajarmu hari ini. Fokus pada proyek akhir!</div>
                 </div>
-                <a href="materi.php" class="btn btn-primary">Lanjut Belajar →</a>
+                <a href="materi.php?nama=<?= urlencode($nama_user); ?>" class="btn btn-primary" style="background: var(--accent-blue); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none;">Lanjut Belajar</a>
             </div>
 
             <div class="stats-grid">
-                <a href="materi.php" class="stat-card" style="text-decoration:none;">
+                <a href="materi.php?nama=<?= urlencode($nama_user); ?>" class="stat-card" style="text-decoration:none;">
                     <div class="stat-icon blue">📖</div>
                     <div><div class="stat-value">8/12</div><div class="stat-label">Modul Selesai</div></div>
                 </a>
-                <a href="kuis.php" class="stat-card" style="text-decoration:none;">
-                    <div class="stat-icon purple">✔</div>
+                <a href="kuis.php?nama=<?= urlencode($nama_user); ?>" class="stat-card" style="text-decoration:none;">
+                    <div class="stat-icon purple">🧩</div>
                     <div><div class="stat-value">2/3</div><div class="stat-label">Kuis Lulus</div></div>
                 </a>
-                <a href="tugas.php" class="stat-card" style="text-decoration:none;">
-                    <div class="stat-icon gold">📤</div>
+                <a href="tugas.php?nama=<?= urlencode($nama_user); ?>" class="stat-card" style="text-decoration:none;">
+                    <div class="stat-icon gold">📁</div>
                     <div><div class="stat-value">1</div><div class="stat-label">Tugas Dikirim</div></div>
                 </a>
-                <a href="sertifikat.php" class="stat-card" style="text-decoration:none;">
-                    <div class="stat-icon green">🏅</div>
+                <a href="sertifikat.php?nama=<?= urlencode($nama_user); ?>" class="stat-card" style="text-decoration:none;">
+                    <div class="stat-icon green">🎓</div>
                     <div><div class="stat-value">0</div><div class="stat-label">Sertifikat</div></div>
                 </a>
+            </div>
+
+            <div class="section-header">
+                <div class="section-title">Kurikulum Web Development</div>
             </div>
 
             <div class="two-col">
 
                 <div>
-                    <div class="section-header">
-                        <div class="section-title">Modul Pembelajaran</div>
-                        <a href="materi.php" class="btn btn-ghost" style="font-size:13px;padding:6px 12px;">Lihat Semua</a>
-                    </div>
                     <div class="module-list">
                         <div class="module-row">
                             <div class="module-num done">&check;</div>
                             <div class="module-info">
-                                <div class="module-name">Pengenalan HTML</div>
-                                <div class="module-detail">4 video &middot; Kuis selesai (92/100)</div>
+                                <div class="module-name">Modul 1: Pengenalan HTML & Struktur Dasar</div>
+                                <div class="module-detail">4 Video &middot; 1 Kuis</div>
                             </div>
-                            <span class="badge badge-green">Selesai</span>
+                            <span class="badge badge-green" style="color: #10b981;">Selesai &check;</span>
                         </div>
                         <div class="module-row">
                             <div class="module-num done">&check;</div>
                             <div class="module-info">
-                                <div class="module-name">CSS Dasar & Styling</div>
-                                <div class="module-detail">3 video &middot; Kuis selesai (88/100)</div>
+                                <div class="module-name">Modul 2: CSS Styling & Layout Dasar</div>
+                                <div class="module-detail">5 Video &middot; 1 Kuis</div>
                             </div>
-                            <span class="badge badge-green">Selesai</span>
+                            <span class="badge badge-green" style="color: #10b981;">Selesai &check;</span>
                         </div>
                         <div class="module-row">
                             <div class="module-num done">&check;</div>
                             <div class="module-info">
-                                <div class="module-name">Flexbox & Grid Layout</div>
-                                <div class="module-detail">3 video &middot; Kuis selesai (80/100)</div>
+                                <div class="module-name">Modul 3: Flexbox & Grid Layout Modern</div>
+                                <div class="module-detail">4 Video &middot; 1 Kuis</div>
                             </div>
-                            <span class="badge badge-green">Selesai</span>
+                            <span class="badge badge-green" style="color: #10b981;">Selesai &check;</span>
                         </div>
                         <div class="module-row">
                             <div class="module-num current">4</div>
                             <div class="module-info">
-                                <div class="module-name">JavaScript Dasar</div>
-                                <div class="module-detail">2/4 video ditonton &middot; Kuis belum</div>
+                                <div class="module-name">Modul 4: JavaScript Dasar & Logika Pemrograman</div>
+                                <div class="module-detail">2/6 Video ditonton &middot; Kuis Belum</div>
                             </div>
-                            <span class="badge badge-blue">Sedang</span>
+                            <span class="badge badge-blue">Sedang Dipelajari</span>
                         </div>
                         <div class="module-row" style="opacity:0.5;">
                             <div class="module-num">5</div>
                             <div class="module-info">
-                                <div class="module-name">DOM & Event Handling</div>
-                                <div class="module-detail">Belum dibuka</div>
+                                <div class="module-name">Modul 5: DOM Manipulation & Interaktivitas</div>
+                                <div class="module-detail">Belum terbuka</div>
                             </div>
                             <span class="badge" style="color:var(--text-muted);">Terkunci</span>
                         </div>
@@ -167,21 +175,21 @@
                     <div class="task-section">
                         <div class="section-header">
                             <div class="section-title">Tugas Proyek</div>
-                            <a href="tugas.php" class="btn btn-ghost" style="font-size:13px;padding:6px 12px;">Kirim Tugas</a>
+                            <a href="tugas.php?nama=<?= urlencode($nama_user); ?>" class="btn btn-ghost" style="font-size:13px;padding:6px 12px;">Kirim Tugas</a>
                         </div>
                         <div class="task-card">
                             <div class="task-status">
-                                <span class="badge badge-gold">Sedang Direview</span>
-                                <span style="font-size:12px;color:var(--text-muted);">Dikirim 10 Mei 2025</span>
+                                <span class="badge badge-gold" style="background: rgba(245,158,11,0.15); color: #f59e0b; padding: 4px 8px; border-radius: 6px; font-size: 12px;">Sedang Direview</span>
+                                <span style="font-size:12px;color:var(--text-muted); margin-left: 10px;">Dikirim 15 Mei 2026</span>
                             </div>
-                            <div style="font-size:15px;font-weight:600;margin-bottom:8px;">Landing Page Portfolio</div>
+                            <div style="font-size:15px;font-weight:600;margin-top:10px;margin-bottom:8px;">Landing Page Portfolio Bisnis</div>
                             <div class="task-file">
-                                <span class="task-file-icon"></span>
-                                <span>portfolio-rafael.zip (2.4 MB)</span>
+                                <span class="task-file-icon">📁</span>
+                                <span>portfolio-<?= strtolower(explode(' ', $nama_user)[0]); ?>-v2.zip (3.1 MB)</span>
                             </div>
                             <div class="task-feedback">
-                                <div class="task-feedback-label">Catatan dari Mentor Budi Santoso</div>
-                                File diterima. Akan saya review dalam 1-2 hari. Pastikan file sudah include semua asset gambar ya.
+                                <div class="task-feedback-label">Catatan Terakhir dari Mentor (Budi Santoso)</div>
+                                Kode responsifnya sudah rapi di tampilan mobile. Saya cek struktur kodenya dulu ya, besok siang saya kabari lagi hasilnya.
                             </div>
                         </div>
                     </div>
@@ -189,50 +197,50 @@
 
                 <div>
                     <div class="section-header">
-                        <div class="section-title">Sertifikat</div>
+                        <div class="section-title">Sertifikat Kelulusan</div>
                     </div>
                     <div class="cert-box locked">
-                        <div class="cert-icon"></div>
-                        <div class="cert-title">Belum tersedia</div>
-                        <p class="cert-desc">Sertifikat akan diterbitkan setelah mentor menyetujui tugas proyek akhir kamu.</p>
+                        <div class="cert-icon" style="font-size: 48px; margin-bottom: 10px;">🔒</div>
+                        <div class="cert-title">Belum Tersedia</div>
+                        <p class="cert-desc">Sertifikat digital akan otomatis terbuka setelah tugas proyek akhir kamu dinyatakan LULUS oleh mentor.</p>
                     </div>
 
-                    <div style="margin-top:20px;">
+                    <div style="margin-top:24px;">
                         <div class="section-header">
-                            <div class="section-title">Progress</div>
+                            <div class="section-title">Progress Belajar</div>
                         </div>
                         <div class="progress-ring">
                             <div class="ring-num">66%</div>
                             <div>
-                                <div class="ring-title">Materi</div>
+                                <div class="ring-title">Materi Terbuka</div>
                                 <div class="ring-label">8 dari 12 modul selesai</div>
                             </div>
                         </div>
                         <div class="progress-ring">
-                            <div class="ring-num" style="color:var(--accent-purple);">71%</div>
+                            <div class="ring-num" style="color:#a855f7;">75%</div>
                             <div>
-                                <div class="ring-title">Kuis</div>
-                                <div class="ring-label">5 dari 7 kuis lulus</div>
+                                <div class="ring-title">Kuis Latihan</div>
+                                <div class="ring-label">3 dari 4 kuis diselesaikan</div>
                             </div>
                         </div>
                         <div class="progress-ring">
-                            <div class="ring-num" style="color:var(--accent-gold);">1/1</div>
+                            <div class="ring-num" style="color:#f59e0b;">1/1</div>
                             <div>
-                                <div class="ring-title">Tugas Proyek</div>
-                                <div class="ring-label">Menunggu review mentor</div>
+                                <div class="ring-title">Proyek Akhir</div>
+                                <div class="ring-label">Menunggu persetujuan mentor</div>
                             </div>
                         </div>
                     </div>
 
-                    <div style="margin-top:20px;">
+                    <div style="margin-top:24px;">
                         <div class="section-header">
-                            <div class="section-title">Mentor</div>
+                            <div class="section-title">Mentor Kamu</div>
                         </div>
                         <div style="display:flex;align-items:center;gap:12px;padding:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;">
-                            <div class="user-avatar" style="width:40px;height:40px;font-size:14px;">BS</div>
+                            <div class="user-avatar" style="width:40px;height:40px;font-size:14px; background: var(--accent-purple); color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%;">BS</div>
                             <div>
                                 <div style="font-size:14px;font-weight:600;">Budi Santoso</div>
-                                <div style="font-size:12px;color:var(--text-muted);">Frontend Developer</div>
+                                <div style="font-size:12px;color:var(--text-muted);">Senior Frontend Developer</div>
                             </div>
                         </div>
                     </div>

@@ -1,3 +1,33 @@
+<?php
+session_start();
+require_once '../model/koneksi.php';
+
+$error = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $role = mysqli_real_escape_string($conn, $_POST['role']);
+
+    $query = "SELECT * FROM users WHERE email = '$email' AND password = '$password' AND role = '$role'";
+    $result = mysqli_query($conn, $query);
+
+    if (mysqli_num_rows($result) === 1) {
+        $row = mysqli_fetch_assoc($result);
+        $nama_url = urlencode($row['nama']);
+
+        if ($row['role'] === 'admin') {
+            echo "<script>window.location.href = 'admin_dashboard.php?nama=" . $nama_url . "';</script>";
+        } elseif ($row['role'] === 'mentor') {
+            echo "<script>window.location.href = 'mentor_dashboard.php?nama=" . $nama_url . "';</script>";
+        } else {
+            echo "<script>window.location.href = 'dashboard.php?nama=" . $nama_url . "';</script>";
+        }
+        exit;
+    }
+    $error = "Email, Password, atau Peran salah!";
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -20,20 +50,26 @@
         <h1 class="auth-title">Selamat Datang Kembali</h1>
         <p class="auth-subtitle">Masuk untuk lanjutkan perjalanan belajarmu</p>
 
-        <form id="loginForm" onsubmit="handleLogin(event)">
+        <form action="" method="POST">
+            
+            <?php if(!empty($error)): ?>
+                <div style="color: #ef4444; font-size: 13px; margin-bottom: 12px; text-align: center; font-weight: 600;"><?= $error; ?></div>
+            <?php endif; ?>
+
             <div class="form-group">
                 <label class="form-label">Email</label>
-                <input id="email" type="email" class="form-input" placeholder="email@contoh.com" required>
+                <input name="email" type="email" class="form-input" placeholder="email@contoh.com" required>
             </div>
             <div class="form-group">
                 <label class="form-label">Password</label>
-                <input id="password" type="password" class="form-input" placeholder="Masukkan password" required>
+                <input name="password" type="password" class="form-input" placeholder="Masukkan password" required>
             </div>
             <div class="form-group">
                 <label class="form-label">Masuk Sebagai</label>
-                <select id="role" class="form-input" required>
+                <select name="role" class="form-input" required>
                     <option value="" disabled selected>Pilih peran...</option>
-                    <option value="user">User (Free / Premium)</option>
+                    <option value="free">User (Free)</option>
+                    <option value="premium">User (Premium)</option>
                     <option value="mentor">Mentor</option>
                     <option value="admin">Admin</option>
                 </select>
@@ -53,18 +89,5 @@
         </div>
     </div>
 </div>
-<script>
-function handleLogin(e) {
-    e.preventDefault();
-    const role = document.getElementById('role').value;
-    if (role === 'mentor') {
-        window.location.href = 'mentor_dashboard.php';
-    } else if (role === 'admin') {
-        window.location.href = 'admin_dashboard.php';
-    } else {
-        window.location.href = 'dashboard.php';
-    }
-}
-</script>
 </body>
 </html>
