@@ -393,10 +393,8 @@ function switchTab(btn, id) {
         document.getElementById(t).style.display = t === id ? 'block' : 'none';
     });
 }
-
 function openModal(id) { document.getElementById(id).style.display = 'flex'; }
 function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
 function showToast(msg, ok) {
     const t = document.getElementById('toast');
     t.textContent = msg;
@@ -405,7 +403,6 @@ function showToast(msg, ok) {
     t.style.display = 'flex';
     setTimeout(() => t.style.display = 'none', 3000);
 }
-
 function hapusUser(btn) {
     if (!confirm('Yakin ingin menghapus pengguna ini?')) return;
     const row = btn.closest('tr');
@@ -414,25 +411,21 @@ function hapusUser(btn) {
     setTimeout(() => row.remove(), 300);
     showToast('Pengguna berhasil dihapus.', false);
 }
-
 function editUser(nama) {
     document.getElementById('edit-name').value = nama;
     document.getElementById('modal-edit-title').textContent = 'Edit: ' + nama;
     openModal('modal-edit');
 }
-
 function simpanEdit() {
     closeModal('modal-edit');
     showToast('Data berhasil diperbarui.', true);
 }
-
 function simpanUser() {
     const nama = document.getElementById('new-user-name').value.trim();
     if (!nama) { alert('Isi nama terlebih dahulu.'); return; }
     closeModal('modal-tambah-user');
     showToast('Pengguna baru berhasil ditambahkan.', true);
 }
-
 function simpanMentor() {
     const nama = document.getElementById('new-mentor-name').value.trim();
     if (!nama) { alert('Isi nama terlebih dahulu.'); return; }
@@ -442,10 +435,10 @@ function simpanMentor() {
 
 function bukaModalLogout(e) {
     if (e) e.preventDefault();
-    document.getElementById('modalLogout').style.display = 'flex';
+    document.getElementById('modalLogout').classList.add('show');
 }
 function tutupModalLogout() {
-    document.getElementById('modalLogout').style.display = 'none';
+    document.getElementById('modalLogout').classList.remove('show');
 }
 </script>
 </body>
