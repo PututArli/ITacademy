@@ -2,6 +2,18 @@
 session_start();
 require_once '../model/koneksi.php';
 
+if (isset($_SESSION['nama']) && isset($_SESSION['role'])) {
+    $nama_url = urlencode($_SESSION['nama']);
+    if ($_SESSION['role'] === 'admin') {
+        header("Location: admin_dashboard.php?nama=" . $nama_url);
+    } elseif ($_SESSION['role'] === 'mentor') {
+        header("Location: mentor_dashboard.php?nama=" . $nama_url);
+    } else {
+        header("Location: dashboard.php?nama=" . $nama_url);
+    }
+    exit;
+}
+
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -14,6 +26,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (mysqli_num_rows($result) === 1) {
         $row = mysqli_fetch_assoc($result);
+        
+        $_SESSION['nama'] = $row['nama'];
+        $_SESSION['role'] = $row['role'];
+
         $nama_url = urlencode($row['nama']);
 
         if ($row['role'] === 'admin') {

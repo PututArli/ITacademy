@@ -2,16 +2,17 @@
 session_start();
 require_once '../model/koneksi.php';
 
-$nama_user = isset($_GET['nama']) ? htmlspecialchars($_GET['nama']) : "User";
+if (!isset($_SESSION['nama'])) {
+    header("Location: login.php");
+    exit();
+}
 
+$nama_user = $_SESSION['nama'];
 $ambil_user = mysqli_query($conn, "SELECT * FROM users WHERE nama = '$nama_user'");
 $data = mysqli_fetch_assoc($ambil_user);
-
 $role_user = isset($data['role']) ? $data['role'] : 'free';
-
 $status_keanggotaan = "Siswa " . ucfirst($role_user);
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
