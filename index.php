@@ -1,13 +1,18 @@
 <?php
 session_start();
 
-$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
-$host = $_SERVER['HTTP_HOST'];
-$baseDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
-if ($baseDir === '/') {
-    $baseDir = '';
+$is_localhost = (
+    $_SERVER['REMOTE_ADDR'] === '127.0.0.1' ||
+    $_SERVER['REMOTE_ADDR'] === '::1' ||
+    $_SERVER['HTTP_HOST'] === 'localhost' ||
+    strpos($_SERVER['HTTP_HOST'], 'localhost') !== false
+);
+
+if ($is_localhost) {
+    define('BASEURL', 'http://localhost/ITacademy');
+} else {
+    define('BASEURL', 'https://itacademy-pemweb.infinityfree.me');
 }
-define('BASEURL', $protocol . '://' . $host . $baseDir);
 
 $page = isset($_GET['page']) ? $_GET['page'] : (isset($_GET['url']) ? $_GET['url'] : 'home');
 if (empty($page)) {
