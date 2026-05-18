@@ -1,9 +1,8 @@
 <?php
-session_start();
-require_once '../model/koneksi.php';
+require_once 'model/koneksi.php';
 
 if (!isset($_SESSION['nama'])) {
-    header("Location: login.php");
+    header("Location: " . BASEURL . "/index.php?page=login");
     exit();
 }
 
@@ -19,7 +18,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuis Latihan - ITacademy</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo BASEURL; ?>/assets/css/style.css">
     <style>
         .kuis-wrap { max-width: 720px; margin: 0 auto; padding: 28px; }
         .kuis-header { background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(59,130,246,0.08)); border: 1px solid rgba(139,92,246,0.25); border-radius: var(--radius); padding: 24px 28px; margin-bottom: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
@@ -66,13 +65,13 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Belajar</div>
-            <a href="dashboard.php" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
-            <a href="materi.php" class="nav-item"><span class="nav-icon">📖</span> Materi Belajar</a>
-            <a href="kuis.php" class="nav-item active"><span class="nav-icon">🧩</span> Kuis Latihan</a>
-            <a href="tugas.php" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
-            <a href="sertifikat.php" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
+            <a href="<?= BASEURL ?>/index.php?page=dashboard" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="<?= BASEURL ?>/index.php?page=materi" class="nav-item"><span class="nav-icon">📖</span> Materi Belajar</a>
+            <a href="<?= BASEURL ?>/index.php?page=kuis" class="nav-item active"><span class="nav-icon">🧩</span> Kuis Latihan</a>
+            <a href="<?= BASEURL ?>/index.php?page=tugas" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
+            <a href="<?= BASEURL ?>/index.php?page=sertifikat" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
             <div class="nav-label">Akun</div>
-            <a href="profil.php" class="nav-item"><span class="nav-icon">👤</span> Profil Saya</a>
+            <a href="<?= BASEURL ?>/index.php?page=profil" class="nav-item"><span class="nav-icon">👤</span> Profil Saya</a>
             <a href="#" class="nav-item" style="color: #f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon">🚪</span> Keluar</a>
         </nav>
         <div class="sidebar-footer">
@@ -177,7 +176,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
                 <div class="result-label" id="resultLabel">—</div>
                 <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
                     <button class="btn btn-ghost" onclick="cancelKuis()">Kembali ke Daftar</button>
-                    <a href="materi.php" class="btn btn-primary">Lanjut Belajar →</a>
+                    <a href="<?= BASEURL ?>/index.php?page=materi" class="btn btn-primary">Lanjut Belajar →</a>
                 </div>
             </div>
         </div>
@@ -191,7 +190,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
         <div class="modal-desc">Sesi belajar kamu akan diakhiri. Kamu harus masuk kembali untuk melanjutkan.</div>
         <div class="modal-actions">
             <button class="btn btn-ghost" onclick="tutupModalLogout()">Batal</button>
-            <a href="logout.php" class="btn btn-danger">Ya, Keluar</a>
+            <a href="<?= BASEURL ?>/index.php?page=logout" class="btn btn-danger">Ya, Keluar</a>
         </div>
     </div>
 </div>

@@ -1,9 +1,8 @@
 <?php
-session_start();
-require_once '../model/koneksi.php';
+require_once 'model/koneksi.php';
 
 if (!isset($_SESSION['nama']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
+    header("Location: " . BASEURL . "/index.php?page=login");
     exit();
 }
 
@@ -22,7 +21,7 @@ $res_premium = mysqli_fetch_assoc($query_premium);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manajemen Pengguna - ITacademy</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo BASEURL; ?>/assets/css/style.css">
     <style>
         .data-table-wrap { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-top: 20px; }
         .action-btn { padding: 5px 12px; border-radius: 7px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; transition: var(--transition); }
@@ -52,12 +51,12 @@ $res_premium = mysqli_fetch_assoc($query_premium);
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Manajemen</div>
-            <a href="admin_dashboard.php" class="nav-item"><span class="nav-icon">&#9776;</span> Dashboard</a>
-            <a href="admin_pengguna.php" class="nav-item active"><span class="nav-icon">&#9786;</span> Pengguna</a>
-            <a href="admin_mentor.php" class="nav-item"><span class="nav-icon">&#9998;</span> Mentor</a>
-            <a href="admin_kursus.php" class="nav-item"><span class="nav-icon">&#9650;</span> Kursus</a>
+            <a href="<?= BASEURL ?>/index.php?page=admin_dashboard" class="nav-item"><span class="nav-icon">&#9776;</span> Dashboard</a>
+            <a href="<?= BASEURL ?>/index.php?page=admin_pengguna" class="nav-item active"><span class="nav-icon">&#9786;</span> Pengguna</a>
+            <a href="<?= BASEURL ?>/index.php?page=admin_mentor" class="nav-item"><span class="nav-icon">&#9998;</span> Mentor</a>
+            <a href="<?= BASEURL ?>/index.php?page=admin_kursus" class="nav-item"><span class="nav-icon">&#9650;</span> Kursus</a>
             <div class="nav-label">Akun</div>
-            <a href="admin_profil.php" class="nav-item"><span class="nav-icon">&#9651;</span> Profil Admin</a>
+            <a href="<?= BASEURL ?>/index.php?page=admin_profil" class="nav-item"><span class="nav-icon">&#9651;</span> Profil Admin</a>
         </nav>
         <div class="sidebar-footer">
             <div class="user-info">
@@ -192,7 +191,7 @@ $res_premium = mysqli_fetch_assoc($query_premium);
         </p>
         <div style="display:flex;gap:12px;">
             <button class="btn btn-ghost" style="flex:1;justify-content:center;" onclick="tutupModalLogout()">Batal</button>
-            <a href="logout.php" class="btn btn-primary" style="flex:1;justify-content:center;background:#ef4444;text-decoration:none;display:flex;align-items:center;">Ya, Keluar</a>
+            <a href="<?= BASEURL ?>/index.php?page=logout" class="btn btn-primary" style="flex:1;justify-content:center;background:#ef4444;text-decoration:none;display:flex;align-items:center;">Ya, Keluar</a>
         </div>
     </div>
 </div>

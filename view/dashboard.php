@@ -1,9 +1,8 @@
 <?php
-session_start();
-require_once '../model/koneksi.php';
+require_once 'model/koneksi.php';
 
 if (!isset($_SESSION['nama'])) {
-    header("Location: login.php");
+    header("Location: " . BASEURL . "/index.php?page=login");
     exit();
 }
 
@@ -22,7 +21,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - ITacademy</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo BASEURL; ?>/assets/css/style.css">
     <style>
         .welcome-bar { background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.06)); border: 1px solid rgba(59,130,246,0.2); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
         .welcome-text { font-size: 18px; font-weight: 700; }
@@ -74,13 +73,13 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Belajar</div>
-            <a href="dashboard.php" class="nav-item active"><span class="nav-icon">📊</span> Dashboard</a>
-            <a href="materi.php" class="nav-item"><span class="nav-icon">📖</span> Materi Belajar</a>
-            <a href="kuis.php" class="nav-item"><span class="nav-icon">🧩</span> Kuis Latihan</a>
-            <a href="tugas.php" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
-            <a href="sertifikat.php" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
+            <a href="<?= BASEURL ?>/index.php?page=dashboard" class="nav-item active"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="<?= BASEURL ?>/index.php?page=materi" class="nav-item"><span class="nav-icon">📖</span> Materi Belajar</a>
+            <a href="<?= BASEURL ?>/index.php?page=kuis" class="nav-item"><span class="nav-icon">🧩</span> Kuis Latihan</a>
+            <a href="<?= BASEURL ?>/index.php?page=tugas" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
+            <a href="<?= BASEURL ?>/index.php?page=sertifikat" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
             <div class="nav-label">Akun</div>
-            <a href="profil.php" class="nav-item"><span class="nav-icon">👤</span> Profil Saya</a>
+            <a href="<?= BASEURL ?>/index.php?page=profil" class="nav-item"><span class="nav-icon">👤</span> Profil Saya</a>
             
             <a href="#" class="nav-item" style="color: #f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon">🚪</span> Keluar</a>
         </nav>
@@ -99,7 +98,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
         <div class="topbar">
             <div class="topbar-title">Ringkasan Belajar</div>
             <div class="topbar-actions">
-                <a href="profil.php">
+                <a href="<?= BASEURL ?>/index.php?page=profil">
                     <div class="user-avatar" style="cursor:pointer;"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
                 </a>
             </div>
@@ -112,23 +111,23 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
                     <div class="welcome-text">Selamat datang, <?= $nama_user; ?>! 👋</div>
                     <div class="welcome-sub">Lanjutkan progress belajarmu hari ini. Fokus pada proyek akhir!</div>
                 </div>
-                <a href="materi.php" class="btn btn-primary" style="background: var(--accent-blue); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none;">Lanjut Belajar</a>
+                <a href="<?= BASEURL ?>/index.php?page=materi" class="btn btn-primary" style="background: var(--accent-blue); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none;">Lanjut Belajar</a>
             </div>
 
             <div class="stats-grid">
-                <a href="materi.php" class="stat-card" style="text-decoration:none;">
+                <a href="<?= BASEURL ?>/index.php?page=materi" class="stat-card" style="text-decoration:none;">
                     <div class="stat-icon blue">📖</div>
                     <div><div class="stat-value">8/12</div><div class="stat-label">Modul Selesai</div></div>
                 </a>
-                <a href="kuis.php" class="stat-card" style="text-decoration:none;">
+                <a href="<?= BASEURL ?>/index.php?page=kuis" class="stat-card" style="text-decoration:none;">
                     <div class="stat-icon purple">🧩</div>
                     <div><div class="stat-value">2/3</div><div class="stat-label">Kuis Lulus</div></div>
                 </a>
-                <a href="tugas.php" class="stat-card" style="text-decoration:none;">
+                <a href="<?= BASEURL ?>/index.php?page=tugas" class="stat-card" style="text-decoration:none;">
                     <div class="stat-icon gold">📁</div>
                     <div><div class="stat-value">1</div><div class="stat-label">Tugas Dikirim</div></div>
                 </a>
-                <a href="sertifikat.php" class="stat-card" style="text-decoration:none;">
+                <a href="<?= BASEURL ?>/index.php?page=sertifikat" class="stat-card" style="text-decoration:none;">
                     <div class="stat-icon green">🎓</div>
                     <div><div class="stat-value">0</div><div class="stat-label">Sertifikat</div></div>
                 </a>
@@ -187,7 +186,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
                     <div class="task-section">
                         <div class="section-header">
                             <div class="section-title">Tugas Proyek</div>
-                            <a href="tugas.php" class="btn btn-ghost" style="font-size:13px;padding:6px 12px;">Kirim Tugas</a>
+                            <a href="<?= BASEURL ?>/index.php?page=tugas" class="btn btn-ghost" style="font-size:13px;padding:6px 12px;">Kirim Tugas</a>
                         </div>
                         <div class="task-card">
                             <div class="task-status">
@@ -270,7 +269,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
         <div class="modal-desc">Sesi belajar kamu akan diakhiri. Kamu harus masuk kembali untuk melanjutkan.</div>
         <div class="modal-actions">
             <button class="btn btn-ghost" onclick="tutupModalLogout()">Batal</button>
-            <a href="logout.php" class="btn btn-danger">Ya, Keluar</a>
+            <a href="<?= BASEURL ?>/index.php?page=logout" class="btn btn-danger">Ya, Keluar</a>
         </div>
     </div>
 </div>

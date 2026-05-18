@@ -1,9 +1,8 @@
 <?php
-session_start();
-require_once '../model/koneksi.php';
+require_once 'model/koneksi.php';
 
 if (!isset($_SESSION['nama'])) {
-    header("Location: login.php");
+    header("Location: " . BASEURL . "/index.php?page=login");
     exit();
 }
 
@@ -24,7 +23,7 @@ $nama_belakang = isset($pecah_nama[1]) ? implode(" ", array_slice($pecah_nama, 1
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil Saya - ITacademy</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo BASEURL; ?>/assets/css/style.css">
     <style>
         /* Tetap mempertahankan style layout asli bawaan temanmu */
         .profile-container { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; max-width: 600px; margin: 0 auto; }
@@ -56,13 +55,13 @@ $nama_belakang = isset($pecah_nama[1]) ? implode(" ", array_slice($pecah_nama, 1
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Belajar</div>
-            <a href="dashboard.php" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
-            <a href="materi.php" class="nav-item"><span class="nav-icon">📖</span> Materi Belajar</a>
-            <a href="kuis.php" class="nav-item"><span class="nav-icon">🧩</span> Kuis Latihan</a>
-            <a href="tugas.php" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
-            <a href="sertifikat.php" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
+            <a href="<?= BASEURL ?>/index.php?page=dashboard" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="<?= BASEURL ?>/index.php?page=materi" class="nav-item"><span class="nav-icon">📖</span> Materi Belajar</a>
+            <a href="<?= BASEURL ?>/index.php?page=kuis" class="nav-item"><span class="nav-icon">🧩</span> Kuis Latihan</a>
+            <a href="<?= BASEURL ?>/index.php?page=tugas" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
+            <a href="<?= BASEURL ?>/index.php?page=sertifikat" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
             <div class="nav-label">Akun</div>
-            <a href="profil.php" class="nav-item active"><span class="nav-icon">👤</span> Profil Saya</a>
+            <a href="<?= BASEURL ?>/index.php?page=profil" class="nav-item active"><span class="nav-icon">👤</span> Profil Saya</a>
             <a href="#" class="nav-item" style="color: #f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon">🚪</span> Keluar</a>
         </nav>
         <div class="sidebar-footer">
@@ -81,7 +80,7 @@ $nama_belakang = isset($pecah_nama[1]) ? implode(" ", array_slice($pecah_nama, 1
         <div class="topbar">
             <div class="topbar-title">Pengaturan Akun</div>
             <div class="topbar-actions">
-                <a href="profil.php">
+                <a href="<?= BASEURL ?>/index.php?page=profil">
                     <div class="user-avatar" style="cursor:pointer;"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
                 </a>
             </div>
@@ -136,7 +135,7 @@ $nama_belakang = isset($pecah_nama[1]) ? implode(" ", array_slice($pecah_nama, 1
         <div class="modal-desc">Sesi belajar kamu akan diakhiri. Kamu harus masuk kembali untuk melanjutkan.</div>
         <div class="modal-actions">
             <button class="btn btn-ghost" onclick="tutupModalLogout()">Batal</button>
-            <a href="logout.php" class="btn btn-danger">Ya, Keluar</a>
+            <a href="<?= BASEURL ?>/index.php?page=logout" class="btn btn-danger">Ya, Keluar</a>
         </div>
     </div>
 </div>

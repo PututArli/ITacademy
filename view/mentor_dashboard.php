@@ -1,9 +1,8 @@
 <?php
-session_start();
-require_once '../model/koneksi.php';
+require_once 'model/koneksi.php';
 
 if (!isset($_SESSION['nama']) || $_SESSION['role'] !== 'mentor') {
-    header("Location: login.php");
+    header("Location: " . BASEURL . "/index.php?page=login");
     exit();
 }
 
@@ -16,7 +15,7 @@ $nama_user = $_SESSION['nama'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Mentor - ITacademy</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo BASEURL; ?>/assets/css/style.css">
     <style>
         .review-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 12px; transition: var(--transition); }
         .review-card:hover { border-color: var(--border-accent); }
@@ -53,7 +52,7 @@ $nama_user = $_SESSION['nama'];
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Mentor</div>
-            <a href="mentor_dashboard.php" class="nav-item active"><span class="nav-icon">&#9776;</span> Dashboard</a>
+            <a href="<?= BASEURL ?>/index.php?page=mentor_dashboard" class="nav-item active"><span class="nav-icon">&#9776;</span> Dashboard</a>
             <a href="mentor_tugas.php" class="nav-item"><span class="nav-icon">&#9998;</span> Review Tugas</a>
             <a href="mentor_siswa.php" class="nav-item"><span class="nav-icon">&#9786;</span> Siswa Saya</a>
             <div class="nav-label">Akun</div>
@@ -263,7 +262,7 @@ $nama_user = $_SESSION['nama'];
         <div class="modal-desc">Sesi ngajar kamu akan diakhiri. Kamu harus masuk kembali untuk mereview tugas siswa.</div>
         <div class="modal-actions">
             <button class="btn btn-ghost" onclick="tutupModalLogout()">Batal</button>
-            <a href="logout.php" class="btn btn-danger">Ya, Keluar</a>
+            <a href="<?= BASEURL ?>/index.php?page=logout" class="btn btn-danger">Ya, Keluar</a>
         </div>
     </div>
 </div>

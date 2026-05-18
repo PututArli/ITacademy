@@ -1,15 +1,14 @@
 <?php
-session_start();
-require_once '../model/koneksi.php';
+require_once 'model/koneksi.php';
 
 if (isset($_SESSION['nama']) && isset($_SESSION['role'])) {
     $nama_url = urlencode($_SESSION['nama']);
     if ($_SESSION['role'] === 'admin') {
-        header("Location: admin_dashboard.php?nama=" . $nama_url);
+        header("Location: " . BASEURL . "/index.php?page=admin_dashboard&nama=" . $nama_url);
     } elseif ($_SESSION['role'] === 'mentor') {
-        header("Location: mentor_dashboard.php?nama=" . $nama_url);
+        header("Location: " . BASEURL . "/index.php?page=mentor_dashboard&nama=" . $nama_url);
     } else {
-        header("Location: dashboard.php?nama=" . $nama_url);
+        header("Location: " . BASEURL . "/index.php?page=dashboard&nama=" . $nama_url);
     }
     exit;
 }
@@ -33,11 +32,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nama_url = urlencode($row['nama']);
 
         if ($row['role'] === 'admin') {
-            echo "<script>window.location.href = 'admin_dashboard.php?nama=" . $nama_url . "';</script>";
+            echo "<script>window.location.href = '" . BASEURL . "/index.php?page=admin_dashboard&nama=" . $nama_url . "';</script>";
         } elseif ($row['role'] === 'mentor') {
-            echo "<script>window.location.href = 'mentor_dashboard.php?nama=" . $nama_url . "';</script>";
+            echo "<script>window.location.href = '" . BASEURL . "/index.php?page=mentor_dashboard&nama=" . $nama_url . "';</script>";
         } else {
-            echo "<script>window.location.href = 'dashboard.php?nama=" . $nama_url . "';</script>";
+            echo "<script>window.location.href = '" . BASEURL . "/index.php?page=dashboard&nama=" . $nama_url . "';</script>";
         }
         exit;
     }
@@ -50,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masuk - ITacademy</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo BASEURL; ?>/assets/css/style.css">
 </head>
 <body>
 <div class="auth-screen">
@@ -101,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
 
         <div class="auth-footer">
-            Belum punya akun? <a href="register.php">Daftar di sini</a>
+            Belum punya akun? <a href="<?= BASEURL ?>/index.php?page=register">Daftar di sini</a>
         </div>
     </div>
 </div>

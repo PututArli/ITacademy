@@ -1,6 +1,5 @@
 <?php
-session_start();
-require_once '../model/koneksi.php';
+require_once 'model/koneksi.php';
 
 $error = "";
 $success = "";
@@ -24,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_query($conn, $query)) {
                 echo "<script>
                     alert('Akun berhasil dibuat! Silakan masuk.');
-                    window.location.href = 'login.php';
+                    window.location.href = '" . BASEURL . "/index.php?page=login';
                 </script>";
                 exit;
             } else {
@@ -40,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar - ITacademy</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo BASEURL; ?>/assets/css/style.css">
 </head>
 <body>
 <div class="auth-screen">
@@ -92,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
 
         <div class="auth-footer">
-            Sudah punya akun? <a href="login.php">Masuk di sini</a>
+            Sudah punya akun? <a href="<?= BASEURL ?>/index.php?page=login">Masuk di sini</a>
         </div>
     </div>
 </div>

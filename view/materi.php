@@ -1,9 +1,8 @@
 <?php
-session_start();
-require_once '../model/koneksi.php';
+require_once 'model/koneksi.php';
 
 if (!isset($_SESSION['nama'])) {
-    header("Location: login.php");
+    header("Location: " . BASEURL . "/index.php?page=login");
     exit();
 }
 
@@ -20,7 +19,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Materi Belajar - ITacademy</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo BASEURL; ?>/assets/css/style.css">
     <style>
         .materi-layout { display: grid; grid-template-columns: 300px 1fr; gap: 20px; height: calc(100vh - 64px); overflow: hidden; }
         .module-sidebar { background: var(--bg-secondary); border-right: 1px solid var(--border); overflow-y: auto; padding: 20px 12px; }
@@ -69,13 +68,13 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Belajar</div>
-            <a href="dashboard.php" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
-            <a href="materi.php" class="nav-item active"><span class="nav-icon">📖</span> Materi Belajar</a>
-            <a href="kuis.php" class="nav-item"><span class="nav-icon">🧩</span> Kuis Latihan</a>
-            <a href="tugas.php" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
-            <a href="sertifikat.php" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
+            <a href="<?= BASEURL ?>/index.php?page=dashboard" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="<?= BASEURL ?>/index.php?page=materi" class="nav-item active"><span class="nav-icon">📖</span> Materi Belajar</a>
+            <a href="<?= BASEURL ?>/index.php?page=kuis" class="nav-item"><span class="nav-icon">🧩</span> Kuis Latihan</a>
+            <a href="<?= BASEURL ?>/index.php?page=tugas" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
+            <a href="<?= BASEURL ?>/index.php?page=sertifikat" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
             <div class="nav-label">Akun</div>
-            <a href="profil.php" class="nav-item"><span class="nav-icon">👤</span> Profil Saya</a>
+            <a href="<?= BASEURL ?>/index.php?page=profil" class="nav-item"><span class="nav-icon">👤</span> Profil Saya</a>
             <a href="#" class="nav-item" style="color: #f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon">🚪</span> Keluar</a>
         </nav>
         <div class="sidebar-footer">
@@ -197,7 +196,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
                         <button class="btn btn-primary" style="flex:1;">Video Berikutnya →</button>
                     </div>
                     <div style="margin-top:12px;text-align:center;">
-                        <a href="kuis.php" class="btn btn-outline btn-full">Selesai Modul ini — Kerjakan Kuis ✔</a>
+                        <a href="<?= BASEURL ?>/index.php?page=kuis" class="btn btn-outline btn-full">Selesai Modul ini — Kerjakan Kuis ✔</a>
                     </div>
                 </div>
 
@@ -220,7 +219,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
                         </div>
                     </div>
                     <div style="margin-top:12px;">
-                        <a href="kuis.php" class="btn btn-primary btn-full">Kerjakan Kuis Modul Ini ✔</a>
+                        <a href="<?= BASEURL ?>/index.php?page=kuis" class="btn btn-primary btn-full">Kerjakan Kuis Modul Ini ✔</a>
                     </div>
                 </div>
 
@@ -229,7 +228,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
                         <div style="font-size:36px;margin-bottom:14px;">🧩</div>
                         <div style="font-size:17px;font-weight:700;margin-bottom:8px;">Kuis Modul 3: CSS Flexbox & Grid</div>
                         <div style="font-size:14px;color:var(--text-secondary);margin-bottom:20px;">5 soal pilihan ganda · Waktu 10 menit · Nilai minimum lulus: 75</div>
-                        <a href="kuis.php?modul=3" class="btn btn-primary btn-lg">Mulai Kuis Sekarang</a>
+                        <a href="<?= BASEURL ?>/index.php?page=kuis?modul=3" class="btn btn-primary btn-lg">Mulai Kuis Sekarang</a>
                     </div>
                 </div>
             </div>
@@ -244,7 +243,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
         <div class="modal-desc">Sesi belajar kamu akan diakhiri. Kamu harus masuk kembali untuk melanjutkan.</div>
         <div class="modal-actions">
             <button class="btn btn-ghost" onclick="tutupModalLogout()">Batal</button>
-            <a href="logout.php" class="btn btn-danger">Ya, Keluar</a>
+            <a href="<?= BASEURL ?>/index.php?page=logout" class="btn btn-danger">Ya, Keluar</a>
         </div>
     </div>
 </div>
