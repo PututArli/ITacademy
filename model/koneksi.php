@@ -1,15 +1,21 @@
 <?php
-$host = 'sql107.infinityfree.com';
-$user = 'if0_41926977';
-$pass = 'Workplus123';
-$db   = 'if0_41926977_it_academy';
+$is_localhost = ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' || $_SERVER['REMOTE_ADDR'] === '::1' || $_SERVER['HTTP_HOST'] === 'localhost');
 
-try {
-    $conn = mysqli_connect($host, $user, $pass, $db);
-    if (!$conn) {
-        die("Koneksi database gagal: " . mysqli_connect_error());
-    }
-} catch (Exception $e) {
-    die("Error Database: " . $e->getMessage() . "<br>Pastikan nama database dan kredensial di model/koneksi.php sudah benar (termasuk prefix if0_...).");
+if ($is_localhost) {
+    $host = "localhost";
+    $user = "root";
+    $pass = "";
+    $db   = "it_academy";
+} else {
+    $host = "sql107.infinityfree.com";
+    $user = "if0_41926977";
+    $pass = "Workplus123";
+    $db   = "if0_41926977_it_academy";
+}
+
+$koneksi = mysqli_connect($host, $user, $pass, $db);
+
+if (!$koneksi) {
+    die("Koneksi gagal: " . mysqli_connect_error());
 }
 ?>
