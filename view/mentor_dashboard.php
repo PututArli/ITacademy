@@ -1,3 +1,15 @@
+<?php
+session_start();
+require_once '../model/koneksi.php';
+
+if (!isset($_SESSION['nama']) || $_SESSION['role'] !== 'mentor') {
+    header("Location: login.php");
+    exit();
+}
+
+$nama_user = $_SESSION['nama'];
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -46,15 +58,17 @@
             <a href="mentor_siswa.php" class="nav-item"><span class="nav-icon">&#9786;</span> Siswa Saya</a>
             <div class="nav-label">Akun</div>
             <a href="mentor_profil.php" class="nav-item"><span class="nav-icon">&#9650;</span> Profil</a>
+            
+            <a href="#" class="nav-item" style="color: #f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon">🚪</span> Keluar</a>
         </nav>
         <div class="sidebar-footer">
             <div class="user-info">
-                <div class="user-avatar">BS</div>
+                <div class="user-avatar"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
                 <div>
-                    <div class="user-name">Budi Santoso</div>
+                    <div class="user-name"><?= $nama_user; ?></div>
                     <div class="user-role">Mentor</div>
                 </div>
-                <a href="../" class="user-logout" title="Keluar">&#8592;</a>
+                <a href="#" class="user-logout" title="Keluar" onclick="bukaModalLogout(event)">&#8592;</a>
             </div>
         </div>
     </aside>
@@ -64,7 +78,7 @@
             <div class="topbar-title">Dashboard Mentor</div>
             <div class="topbar-actions">
                 <span class="badge badge-blue">Mentor</span>
-                <div class="user-avatar">BS</div>
+                <div class="user-avatar"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
             </div>
         </div>
 
@@ -99,7 +113,7 @@
                         <div class="review-top">
                             <div>
                                 <div class="review-title">Landing Page Portfolio</div>
-                                <div class="review-meta">Rafael Arlianto &middot; Dikirim 10 Mei 2025, 14:32 &middot; portfolio-rafael.zip (2.4 MB)</div>
+                                <div class="review-meta">Rafael Arlianto &middot; Dikirim 10 Mei 2026, 14:32 &middot; portfolio-rafael.zip (2.4 MB)</div>
                             </div>
                             <span class="badge badge-gold">Menunggu</span>
                         </div>
@@ -123,7 +137,7 @@
                         <div class="review-top">
                             <div>
                                 <div class="review-title">Halaman Login Responsif</div>
-                                <div class="review-meta">Anisa Putri &middot; Dikirim 12 Mei 2025, 09:15 &middot; login-page.zip (1.1 MB)</div>
+                                <div class="review-meta">Anisa Putri &middot; Dikirim 12 Mei 2026, 09:15 &middot; login-page.zip (1.1 MB)</div>
                             </div>
                             <span class="badge badge-gold">Menunggu</span>
                         </div>
@@ -147,7 +161,7 @@
                         <div class="review-top">
                             <div>
                                 <div class="review-title">Proyek Akhir: Website Toko Online</div>
-                                <div class="review-meta">Doni Pratama &middot; Dikirim 13 Mei 2025, 16:00 &middot; toko-online.zip (4.8 MB)</div>
+                                <div class="review-meta">Doni Pratama &middot; Dikirim 13 Mei 2026, 16:00 &middot; toko-online.zip (4.8 MB)</div>
                             </div>
                             <span class="badge badge-gold">Menunggu</span>
                         </div>
@@ -219,7 +233,7 @@
                             <div class="section-title">Info Profil Mentor</div>
                         </div>
                         <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;">
-                            <div style="font-size:14px;font-weight:600;margin-bottom:4px;">Budi Santoso</div>
+                            <div style="font-size:14px;font-weight:600;margin-bottom:4px;"><?= $nama_user; ?></div>
                             <div style="font-size:12px;color:var(--accent-blue);margin-bottom:10px;">Frontend Developer</div>
                             <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px;">5 tahun pengalaman di industri web. Spesialis HTML, CSS, dan JavaScript modern.</div>
                             <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-top:1px solid var(--border);">
@@ -241,6 +255,18 @@
 </div>
 
 <div id="toast" style="position:fixed;bottom:28px;right:28px;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:600;z-index:1000;display:none;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<div class="modal-overlay" id="modalLogout">
+    <div class="modal-box">
+        <div class="modal-icon">👋</div>
+        <div class="modal-title">Yakin ingin keluar?</div>
+        <div class="modal-desc">Sesi ngajar kamu akan diakhiri. Kamu harus masuk kembali untuk mereview tugas siswa.</div>
+        <div class="modal-actions">
+            <button class="btn btn-ghost" onclick="tutupModalLogout()">Batal</button>
+            <a href="logout.php" class="btn btn-danger">Ya, Keluar</a>
+        </div>
+    </div>
+</div>
 
 <script>
 function toggleFeedback(id) {
@@ -282,6 +308,15 @@ function kirimFeedback(tugasId, txtId) {
     document.getElementById(txtId).value = '';
     const fbId = txtId.replace('fbtxt', 'fb');
     document.getElementById(fbId).style.display = 'none';
+}
+
+function bukaModalLogout(e) {
+    if (e) e.preventDefault();
+    document.getElementById('modalLogout').classList.add('show');
+}
+
+function tutupModalLogout() {
+    document.getElementById('modalLogout').classList.remove('show');
 }
 </script>
 </body>

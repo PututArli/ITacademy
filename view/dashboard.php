@@ -74,14 +74,15 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Belajar</div>
-            <a href="dashboard.php?nama=<?= urlencode($nama_user); ?>" class="nav-item active"><span class="nav-icon">📊</span> Dashboard</a>
-            <a href="materi.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">📖</span> Materi Belajar</a>
-            <a href="kuis.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">🧩</span> Kuis Latihan</a>
-            <a href="tugas.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
-            <a href="sertifikat.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
+            <a href="dashboard.php" class="nav-item active"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="materi.php" class="nav-item"><span class="nav-icon">📖</span> Materi Belajar</a>
+            <a href="kuis.php" class="nav-item"><span class="nav-icon">🧩</span> Kuis Latihan</a>
+            <a href="tugas.php" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
+            <a href="sertifikat.php" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
             <div class="nav-label">Akun</div>
-            <a href="profil.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">👤</span> Profil Saya</a>
-            <a href="login.php" class="nav-item" style="color: #f87171;"><span class="nav-icon">🚪</span> Keluar</a>
+            <a href="profil.php" class="nav-item"><span class="nav-icon">👤</span> Profil Saya</a>
+            
+            <a href="#" class="nav-item" style="color: #f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon">🚪</span> Keluar</a>
         </nav>
         <div class="sidebar-footer">
             <div class="user-info">
@@ -98,7 +99,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
         <div class="topbar">
             <div class="topbar-title">Ringkasan Belajar</div>
             <div class="topbar-actions">
-                <a href="profil.php?nama=<?= urlencode($nama_user); ?>">
+                <a href="profil.php">
                     <div class="user-avatar" style="cursor:pointer;"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
                 </a>
             </div>
@@ -111,23 +112,23 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
                     <div class="welcome-text">Selamat datang, <?= $nama_user; ?>! 👋</div>
                     <div class="welcome-sub">Lanjutkan progress belajarmu hari ini. Fokus pada proyek akhir!</div>
                 </div>
-                <a href="materi.php?nama=<?= urlencode($nama_user); ?>" class="btn btn-primary" style="background: var(--accent-blue); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none;">Lanjut Belajar</a>
+                <a href="materi.php" class="btn btn-primary" style="background: var(--accent-blue); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none;">Lanjut Belajar</a>
             </div>
 
             <div class="stats-grid">
-                <a href="materi.php?nama=<?= urlencode($nama_user); ?>" class="stat-card" style="text-decoration:none;">
+                <a href="materi.php" class="stat-card" style="text-decoration:none;">
                     <div class="stat-icon blue">📖</div>
                     <div><div class="stat-value">8/12</div><div class="stat-label">Modul Selesai</div></div>
                 </a>
-                <a href="kuis.php?nama=<?= urlencode($nama_user); ?>" class="stat-card" style="text-decoration:none;">
+                <a href="kuis.php" class="stat-card" style="text-decoration:none;">
                     <div class="stat-icon purple">🧩</div>
                     <div><div class="stat-value">2/3</div><div class="stat-label">Kuis Lulus</div></div>
                 </a>
-                <a href="tugas.php?nama=<?= urlencode($nama_user); ?>" class="stat-card" style="text-decoration:none;">
+                <a href="tugas.php" class="stat-card" style="text-decoration:none;">
                     <div class="stat-icon gold">📁</div>
                     <div><div class="stat-value">1</div><div class="stat-label">Tugas Dikirim</div></div>
                 </a>
-                <a href="sertifikat.php?nama=<?= urlencode($nama_user); ?>" class="stat-card" style="text-decoration:none;">
+                <a href="sertifikat.php" class="stat-card" style="text-decoration:none;">
                     <div class="stat-icon green">🎓</div>
                     <div><div class="stat-value">0</div><div class="stat-label">Sertifikat</div></div>
                 </a>
@@ -186,7 +187,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
                     <div class="task-section">
                         <div class="section-header">
                             <div class="section-title">Tugas Proyek</div>
-                            <a href="tugas.php?nama=<?= urlencode($nama_user); ?>" class="btn btn-ghost" style="font-size:13px;padding:6px 12px;">Kirim Tugas</a>
+                            <a href="tugas.php" class="btn btn-ghost" style="font-size:13px;padding:6px 12px;">Kirim Tugas</a>
                         </div>
                         <div class="task-card">
                             <div class="task-status">
@@ -260,7 +261,29 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
             </div>
         </div>
     </div>
-
 </div>
+
+<div class="modal-overlay" id="modalLogout">
+    <div class="modal-box">
+        <div class="modal-icon">👋</div>
+        <div class="modal-title">Yakin ingin keluar?</div>
+        <div class="modal-desc">Sesi belajar kamu akan diakhiri. Kamu harus masuk kembali untuk melanjutkan.</div>
+        <div class="modal-actions">
+            <button class="btn btn-ghost" onclick="tutupModalLogout()">Batal</button>
+            <a href="logout.php" class="btn btn-danger">Ya, Keluar</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function bukaModalLogout(e) {
+        if (e) e.preventDefault();
+        document.getElementById('modalLogout').classList.add('show');
+    }
+    function tutupModalLogout() {
+        document.getElementById('modalLogout').classList.remove('show');
+    }
+</script>
+
 </body>
 </html>

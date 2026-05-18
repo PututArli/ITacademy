@@ -65,21 +65,24 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
             <span class="brand-name">IT<span>academy</span></span>
         </div>
         <nav class="sidebar-nav">
-    <div class="nav-label">Belajar</div>
-    <a href="dashboard.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
-    <a href="materi.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">📖</span> Materi Belajar</a>
-    <a href="kuis.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">🧩</span> Kuis Latihan</a>
-    <a href="tugas.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
-    <a href="sertifikat.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
-    <div class="nav-label">Akun</div>
-    <a href="profil.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">👤</span> Profil Saya</a>
-</nav>
+            <div class="nav-label">Belajar</div>
+            <a href="dashboard.php" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="materi.php" class="nav-item"><span class="nav-icon">📖</span> Materi Belajar</a>
+            <a href="kuis.php" class="nav-item active"><span class="nav-icon">🧩</span> Kuis Latihan</a>
+            <a href="tugas.php" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
+            <a href="sertifikat.php" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
+            <div class="nav-label">Akun</div>
+            <a href="profil.php" class="nav-item"><span class="nav-icon">👤</span> Profil Saya</a>
+            <a href="#" class="nav-item" style="color: #f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon">🚪</span> Keluar</a>
+        </nav>
         <div class="sidebar-footer">
             <div class="user-info">
-                <div class="user-avatar">RF</div>
-                <div><div class="user-name"><?= $nama_user; ?></div>
-<div class="user-role" style="font-size: 12px; color: var(--text-muted);"><?= $status_keanggotaan; ?></div></div>
-                <a href="../" class="user-logout" title="Keluar">←</a>
+                <div class="user-avatar"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
+                <div>
+                    <div class="user-name"><?= $nama_user; ?></div>
+                    <div class="user-role" style="font-size: 12px; color: var(--text-muted);"><?= $status_keanggotaan; ?></div>
+                </div>
+                <a href="#" class="user-logout" title="Keluar" onclick="bukaModalLogout(event)">←</a>
             </div>
         </div>
     </aside>
@@ -89,7 +92,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
             <div class="topbar-title" id="topbarTitle">Kuis Latihan</div>
             <div class="topbar-actions">
                 <span class="badge badge-gold"><?= $status_keanggotaan; ?></span>
-                <div class="user-avatar">RF</div>
+                <div class="user-avatar"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
             </div>
         </div>
 
@@ -181,6 +184,18 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
     </div>
 </div>
 
+<div class="modal-overlay" id="modalLogout">
+    <div class="modal-box">
+        <div class="modal-icon">👋</div>
+        <div class="modal-title">Yakin ingin keluar?</div>
+        <div class="modal-desc">Sesi belajar kamu akan diakhiri. Kamu harus masuk kembali untuk melanjutkan.</div>
+        <div class="modal-actions">
+            <button class="btn btn-ghost" onclick="tutupModalLogout()">Batal</button>
+            <a href="logout.php" class="btn btn-danger">Ya, Keluar</a>
+        </div>
+    </div>
+</div>
+
 <script>
 const questions = [
     { q: "Properti CSS mana yang digunakan untuk mengaktifkan flexbox pada sebuah container?", opts: ["position: flex", "display: flex", "layout: flexbox", "flex: active"], correct: 1 },
@@ -265,6 +280,15 @@ function startTimer(sec) {
         document.getElementById('timerNum').textContent = `${m}:${s}`;
         if (sec <= 60) document.getElementById('timerNum').style.color = '#ef4444';
     }, 1000);
+}
+
+// Fungsi Modal Logout
+function bukaModalLogout(e) {
+    if (e) e.preventDefault();
+    document.getElementById('modalLogout').classList.add('show');
+}
+function tutupModalLogout() {
+    document.getElementById('modalLogout').classList.remove('show');
 }
 </script>
 </body>

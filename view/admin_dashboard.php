@@ -1,3 +1,15 @@
+<?php
+session_start();
+require_once '../model/koneksi.php';
+
+if (!isset($_SESSION['nama']) || $_SESSION['role'] !== 'admin') {
+    header("Location: login.php");
+    exit();
+}
+
+$nama_user = $_SESSION['nama'];
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -46,12 +58,12 @@
         </nav>
         <div class="sidebar-footer">
             <div class="user-info">
-                <div class="user-avatar">AD</div>
+                <div class="user-avatar"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
                 <div>
-                    <div class="user-name">Admin</div>
+                    <div class="user-name"><?= $nama_user; ?></div>
                     <div class="user-role">Administrator</div>
                 </div>
-                <a href="../" class="user-logout" title="Keluar">&#8592;</a>
+                <a href="#" class="user-logout" title="Keluar" onclick="bukaModalLogout(event)">&#8592;</a>
             </div>
         </div>
     </aside>
@@ -61,7 +73,7 @@
             <div class="topbar-title">Dashboard Admin</div>
             <div class="topbar-actions">
                 <span class="badge badge-purple">Admin</span>
-                <div class="user-avatar">AD</div>
+                <div class="user-avatar"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
             </div>
         </div>
 
@@ -250,35 +262,35 @@
                                 <td><strong style="color:var(--text-primary);">Rafael Arlianto</strong></td>
                                 <td>Landing Page Portfolio</td>
                                 <td>Budi Santoso</td>
-                                <td>10 Mei 2025</td>
+                                <td>10 Mei 2026</td>
                                 <td><span class="badge badge-gold">Menunggu</span></td>
                             </tr>
                             <tr>
                                 <td><strong style="color:var(--text-primary);">Anisa Putri</strong></td>
                                 <td>Halaman Login Responsif</td>
                                 <td>Budi Santoso</td>
-                                <td>12 Mei 2025</td>
+                                <td>12 Mei 2026</td>
                                 <td><span class="badge badge-gold">Menunggu</span></td>
                             </tr>
                             <tr>
                                 <td><strong style="color:var(--text-primary);">Doni Pratama</strong></td>
                                 <td>Proyek Akhir: Toko Online</td>
                                 <td>Budi Santoso</td>
-                                <td>13 Mei 2025</td>
+                                <td>13 Mei 2026</td>
                                 <td><span class="badge badge-gold">Menunggu</span></td>
                             </tr>
                             <tr>
                                 <td><strong style="color:var(--text-primary);">Lisa Maharani</strong></td>
                                 <td>Halaman Profil Pengguna</td>
                                 <td>Anita Wijaya</td>
-                                <td>8 Mei 2025</td>
+                                <td>8 Mei 2026</td>
                                 <td><span class="badge badge-green">Disetujui</span></td>
                             </tr>
                             <tr>
                                 <td><strong style="color:var(--text-primary);">Hendra Gunawan</strong></td>
                                 <td>Website Company Profile</td>
                                 <td>Anita Wijaya</td>
-                                <td>5 Mei 2025</td>
+                                <td>5 Mei 2026</td>
                                 <td><span class="badge badge-red">Perlu Revisi</span></td>
                             </tr>
                         </tbody>
@@ -358,6 +370,19 @@
     </div>
 </div>
 
+<div class="modal-overlay" id="modalLogout" onclick="tutupModalLogout()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+        <div class="modal-title" style="text-align:center;font-size:22px;margin-bottom:8px;">Yakin ingin keluar?</div>
+        <p style="text-align:center;font-size:14px;color:var(--text-secondary);margin-bottom:24px;line-height:1.6;">
+            Sesi admin kamu akan diakhiri. Kamu harus masuk kembali untuk mengelola sistem.
+        </p>
+        <div style="display:flex;gap:12px;">
+            <button class="btn btn-ghost" style="flex:1;justify-content:center;" onclick="tutupModalLogout()">Batal</button>
+            <a href="logout.php" class="btn btn-primary" style="flex:1;justify-content:center;background:#ef4444;text-decoration:none;display:flex;align-items:center;">Ya, Keluar</a>
+        </div>
+    </div>
+</div>
+
 <div id="toast" style="position:fixed;bottom:28px;right:28px;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:600;z-index:2000;display:none;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
 
 <script>
@@ -413,6 +438,14 @@ function simpanMentor() {
     if (!nama) { alert('Isi nama terlebih dahulu.'); return; }
     closeModal('modal-tambah-mentor');
     showToast('Mentor baru berhasil ditambahkan.', true);
+}
+
+function bukaModalLogout(e) {
+    if (e) e.preventDefault();
+    document.getElementById('modalLogout').style.display = 'flex';
+}
+function tutupModalLogout() {
+    document.getElementById('modalLogout').style.display = 'none';
 }
 </script>
 </body>

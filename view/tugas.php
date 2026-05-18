@@ -80,21 +80,22 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
             <span class="brand-name">IT<span>academy</span></span>
         </div>
         <nav class="sidebar-nav">
-    <div class="nav-label">Belajar</div>
-    <a href="dashboard.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
-    <a href="materi.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">📖</span> Materi Belajar</a>
-    <a href="kuis.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">🧩</span> Kuis Latihan</a>
-    <a href="tugas.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
-    <a href="sertifikat.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
-    <div class="nav-label">Akun</div>
-    <a href="profil.php?nama=<?= urlencode($nama_user); ?>" class="nav-item"><span class="nav-icon">👤</span> Profil Saya</a>
-</nav>
+            <div class="nav-label">Belajar</div>
+            <a href="dashboard.php" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="materi.php" class="nav-item"><span class="nav-icon">📖</span> Materi Belajar</a>
+            <a href="kuis.php" class="nav-item"><span class="nav-icon">🧩</span> Kuis Latihan</a>
+            <a href="tugas.php" class="nav-item active"><span class="nav-icon">📁</span> Tugas Proyek</a>
+            <a href="sertifikat.php" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
+            <div class="nav-label">Akun</div>
+            <a href="profil.php" class="nav-item"><span class="nav-icon">👤</span> Profil Saya</a>
+            <a href="#" class="nav-item" style="color: #f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon">🚪</span> Keluar</a>
+        </nav>
         <div class="sidebar-footer">
             <div class="user-info">
-                <div class="user-avatar">RF</div>
+                <div class="user-avatar"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
                 <div><div class="user-name"><?= $nama_user; ?></div>
-<div class="user-role" style="font-size: 12px; color: var(--text-muted);"><?= $status_keanggotaan; ?></div></div>
-                <a href="../" class="user-logout" title="Keluar">←</a>
+                <div class="user-role" style="font-size: 12px; color: var(--text-muted);"><?= $status_keanggotaan; ?></div></div>
+                <a href="#" class="user-logout" title="Keluar" onclick="bukaModalLogout(event)">←</a>
             </div>
         </div>
     </aside>
@@ -104,7 +105,9 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
             <div class="topbar-title">Tugas Proyek</div>
             <div class="topbar-actions">
                 <span class="badge badge-gold"><?= $status_keanggotaan; ?></span>
-                <div class="user-avatar">RF</div>
+                <a href="profil.php">
+                    <div class="user-avatar" style="cursor:pointer;"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
+                </a>
             </div>
         </div>
 
@@ -172,7 +175,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
                         <div class="history-top">
                             <div>
                                 <div class="history-title">Landing Page Portfolio</div>
-                                <div class="history-meta">Dikirim: 10 Mei 2025, 14:32 &nbsp;·&nbsp; portfolio-rafael.zip (2.4 MB)</div>
+                                <div class="history-meta">Dikirim: 10 Mei 2026, 14:32 &nbsp;·&nbsp; portfolio-rafael.zip (2.4 MB)</div>
                             </div>
                             <span class="badge badge-gold">⏳ Direview</span>
                         </div>
@@ -213,13 +216,13 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
                     <div class="section-header"><div class="section-title">Mentor Kamu</div></div>
                     <div class="mentor-box">
                         <div class="mentor-head">
-                            <div class="user-avatar" style="width:44px;height:44px;font-size:15px;">BS</div>
+                            <div class="user-avatar" style="width:44px;height:44px;font-size:15px; background: var(--accent-purple); color: white;">BS</div>
                             <div>
                                 <div style="font-size:15px;font-weight:700;">Budi Santoso</div>
                                 <div style="font-size:12px;color:var(--accent-blue);">Frontend Developer</div>
                             </div>
                         </div>
-                        <div class="mentor-stat"><span class="mentor-stat-label">Tugas direvew</span><span class="mentor-stat-val">42 tugas</span></div>
+                        <div class="mentor-stat"><span class="mentor-stat-label">Tugas direview</span><span class="mentor-stat-val">42 tugas</span></div>
                         <div class="mentor-stat"><span class="mentor-stat-label">Rata-rata waktu review</span><span class="mentor-stat-val">1.5 hari</span></div>
                         <div class="mentor-stat"><span class="mentor-stat-label">Rating</span><span class="mentor-stat-val">⭐ 4.8 / 5.0</span></div>
                     </div>
@@ -234,6 +237,18 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
                     <button class="btn btn-primary btn-full" onclick="document.getElementById('successMsg').style.display='none'">Oke, Mengerti</button>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modalLogout">
+    <div class="modal-box">
+        <div class="modal-icon">👋</div>
+        <div class="modal-title">Yakin ingin keluar?</div>
+        <div class="modal-desc">Sesi belajar kamu akan diakhiri. Kamu harus masuk kembali untuk melanjutkan.</div>
+        <div class="modal-actions">
+            <button class="btn btn-ghost" onclick="tutupModalLogout()">Batal</button>
+            <a href="logout.php" class="btn btn-danger">Ya, Keluar</a>
         </div>
     </div>
 </div>
@@ -264,6 +279,14 @@ function submitTugas() {
     if (!judul) { alert('Isi judul proyek dulu ya!'); return; }
     if (!file) { alert('Upload file proyekmu dulu!'); return; }
     document.getElementById('successMsg').style.display = 'flex';
+}
+
+function bukaModalLogout(e) {
+    if (e) e.preventDefault();
+    document.getElementById('modalLogout').classList.add('show');
+}
+function tutupModalLogout() {
+    document.getElementById('modalLogout').classList.remove('show');
 }
 </script>
 </body>
