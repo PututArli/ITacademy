@@ -26,6 +26,8 @@ $nama_user = $_SESSION['nama'];
         .action-del:hover { background: rgba(239,68,68,0.25); }
 
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; display: none; align-items: center; justify-content: center; }
+        .modal-overlay.show { display: flex !important; opacity: 1 !important; }
+        
         .modal-box { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 20px; padding: 32px; width: 100%; max-width: 440px; margin: 20px; }
         .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
 
@@ -174,11 +176,11 @@ $nama_user = $_SESSION['nama'];
     </div>
 </div>
 
-<div class="modal-overlay" id="modalLogout" onclick="tutupModalLogout()">
-    <div class="modal-box" onclick="event.stopPropagation()">
-        <div class="modal-title" style="text-align:center; font-size:22px; margin-bottom:8px;">Yakin ingin keluar?</div>
+<div class="modal-overlay" id="modalLogout">
+    <div class="modal-box">
+        <div class="modal-title" style="text-align:center; font-size:22px; margin-bottom:8px; font-weight:700;">Yakin ingin keluar?</div>
         <p style="text-align:center; font-size:14px; color:var(--text-secondary); margin-bottom:24px; line-height:1.6;">
-            Sesi admin kamu akan diakhiri. Kamu harus masuk kembali untuk mengelola sistem.
+            Sesi admin kamu akan diakhiri. Kamu harus masuk kembali untuk mengelola sistem ITacademy.
         </p>
         <div style="display:flex; gap:12px;">
             <button class="btn btn-ghost" style="flex:1; justify-content:center;" onclick="tutupModalLogout()">Batal</button>
@@ -190,8 +192,8 @@ $nama_user = $_SESSION['nama'];
 <div id="toast" style="position:fixed; bottom:28px; right:28px; padding:12px 20px; border-radius:10px; font-size:14px; font-weight:600; z-index:2000; display:none; align-items:center; gap:8px; box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
 
 <script>
-function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+function openModal(id) { document.getElementById(id).classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
 
 function showToast(msg, ok) {
     const t = document.getElementById('toast');
@@ -231,10 +233,10 @@ function simpanMentor() {
 
 function bukaModalLogout(e) {
     if (e) e.preventDefault();
-    document.getElementById('modalLogout').style.display = 'flex';
+    document.getElementById('modalLogout').classList.add('show');
 }
 function tutupModalLogout() {
-    document.getElementById('modalLogout').style.display = 'none';
+    document.getElementById('modalLogout').classList.remove('show');
 }
 </script>
 </body>
