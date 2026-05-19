@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+// Prevent browser caching to solve back-button after logout issue
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
 $is_localhost = (
     $_SERVER['REMOTE_ADDR'] === '127.0.0.1' ||
     $_SERVER['REMOTE_ADDR'] === '::1' ||

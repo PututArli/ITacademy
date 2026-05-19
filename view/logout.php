@@ -1,8 +1,8 @@
 <?php
 session_unset();
-
 session_destroy();
 
-header("Location: ../");
+// Redirect to login page properly
+header("Location: " . BASEURL . "/index.php?page=login");
 exit();
 ?>

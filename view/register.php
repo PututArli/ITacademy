@@ -1,6 +1,12 @@
 <?php
 require_once 'model/koneksi.php';
 
+// Jika sudah login, cegah akses ke halaman register
+if (isset($_SESSION['nama'])) {
+    header("Location: " . BASEURL . "/index.php");
+    exit();
+}
+
 $error = "";
 $success = "";
 
@@ -21,11 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $query = "INSERT INTO users (nama, email, password, role) VALUES ('$nama', '$email', '$password', '$role')";
             
             if (mysqli_query($conn, $query)) {
-                echo "<script>
-                    alert('Akun berhasil dibuat! Silakan masuk.');
-                    window.location.href = '" . BASEURL . "/index.php?page=login';
-                </script>";
-                exit;
+                $success = "Akun berhasil dibuat! Silakan masuk.";
             } else {
                 $error = "Gagal menyimpan ke database: " . mysqli_error($conn);
             }
@@ -95,5 +97,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </div>
+
+<?php if(!empty($success)): ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            title: 'Berhasil!',
+            text: '<?= $success ?>',
+            icon: 'success',
+            confirmButtonText: 'Lanjut Login',
+            background: 'var(--bg-card)',
+            color: 'var(--text-primary)',
+            confirmButtonColor: 'var(--accent-blue)'
+        }).then((result) => {
+            window.location.href = '<?= BASEURL ?>/index.php?page=login';
+        });
+    </script>
+<?php endif; ?>
+
 </body>
 </html>
