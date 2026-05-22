@@ -86,10 +86,10 @@ $ambil_tugas = mysqli_query($conn, $query_tugas);
                 <li><a href="<?= BASEURL ?>/index.php?page=mentor_siswa" class="nav-item">👥 Siswa Saya</a></li>
             </ul>
             <div style="font-size: 11px; color: #64748b; margin-top: 24px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">Akun</div>
-            <ul class="nav-menu">
-                <li><a href="<?= BASEURL ?>/index.php?page=profil" class="nav-item">👤 Profil</a></li>
-                <li><a href="#" onclick="bukaModalLogout(event)" class="nav-item" style="color: #f87171;">🚪 Keluar</a></li>
-            </ul>
+<ul class="nav-menu">
+    <li><a href="<?= BASEURL ?>/index.php?page=mentor_profile" class="nav-item">👤 Profil</a></li>
+    <li><a href="#" onclick="bukaModalLogout(event)" class="nav-item" style="color: #f87171;">🚪 Keluar</a></li>
+</ul>
         </div>
         
         <div style="background-color: #111827; padding: 12px; border-radius: 12px; display: flex; align-items: center; gap: 12px; margin-top: auto;">

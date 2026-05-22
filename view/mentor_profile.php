@@ -12,16 +12,18 @@ if (!isset($_SESSION['nama']) || $_SESSION['role'] !== 'mentor') {
 
 $nama_user = $_SESSION['nama'];
 
-// QUERY BARU: Mengambil user yang rolenya 'premium' ATAU 'free'
-$query_siswa = "SELECT id, nama, email, role FROM users WHERE role = 'premium' OR role = 'free' ORDER BY id ASC";
-$ambil_siswa = mysqli_query($conn, $query_siswa);
+// Mengambil data detail mentor yang sedang login dari database
+// Kita cari berdasarkan nama atau id_user sesuai session kelompokmu
+$query_mentor = "SELECT * FROM users WHERE nama = '" . mysqli_real_escape_string($conn, $nama_user) . "' AND role = 'mentor' LIMIT 1";
+$ambil_mentor = mysqli_query($conn, $query_mentor);
+$data_mentor = mysqli_fetch_assoc($ambil_mentor);
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Siswa Saya - ITacademy</title>
+    <title>Profil Mentor - ITacademy</title>
     <link rel="stylesheet" href="<?php echo BASEURL; ?>/assets/css/style.css">
     <style>
         .mentor-layout { display: flex; min-height: 100vh; background-color: #0f172a; color: #f8fafc; font-family: sans-serif; }
@@ -34,16 +36,13 @@ $ambil_siswa = mysqli_query($conn, $query_siswa);
         .nav-item.active { background-color: #334155; color: #38bdf8; }
         .nav-item:hover { background-color: #334155; color: #ffffff; }
         
-        .siswa-table { width: 100%; border-collapse: collapse; background-color: #1e293b; border: 1px solid #334155; border-radius: 12px; overflow: hidden; margin-top: 24px; }
-        .siswa-table th { background-color: #111827; color: #94a3b8; text-align: left; padding: 16px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #334155; }
-        .siswa-table td { padding: 16px; color: #e2e8f0; font-size: 14px; border-bottom: 1px solid #334155; }
-        .siswa-table tr:last-child td { border-bottom: none; }
-        .siswa-table tr:hover { background-color: rgba(51, 65, 85, 0.5); }
-        
-        /* Modifikasi badge agar flexibel mendukung status kelas berbeda */
-        .badge-siswa { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: capitalize; display: inline-block; }
-        .badge-premium { background-color: rgba(59, 130, 246, 0.1); color: #3b82f6; }
-        .badge-free { background-color: rgba(148, 163, 184, 0.1); color: #94a3b8; }
+        /* Style Khusus Halaman Profil */
+        .profile-container { background-color: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 32px; max-width: 600px; margin-top: 24px; }
+        .profile-header { display: flex; align-items: center; gap: 24px; border-bottom: 1px solid #334155; padding-bottom: 24px; margin-bottom: 24px; }
+        .profile-avatar { width: 80px; height: 80px; background-color: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; color: white; box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+        .info-group { margin-bottom: 20px; }
+        .info-label { font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 6px; }
+        .info-value { font-size: 16px; color: #ffffff; background-color: #0f172a; padding: 12px 16px; border-radius: 8px; border: 1px solid #334155; }
     </style>
 </head>
 <body>
@@ -56,13 +55,13 @@ $ambil_siswa = mysqli_query($conn, $query_siswa);
             <ul class="nav-menu">
                 <li><a href="<?= BASEURL ?>/index.php?page=mentor_dashboard" class="nav-item">📊 Dashboard</a></li>
                 <li><a href="<?= BASEURL ?>/index.php?page=review_tugas" class="nav-item">📝 Review Tugas</a></li>
-                <li><a href="<?= BASEURL ?>/index.php?page=mentor_siswa" class="nav-item active">👥 Siswa Saya</a></li>
+                <li><a href="<?= BASEURL ?>/index.php?page=mentor_siswa" class="nav-item">👥 Siswa Saya</a></li>
             </ul>
             <div style="font-size: 11px; color: #64748b; margin-top: 24px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">Akun</div>
-<ul class="nav-menu">
-    <li><a href="<?= BASEURL ?>/index.php?page=mentor_profile" class="nav-item">👤 Profil</a></li>
-    <li><a href="#" onclick="bukaModalLogout(event)" class="nav-item" style="color: #f87171;">🚪 Keluar</a></li>
-</ul>
+            <ul class="nav-menu">
+                <li><a href="<?= BASEURL ?>/index.php?page=mentor_profile" class="nav-item active">👤 Profil</a></li>
+                <li><a href="#" onclick="bukaModalLogout(event)" class="nav-item" style="color: #f87171;">🚪 Keluar</a></li>
+            </ul>
         </div>
         
         <div style="background-color: #111827; padding: 12px; border-radius: 12px; display: flex; align-items: center; gap: 12px;">
@@ -75,43 +74,35 @@ $ambil_siswa = mysqli_query($conn, $query_siswa);
     </div>
 
     <div class="main-content">
-        <h1 style="font-size: 24px; font-weight: 700; color: white; margin: 0;">Daftar Siswa</h1>
-        <p style="color: #94a3b8; font-size: 14px; margin: 4px 0 0 0;">Seluruh siswa aktif yang terdaftar di platform ITacademy.</p>
+        <h1 style="font-size: 24px; font-weight: 700; color: white; margin: 0;">Profil Saya</h1>
+        <p style="color: #94a3b8; font-size: 14px; margin: 4px 0 0 0;">Informasi akun mentor data terdaftar platform ITacademy.</p>
         
-        <table class="siswa-table">
-            <thead>
-                <tr>
-                    <th style="width: 80px;">ID</th>
-                    <th>Nama Siswa</th>
-                    <th>Alamat Email</th>
-                    <th>Status Kelas</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                if ($ambil_siswa && mysqli_num_rows($ambil_siswa) > 0) {
-                    while($row = mysqli_fetch_assoc($ambil_siswa)) {
-                ?>
-                    <tr>
-                        <td style="font-weight: 600; color: #64748b;">#<?= $row['id']; ?></td>
-                        <td style="font-weight: 600; color: #ffffff;"><?= htmlspecialchars($row['nama']); ?></td>
-                        <td><?= htmlspecialchars($row['email']); ?></td>
-                        <td>
-                            <?php if ($row['role'] == 'premium'): ?>
-                                <span class="badge-siswa badge-premium">⭐ Premium</span>
-                            <?php else: ?>
-                                <span class="badge-siswa badge-free">Free Account</span>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                <?php 
-                    }
-                } else {
-                    echo "<tr><td colspan='4' style='text-align: center; color: #64748b; padding: 24px;'>Belum ada data siswa terdaftar di database.</td></tr>";
-                }
-                ?>
-            </tbody>
-        </table>
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <?= strtoupper(substr($nama_user, 0, 2)); ?>
+                </div>
+                <div>
+                    <h2 style="margin: 0; font-size: 20px; color: white;"><?= htmlspecialchars($nama_user); ?></h2>
+                    <p style="margin: 4px 0 0 0; color: #38bdf8; font-weight: 600; font-size: 14px;">ID Mentor: #<?= $data_mentor['id'] ?? '-'; ?></p>
+                </div>
+            </div>
+            
+            <div class="info-group">
+                <div class="info-label">Nama Lengkap</div>
+                <div class="info-value"><?= htmlspecialchars($data_mentor['nama'] ?? $nama_user); ?></div>
+            </div>
+            
+            <div class="info-group">
+                <div class="info-label">Alamat Email</div>
+                <div class="info-value"><?= htmlspecialchars($data_mentor['email'] ?? 'belum diatur'); ?></div>
+            </div>
+            
+            <div class="info-group">
+                <div class="info-label">Peran Sistem (Role)</div>
+                <div class="info-value" style="color: #38bdf8; font-weight: 600; text-transform: uppercase;">💼 <?= htmlspecialchars($data_mentor['role'] ?? 'MENTOR'); ?></div>
+            </div>
+        </div>
     </div>
 </div>
 

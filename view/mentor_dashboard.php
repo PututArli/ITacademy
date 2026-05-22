@@ -45,7 +45,8 @@ $nama_user = $_SESSION['nama'];
 </head>
 <body>
 <div class="app-layout">
-   <aside class="sidebar">
+    
+    <aside class="sidebar">
         <div class="sidebar-brand">
             <div class="brand-icon">IT</div>
             <span class="brand-name">IT<span>academy</span></span>
@@ -57,7 +58,8 @@ $nama_user = $_SESSION['nama'];
             <a href="<?= BASEURL ?>/index.php?page=mentor_siswa" class="nav-item"><span class="nav-icon">&#9786;</span> Siswa Saya</a>
             
             <div class="nav-label">Akun</div>
-            <a href="<?= BASEURL ?>/index.php?page=profil" class="nav-item"><span class="nav-icon">&#9650;</span> Profil</a>
+            <a href="<?= BASEURL ?>/index.php?page=mentor_profile" class="nav-item"><span class="nav-icon">&#9650;</span> Profil</a>
+            
             <a href="#" class="nav-item" style="color: #f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon">🚪</span> Keluar</a>
         </nav>
         <div class="sidebar-footer">
@@ -71,7 +73,7 @@ $nama_user = $_SESSION['nama'];
             </div>
         </div>
     </aside>
-    
+
     <div class="main-content">
         <div class="topbar">
             <div class="topbar-title">Dashboard Mentor</div>
