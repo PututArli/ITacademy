@@ -49,60 +49,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masuk - ITacademy</title>
-    <link rel="stylesheet" href="<?php echo BASEURL; ?>/assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-<div class="auth-screen">
-    <div class="auth-bg-glow glow-1"></div>
-    <div class="auth-bg-glow glow-2"></div>
 
-    <div class="auth-card">
-        <div class="auth-logo">
-            <div class="brand-icon">IT</div>
-            <span class="brand-name">IT<span>academy</span></span>
-        </div>
+<div class="auth-split-container">
+    
+    <div class="auth-split-visual">
+        <div class="auth-split-content-wrap">
+            <h1 class="brand-name">IT<span>academy</span></h1>
+            <p class=brand-tagline">Tempat terbaik untuk membangun portofolio nyata, mengasah keahlian digital, dan melangkah pasti menuju karier IT impianmu.</p>        </div>
+    </div>
 
-        <h1 class="auth-title">Selamat Datang Kembali</h1>
-        <p class="auth-subtitle">Masuk untuk lanjutkan perjalanan belajarmu</p>
-
-        <form action="" method="POST">
+    <div class="auth-split-form-side">
+        <div class="auth-card">
+            <a href="index.php" class="back-home">&larr; Kembali ke Beranda</a>
             
-            <?php if(!empty($error)): ?>
-                <div style="color: #ef4444; font-size: 13px; margin-bottom: 12px; text-align: center; font-weight: 600;"><?= $error; ?></div>
-            <?php endif; ?>
+            <h1 class="auth-title" style="text-align: left; margin-bottom: 6px;">Selamat Datang Kembali!</h1>
+            <p class="auth-subtitle" style="text-align: left; margin-bottom: 24px;">Sesi belajar coding kamu sudah menunggu. Masuk sekarang.</p>
+            
+            <form action="" method="POST">
+                
+                <?php if(!empty($error)): ?>
+                    <div style="color: #ef4444; font-size: 13px; margin-bottom: 12px; text-align: center; font-weight: 600;"><?= $error; ?></div>
+                <?php endif; ?>
 
-            <div class="form-group">
-                <label class="form-label">Email</label>
-                <input name="email" type="email" class="form-input" placeholder="email@contoh.com" required>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-input" required placeholder="email@contoh.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Kata Sandi</label>
+                    <input type="password" name="password" class="form-input" required placeholder="******">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Masuk Sebagai</label>
+                    <select name="role" class="form-input" required>
+                        <option value="" disabled selected>Pilih peran...</option>
+                        <option value="free">User (Free)</option>  
+                        <option value="premium">User (Premium)</option>
+                        <option value="mentor">Mentor</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full btn-lg" style="margin-top: 10px;">Masuk Sistem</button>
+            </form>
+            
+            <div class="auth-footer" style="text-align: left; margin-top: 24px;">
+                Belum punya akun? <a href="index.php?page=register">Daftar Sekarang</a>
             </div>
-            <div class="form-group">
-                <label class="form-label">Password</label>
-                <input name="password" type="password" class="form-input" placeholder="Masukkan password" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Masuk Sebagai</label>
-                <select name="role" class="form-input" required>
-                    <option value="" disabled selected>Pilih peran...</option>
-                    <option value="free">User (Free)</option>
-                    <option value="premium">User (Premium)</option>
-                    <option value="mentor">Mentor</option>
-                    <option value="admin">Admin</option>
-                </select>
-            </div>
-
-            <div style="margin-bottom:20px;">
-                <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);cursor:pointer;">
-                    <input type="checkbox" style="accent-color:var(--accent-blue);"> Ingat saya
-                </label>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-full btn-lg">Masuk Sekarang</button>
-        </form>
-
-        <div class="auth-footer">
-            Belum punya akun? <a href="<?= BASEURL ?>/index.php?page=register">Daftar di sini</a>
         </div>
     </div>
 </div>
+
 </body>
 </html>

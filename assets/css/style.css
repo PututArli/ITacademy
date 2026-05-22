@@ -343,6 +343,85 @@ a { text-decoration: none; color: inherit; }
 .form-input::placeholder { color: var(--text-muted); }
 .form-input option { background: var(--bg-secondary); }
 
+.auth-split-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+}
+.auth-split-visual {
+    flex: 1.1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    overflow: hidden;
+}
+
+.auth-split-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('../img/auth-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px) brightness(0.35);
+    transform: scale(1.1);
+    z-index: 1;
+}
+
+.auth-split-content-wrap {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    max-width: 520px;
+}
+
+.auth-split-content-wrap .brand-name {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+.auth-split-content-wrap .brand-tagline {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-style: italic;
+}
+.auth-split-form-side {
+    flex: 0.9;
+    display: flex;
+    justify-content: center;
+    padding: 60px 40px;
+    background: radial-gradient(circle at center, #14223f 0%, #36569f 100%);
+    border-left: 1px solid rgba(255, 255, 255, 0.03);
+    z-index: 10;
+    overflow-y: auto;
+}
+.auth-split-form-side .auth-card {
+    margin: auto 0;
+}
+.auth-card .back-home {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-blue);
+    transition: var(--transition);
+}
+.auth-card .back-home:hover {
+    color: var(--accent-purple);
+    text-decoration: underline;
+}
+@media (max-width: 900px) {
+    .auth-split-container { flex-direction: column; height: auto; min-height: 100vh; }
+    .auth-split-visual { padding: 50px 20px; flex: 0 0 auto; min-height: 25vh; }
+    .auth-split-form-side { flex: 1 0 auto; padding: 20px 16px; }
+    .auth-card { box-shadow: none; border: none; background: transparent; padding: 10px 0; }
+}
 .auth-screen {
     min-height: 100vh;
     display: flex;
