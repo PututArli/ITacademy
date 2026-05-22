@@ -53,10 +53,10 @@ $nama_user = $_SESSION['nama'];
         <nav class="sidebar-nav">
             <div class="nav-label">Mentor</div>
             <a href="<?= BASEURL ?>/index.php?page=mentor_dashboard" class="nav-item active"><span class="nav-icon">&#9776;</span> Dashboard</a>
-            <a href="mentor_tugas.php" class="nav-item"><span class="nav-icon">&#9998;</span> Review Tugas</a>
-            <a href="mentor_siswa.php" class="nav-item"><span class="nav-icon">&#9786;</span> Siswa Saya</a>
+            <a href="<?= BASEURL ?>/index.php?page=review_tugas" class="nav-item"><span class="nav-icon">&#9998;</span> Review Tugas</a>
+            <a href="<?= BASEURL ?>/index.php?page=mentor_siswa" class="nav-item"><span class="nav-icon">&#9786;</span> Siswa Saya</a>
             <div class="nav-label">Akun</div>
-            <a href="mentor_profil.php" class="nav-item"><span class="nav-icon">&#9650;</span> Profil</a>
+            <a href="<?= BASEURL ?>/index.php?page=mentor_profil" class="nav-item"><span class="nav-icon">&#9650;</span> Profil</a>
             
             <a href="#" class="nav-item" style="color: #f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon">🚪</span> Keluar</a>
         </nav>
