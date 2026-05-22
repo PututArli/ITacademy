@@ -45,7 +45,7 @@ $nama_user = $_SESSION['nama'];
 </head>
 <body>
 <div class="app-layout">
-    <aside class="sidebar">
+   <aside class="sidebar">
         <div class="sidebar-brand">
             <div class="brand-icon">IT</div>
             <span class="brand-name">IT<span>academy</span></span>
@@ -55,9 +55,9 @@ $nama_user = $_SESSION['nama'];
             <a href="<?= BASEURL ?>/index.php?page=mentor_dashboard" class="nav-item active"><span class="nav-icon">&#9776;</span> Dashboard</a>
             <a href="<?= BASEURL ?>/index.php?page=review_tugas" class="nav-item"><span class="nav-icon">&#9998;</span> Review Tugas</a>
             <a href="<?= BASEURL ?>/index.php?page=mentor_siswa" class="nav-item"><span class="nav-icon">&#9786;</span> Siswa Saya</a>
-            <div class="nav-label">Akun</div>
-            <a href="<?= BASEURL ?>/index.php?page=mentor_profil" class="nav-item"><span class="nav-icon">&#9650;</span> Profil</a>
             
+            <div class="nav-label">Akun</div>
+            <a href="<?= BASEURL ?>/index.php?page=profil" class="nav-item"><span class="nav-icon">&#9650;</span> Profil</a>
             <a href="#" class="nav-item" style="color: #f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon">🚪</span> Keluar</a>
         </nav>
         <div class="sidebar-footer">
@@ -71,7 +71,7 @@ $nama_user = $_SESSION['nama'];
             </div>
         </div>
     </aside>
-
+    
     <div class="main-content">
         <div class="topbar">
             <div class="topbar-title">Dashboard Mentor</div>
@@ -136,7 +136,7 @@ $nama_user = $_SESSION['nama'];
                         <div class="review-top">
                             <div>
                                 <div class="review-title">Halaman Login Responsif</div>
-                                <div class="review-meta">Anisa Putri &middot; Dikirim 12 Mei 2026, 09:15 &middot; login-page.zip (1.1 MB)</div>
+                                <div class="review-meta">Rizka Aprilia &middot; Dikirim 12 Mei 2026, 09:15 &middot; login-page.zip (1.1 MB)</div>
                             </div>
                             <span class="badge badge-gold">Menunggu</span>
                         </div>
@@ -160,7 +160,7 @@ $nama_user = $_SESSION['nama'];
                         <div class="review-top">
                             <div>
                                 <div class="review-title">Proyek Akhir: Website Toko Online</div>
-                                <div class="review-meta">Doni Pratama &middot; Dikirim 13 Mei 2026, 16:00 &middot; toko-online.zip (4.8 MB)</div>
+                                <div class="review-meta">Miqdad Dzakiy Arroyan &middot; Dikirim 13 Mei 2026, 16:00 &middot; toko-online.zip (4.8 MB)</div>
                             </div>
                             <span class="badge badge-gold">Menunggu</span>
                         </div>
@@ -197,7 +197,7 @@ $nama_user = $_SESSION['nama'];
                     <div class="student-row">
                         <div class="user-avatar" style="width:36px;height:36px;font-size:13px;flex-shrink:0;">AP</div>
                         <div class="student-info">
-                            <div class="student-name">Anisa Putri</div>
+                            <div class="student-name">Rizka Aprilia</div>
                             <div class="student-detail">Progress: 50% &middot; Tugas: Menunggu</div>
                         </div>
                         <span class="badge badge-gold">Review</span>
@@ -205,7 +205,7 @@ $nama_user = $_SESSION['nama'];
                     <div class="student-row">
                         <div class="user-avatar" style="width:36px;height:36px;font-size:13px;flex-shrink:0;">DP</div>
                         <div class="student-info">
-                            <div class="student-name">Doni Pratama</div>
+                            <div class="student-name">Miqdad Dzakiy Arroyan</div>
                             <div class="student-detail">Progress: 100% &middot; Tugas: Menunggu</div>
                         </div>
                         <span class="badge badge-gold">Review</span>
@@ -213,7 +213,7 @@ $nama_user = $_SESSION['nama'];
                     <div class="student-row">
                         <div class="user-avatar" style="width:36px;height:36px;font-size:13px;flex-shrink:0;">SN</div>
                         <div class="student-info">
-                            <div class="student-name">Siti Nuraini</div>
+                            <div class="student-name">Sakinah</div>
                             <div class="student-detail">Progress: 83% &middot; Tugas: Belum kirim</div>
                         </div>
                         <span class="badge badge-blue">Aktif</span>
@@ -221,7 +221,7 @@ $nama_user = $_SESSION['nama'];
                     <div class="student-row">
                         <div class="user-avatar" style="width:36px;height:36px;font-size:13px;flex-shrink:0;">BH</div>
                         <div class="student-info">
-                            <div class="student-name">Bagas Hendra</div>
+                            <div class="student-name">Aprilia</div>
                             <div class="student-detail">Progress: 33% &middot; Tugas: Belum kirim</div>
                         </div>
                         <span class="badge badge-blue">Aktif</span>

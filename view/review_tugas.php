@@ -43,7 +43,7 @@ $ambil_tugas = mysqli_query($conn, $query_tugas);
     <link rel="stylesheet" href="<?php echo BASEURL; ?>/assets/css/style.css">
     <style>
         .mentor-layout { display: flex; min-height: 100vh; background-color: #0f172a; color: #f8fafc; font-family: sans-serif; }
-        .sidebar { width: 260px; background-color: #1e293b; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid #334155; }
+        .sidebar { width: 260px; background-color: #1e293b; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid #334155; box-sizing: border-box; }
         .main-content { flex: 1; padding: 40px; }
         .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
         .brand-name { font-size: 20px; font-weight: bold; color: #3b82f6; text-decoration: none; }
@@ -78,29 +78,30 @@ $ambil_tugas = mysqli_query($conn, $query_tugas);
 <div class="mentor-layout">
     <div class="sidebar">
         <div>
-            <a href="#" class="brand-name">IT<span>academy</span></a>
+            <a href="<?= BASEURL ?>/index.php?page=mentor_dashboard" class="brand-name">IT<span>academy</span></a>
             <div style="font-size: 11px; color: #64748b; margin-top: 24px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">Mentor</div>
             <ul class="nav-menu">
-                <li><a href="index.php?page=mentor_dashboard" class="nav-item">📊 Dashboard</a></li>
-                <li><a href="index.php?page=review_tugas" class="nav-item active">📝 Review Tugas</a></li>
-                <li><a href="#" class="nav-item">☺ Siswa Saya</a></li>
+                <li><a href="<?= BASEURL ?>/index.php?page=mentor_dashboard" class="nav-item">📊 Dashboard</a></li>
+                <li><a href="<?= BASEURL ?>/index.php?page=review_tugas" class="nav-item active">📝 Review Tugas</a></li>
+                <li><a href="<?= BASEURL ?>/index.php?page=mentor_siswa" class="nav-item">👥 Siswa Saya</a></li>
             </ul>
             <div style="font-size: 11px; color: #64748b; margin-top: 24px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">Akun</div>
             <ul class="nav-menu">
-                <li><a href="#" class="nav-item">👤 Profil</a></li>
+                <li><a href="<?= BASEURL ?>/index.php?page=profil" class="nav-item">👤 Profil</a></li>
                 <li><a href="#" onclick="bukaModalLogout(event)" class="nav-item" style="color: #f87171;">🚪 Keluar</a></li>
             </ul>
         </div>
         
-        <div style="background-color: #111827; padding: 12px; border-radius: 12px; display: flex; align-items: center; gap: 12px;">
-            <div style="width: 36px; height: 36px; background-color: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white;">BU</div>
+        <div style="background-color: #111827; padding: 12px; border-radius: 12px; display: flex; align-items: center; gap: 12px; margin-top: auto;">
+            <div style="width: 36px; height: 36px; background-color: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white;">
+                <?= strtoupper(substr($nama_user, 0, 2)); ?>
+            </div>
             <div>
                 <div style="font-size: 14px; font-weight: 600; color: white;"><?= htmlspecialchars($nama_user); ?></div>
                 <div style="font-size: 11px; color: #64748b;">Mentor</div>
             </div>
         </div>
     </div>
-
     <div class="main-content">
         <div class="topbar">
             <h1 style="font-size: 24px; font-weight: 700; color: white; margin: 0;">Review Tugas Masuk</h1>
@@ -153,7 +154,7 @@ $ambil_tugas = mysqli_query($conn, $query_tugas);
             ?>
         </div>
     </div>
-</div>
+    </div>
 
 <div id="logoutModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center;">
     <div style="background: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 32px; width: 100%; max-width: 400px; text-align: center;">

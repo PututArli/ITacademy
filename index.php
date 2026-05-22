@@ -39,7 +39,11 @@ if ($page === 'home' || $page === 'index' || $page === 'index.php') {
     require_once 'controller/homecontroller.php';
     $controller = new HomeController();
     $controller->index();
+// ... (Bagian atas index.php kamu biarkan tetap sama) ...
 } else {
+    // KUNCI PERBAIKAN: Nyalakan koneksi database agar bisa dipakai semua file di folder view
+    require_once 'model/koneksi.php'; 
+
     $viewFile = 'view/' . $page . '.php';
     if (file_exists($viewFile)) {
         require_once $viewFile;
