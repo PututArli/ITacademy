@@ -1,5 +1,5 @@
 <?php
-class CourseModel {
+class courseModel {
     public function getCourses() {
         return [
             [

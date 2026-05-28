@@ -1,98 +1,16 @@
-<?php
-require_once 'model/koneksi.php';
-
-if (!isset($_SESSION['nama'])) {
-    header("Location: " . BASEURL . "/index.php?page=login");
-    exit();
-}
-
-$nama_user = $_SESSION['nama'];
-
-$ambil_user = mysqli_query($conn, "SELECT * FROM users WHERE nama = '$nama_user'");
-$data = mysqli_fetch_assoc($ambil_user);
-
-$role_user = isset($data['role']) ? $data['role'] : 'free';
-$status_keanggotaan = "Siswa " . ucfirst($role_user);
-?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - ITacademy</title>
-    <link rel="stylesheet" href="<?php echo BASEURL; ?>/assets/css/style.css">
-    <style>
-        .welcome-bar { background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.06)); border: 1px solid rgba(59,130,246,0.2); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-        .welcome-text { font-size: 18px; font-weight: 700; }
-        .welcome-sub { font-size: 14px; color: var(--text-secondary); margin-top: 2px; }
-
-        .module-list { display: flex; flex-direction: column; gap: 8px; }
-        .module-row { display: flex; align-items: center; gap: 14px; padding: 14px 18px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; transition: var(--transition); cursor: pointer; }
-        .module-row:hover { border-color: var(--border-accent); }
-        .module-num { width: 32px; height: 32px; border-radius: 8px; background: var(--glass); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; }
-        .module-num.done { background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.3); color: #10b981; }
-        .module-num.current { background: rgba(59,130,246,0.15); border-color: rgba(59,130,246,0.3); color: var(--accent-blue); }
-        .module-info { flex: 1; }
-        .module-name { font-size: 14px; font-weight: 600; }
-        .module-detail { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-
-        .task-section { margin-top: 24px; }
-        .task-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-top: 12px; }
-        .task-status { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-        .task-file { display: flex; align-items: center; gap: 10px; padding: 12px; background: var(--glass); border: 1px solid var(--border); border-radius: 10px; font-size: 13px; color: var(--text-secondary); margin-bottom: 12px; }
-        .task-file-icon { font-size: 20px; }
-        .task-feedback { padding: 14px; background: rgba(59,130,246,0.05); border: 1px solid rgba(59,130,246,0.15); border-radius: 10px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
-        .task-feedback-label { font-size: 12px; font-weight: 600; color: var(--accent-blue); margin-bottom: 6px; }
-
-        .cert-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; text-align: center; }
-        .cert-box.locked { opacity: 0.6; }
-        .cert-icon { font-size: 40px; margin-bottom: 12px; }
-        .cert-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-        .cert-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
-
-        .progress-ring { display: flex; align-items: center; gap: 14px; padding: 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; }
-        .ring-num { font-size: 22px; font-weight: 800; color: var(--accent-blue); min-width: 50px; }
-        .ring-label { font-size: 13px; color: var(--text-secondary); }
-        .ring-title { font-size: 14px; font-weight: 600; }
-
-        .two-col { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
-        @media (max-width: 960px) { .two-col { grid-template-columns: 1fr; } }
-
-        .upload-area { border: 2px dashed var(--border); border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; transition: var(--transition); margin-top: 12px; }
-        .upload-area:hover { border-color: var(--accent-blue); background: rgba(59,130,246,0.03); }
-    </style>
+    <link rel="stylesheet" href="<?= BASEURL; ?>/assets/css/style.css">
 </head>
 <body>
 <div class="app-layout">
 
-    <aside class="sidebar">
-        <div class="sidebar-brand">
-            <div class="brand-icon">IT</div>
-            <span class="brand-name">IT<span>academy</span></span>
-        </div>
-        <nav class="sidebar-nav">
-            <div class="nav-label">Belajar</div>
-            <a href="<?= BASEURL ?>/index.php?page=dashboard" class="nav-item active"><span class="nav-icon">📊</span> Dashboard</a>
-            <a href="<?= BASEURL ?>/index.php?page=materi" class="nav-item"><span class="nav-icon">📖</span> Materi Belajar</a>
-            <a href="<?= BASEURL ?>/index.php?page=kuis" class="nav-item"><span class="nav-icon">🧩</span> Kuis Latihan</a>
-            <a href="<?= BASEURL ?>/index.php?page=tugas" class="nav-item"><span class="nav-icon">📁</span> Tugas Proyek</a>
-            <a href="<?= BASEURL ?>/index.php?page=sertifikat" class="nav-item"><span class="nav-icon">🎓</span> Sertifikat</a>
-            <div class="nav-label">Akun</div>
-            <a href="<?= BASEURL ?>/index.php?page=profil" class="nav-item"><span class="nav-icon">👤</span> Profil Saya</a>
-            
-            <a href="#" class="nav-item" style="color: #f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon">🚪</span> Keluar</a>
-        </nav>
-        <div class="sidebar-footer">
-            <div class="user-info">
-                <div class="user-avatar"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
-                <div>
-                    <div class="user-name"><?= $nama_user; ?></div>
-                    <div class="user-role" style="font-size: 12px; color: var(--text-muted);"><?= $status_keanggotaan; ?></div>
-                </div>
-            </div>
-        </div>
-    </aside>
+    <!-- Memanggil Sidebar User -->
+    <?php require_once 'view/layouts/userSidebar.php'; ?>
 
     <div class="main-content">
         <div class="topbar">
@@ -108,7 +26,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
 
             <div class="welcome-bar">
                 <div>
-                    <div class="welcome-text">Selamat datang, <?= $nama_user; ?>! 👋</div>
+                    <div class="welcome-text">Selamat datang, <?= htmlspecialchars($nama_user); ?>! 👋</div>
                     <div class="welcome-sub">Lanjutkan progress belajarmu hari ini. Fokus pada proyek akhir!</div>
                 </div>
                 <a href="<?= BASEURL ?>/index.php?page=materi" class="btn btn-primary" style="background: var(--accent-blue); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none;">Lanjut Belajar</a>
@@ -138,7 +56,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
             </div>
 
             <div class="two-col">
-
+                <!-- Kolom Kiri: Modul dan Tugas -->
                 <div>
                     <div class="module-list">
                         <div class="module-row">
@@ -206,6 +124,7 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
                     </div>
                 </div>
 
+                <!-- Kolom Kanan: Sertifikat, Progress, Mentor -->
                 <div>
                     <div class="section-header">
                         <div class="section-title">Sertifikat Kelulusan</div>
@@ -262,27 +181,6 @@ $status_keanggotaan = "Siswa " . ucfirst($role_user);
     </div>
 </div>
 
-<div class="modal-overlay" id="modalLogout">
-    <div class="modal-box">
-        <div class="modal-icon">👋</div>
-        <div class="modal-title">Yakin ingin keluar?</div>
-        <div class="modal-desc">Sesi belajar kamu akan diakhiri. Kamu harus masuk kembali untuk melanjutkan.</div>
-        <div class="modal-actions">
-            <button class="btn btn-ghost" onclick="tutupModalLogout()">Batal</button>
-            <a href="<?= BASEURL ?>/index.php?page=logout" class="btn btn-danger">Ya, Keluar</a>
-        </div>
-    </div>
-</div>
-
-<script>
-    function bukaModalLogout(e) {
-        if (e) e.preventDefault();
-        document.getElementById('modalLogout').classList.add('show');
-    }
-    function tutupModalLogout() {
-        document.getElementById('modalLogout').classList.remove('show');
-    }
-</script>
-
+<script src="<?= BASEURL ?>/assets/js/user.js"></script>
 </body>
 </html>

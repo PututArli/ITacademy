@@ -159,8 +159,7 @@
                     <li><span class="<?= $feat['class']; ?>"><?= $feat['icon'] === 'check' ? '&check;' : '&times;'; ?></span> <?= $feat['text']; ?></li>
                 <?php endforeach; ?>
             </ul>
-            <a href="<?= BASEURL ?>/index.php?page=register" class="btn <?= $plan['btn_class']; ?> btn-full"><?= $plan['btn_text']; ?></a>
-        </div>
+            <a href="<?= BASEURL ?>/index.php?page=register&plan=<?= strtolower($plan['tier']); ?>" class="btn <?= $plan['btn_class']; ?> btn-full"><?= $plan['btn_text']; ?></a>        </div>
         <?php endforeach; ?>
     </div>
 </section>
@@ -181,18 +180,7 @@
     <div class="footer-text">&copy; <?= date('Y'); ?> ITacademy</div>
 </footer>
 
-<script>
-    const nav = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        nav.style.background = window.scrollY > 20 ? 'rgba(10,14,26,0.97)' : 'rgba(10,14,26,0.8)';
-    });
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener('click', e => {
-            e.preventDefault();
-            const el = document.querySelector(a.getAttribute('href'));
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-        });
-    });
-</script>
+<script src="<?= BASEURL ?>/assets/js/main.js"></script>
+
 </body>
 </html>

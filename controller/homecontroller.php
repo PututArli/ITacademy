@@ -1,8 +1,8 @@
 <?php
 
-class HomeController {
+class homeController {
     public function index() {
-        $courseModel = new CourseModel();
+        $courseModel = new courseModel();
         
         $courses = $courseModel->getCourses();
         $mentors = $courseModel->getMentors();
