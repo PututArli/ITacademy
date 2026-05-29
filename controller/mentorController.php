@@ -81,5 +81,24 @@ class mentorController {
 
         require_once 'view/mentor/profilMentor.php';
     }
+
+    public function prosesTambahMateri() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $judul = $_POST['judul'];
+        $link = $_POST['link'];
+        $deskripsi = $_POST['deskripsi'];
+
+        require_once 'model/materiModel.php';
+        $materiModel = new materiModel($GLOBALS['conn']);
+        $materiModel->tambahMateri($judul, $link, $deskripsi);
+        
+        header("Location: " . BASEURL . "/index.php?page=dashboardMentor&status=sukses");
+    }
+    }
+
+   public function tambahMateri() {
+    require_once 'view/mentor/tambahMateri.php';
+    }
+
 }
 ?>

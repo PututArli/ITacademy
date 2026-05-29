@@ -141,6 +141,18 @@ switch ($page) {
         $mentorCtrl->profilMentor();
         break;
 
+    case 'tambahMateri':
+        require_once 'controller/mentorController.php';
+        $mentorCtrl = new mentorController();
+        $mentorCtrl->tambahMateri(); 
+        break;
+
+    case 'prosesTambahMateri':
+        require_once 'controller/mentorController.php';
+        $mentorCtrl = new mentorController();
+        $mentorCtrl->prosesTambahMateri(); 
+        break;
+
     default:
         $viewFile = 'view/' . $page . '.php';
         if (file_exists($viewFile)) {

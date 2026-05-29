@@ -9,6 +9,7 @@
         <a href="<?= BASEURL ?>/index.php?page=dashboardMentor" class="nav-item <?= ($halaman == 'dashboardMentor') ? 'active' : '' ?>"><span class="nav-icon">&#9776;</span> Dashboard</a>
         <a href="<?= BASEURL ?>/index.php?page=reviewTugasMentor" class="nav-item <?= ($halaman == 'reviewTugasMentor') ? 'active' : '' ?>"><span class="nav-icon">&#9998;</span> Review Tugas</a>
         <a href="<?= BASEURL ?>/index.php?page=siswaMentor" class="nav-item <?= ($halaman == 'siswaMentor') ? 'active' : '' ?>"><span class="nav-icon">&#9786;</span> Siswa Saya</a>
+        <a href="<?= BASEURL ?>/index.php?page=tambahMateri" class="nav-item <?= ($halaman == 'tambahMateri') ? 'active' : '' ?>"><span class="nav-icon">&#9786;</span> Tambah Materi</a>
         
         <div class="nav-label">Akun</div>
         <a href="<?= BASEURL ?>/index.php?page=profilMentor" class="nav-item <?= ($halaman == 'profilMentor') ? 'active' : '' ?>"><span class="nav-icon">&#9650;</span> Profil</a>
@@ -17,9 +18,11 @@
     </nav>
     <div class="sidebar-footer">
         <div class="user-info">
-            <div class="user-avatar"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
+            <div class="user-avatar">
+                <?= isset($nama_user) && !empty($nama_user) ? strtoupper(substr($nama_user, 0, 2)) : 'BU'; ?>
+            </div>
             <div>
-                <div class="user-name"><?= $nama_user; ?></div>
+                <div class="user-name"><?= isset($nama_user) ? htmlspecialchars($nama_user) : 'Budi Santoso'; ?></div>
                 <div class="user-role">Mentor</div>
             </div>
             <a href="#" class="user-logout" title="Keluar" onclick="bukaModalLogout(event)">&#8592;</a>
