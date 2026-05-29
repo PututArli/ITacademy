@@ -15,7 +15,7 @@
             <div class="topbar-title">Manajemen Mentor</div>
             <div class="topbar-actions">
                 <span class="badge badge-purple">Admin</span>
-                <a href="<?= BASEURL ?>/index.php?page=profil">
+                <a href="<?= BASEURL ?>/index.php?page=profilAdmin">
                     <div class="user-avatar" style="cursor:pointer;"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
                 </a>
             </div>
