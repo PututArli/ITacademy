@@ -48,7 +48,7 @@ class userModel {
         return 0;
     }
     public function getAllTugasMenunggu() {
-        $query = "SELECT tugas.*, users.nama AS nama_siswa FROM tugas JOIN users ON tugas.user_id = users.id WHERE tugas.status = 'Menunggu' ORDER BY tugas.id DESC";
+        $query = "SELECT tugas.*, users.nama AS nama_siswa FROM tugas JOIN users ON tugas.id_siswa = users.id WHERE tugas.status = 'Menunggu' ORDER BY id_tugas DESC";
         $result = mysqli_query($this->db, $query);
         $data = [];
         if($result) {
