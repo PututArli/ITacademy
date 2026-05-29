@@ -23,15 +23,15 @@
             <div class="stats-grid" style="margin-bottom:24px;">
                 <div class="stat-card">
                     <div class="stat-icon purple">&#9998;</div>
-                    <div><div class="stat-value">3</div><div class="stat-label">Tugas Menunggu Review</div></div>
+                    <div><div class="stat-value"><?= $tugas_menunggu_count; ?></div><div class="stat-label">Tugas Menunggu Review</div></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon blue">&#9786;</div>
-                    <div><div class="stat-value">12</div><div class="stat-label">Total Siswa</div></div>
+                    <div><div class="stat-value"><?= $total_siswa_count; ?></div><div class="stat-label">Total Siswa</div></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon green">&#10003;</div>
-                    <div><div class="stat-value">42</div><div class="stat-label">Tugas Direview</div></div>
+                    <div><div class="stat-value"><?= $tugas_selesai_count; ?></div><div class="stat-label">Tugas Direview</div></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon gold">&#9733;</div>
@@ -45,20 +45,29 @@
                         <div class="section-title">Tugas Masuk — Perlu Direview</div>
                     </div>
 
-                    <div class="review-card" id="tugas1">
-                        <div class="review-top">
-                            <div>
-                                <div class="review-title">Landing Page Portfolio</div>
-                                <div class="review-meta">Rafael Arlianto &middot; Dikirim 10 Mei 2026, 14:32 &middot; portfolio-rafael.zip (2.4 MB)</div>
+                    <?php if (!empty($tugas_masuk)) : ?>
+                        <?php foreach ($tugas_masuk as $tm) : ?>
+                            <div class="review-card">
+                                <div class="review-top">
+                                    <div>
+                                        <div class="review-title"><?= htmlspecialchars($tm['judul_tugas']); ?></div>
+                                        <div class="review-meta"><?= htmlspecialchars($tm['nama']); ?> &middot; File: <?= htmlspecialchars($tm['nama_file']); ?></div>
+                                    </div>
+                                    <span class="badge badge-gold">Menunggu</span>
+                                </div>
+                                <p class="review-desc">Siswa telah mengirimkan file proyek tugas untuk diperiksa struktur kodenya.</p>
+                                <div class="review-actions">
+                                    <a href="<?= BASEURL; ?>/index.php?page=reviewTugasMentor&aksi=setuju&id_tugas=<?= $tm['id_tugas']; ?>" class="btn btn-primary" style="font-size:13px; text-decoration:none; display:inline-block; text-align:center;">Setujui & Sertifikat</a>
+                                    <a href="<?= BASEURL; ?>/index.php?page=reviewTugasMentor&aksi=tolak&id_tugas=<?= $tm['id_tugas']; ?>" class="btn btn-outline" style="font-size:13px; color:#ef4444; border-color:#ef4444; text-decoration:none; display:inline-block; text-align:center;">Tolak & Revisi</a>
+                                </div>
                             </div>
-                            <span class="badge badge-gold">Menunggu</span>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <div style="background:var(--bg-card); border:1px solid var(--border); padding:24px; border-radius:var(--radius); text-align:center; color:var(--text-secondary); font-size:14px;">
+                            Hebat! Belum ada tugas baru masuk yang perlu di-review.
                         </div>
-                        <p class="review-desc">Siswa membuat landing page portfolio dengan HTML & CSS.</p>
-                        <div class="review-actions">
-                            <button class="btn btn-ghost" style="font-size:13px;" onclick="toggleFeedback('fb1')">Beri Feedback</button>
-                            <button class="btn btn-primary" style="font-size:13px;" onclick="setujui('tugas1')">Setujui</button>
-                            <button class="btn btn-outline" style="font-size:13px;color:#ef4444;border-color:#ef4444;" onclick="tolak('tugas1')">Tolak</button>
-                        </div>
+                    <?php endif; ?>
+
                         <div class="feedback-box" id="fb1">
                             <div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--text-secondary);">Catatan untuk Siswa</div>
                             <textarea rows="3" id="fbtxt1" placeholder="Tuliskan feedback..."></textarea>
@@ -75,13 +84,9 @@
                     <div class="section-header">
                         <div class="section-title">Siswa Aktif</div>
                     </div>
-                    <div class="student-row">
-                        <div class="user-avatar" style="width:36px;height:36px;font-size:13px;flex-shrink:0;">RF</div>
-                        <div class="student-info">
-                            <div class="student-name">Rafael Arlianto</div>
-                            <div class="student-detail">Progress: 66% &middot; Tugas: Menunggu</div>
-                        </div>
-                        <span class="badge badge-gold">Review</span>
+
+                    <div style="background:var(--bg-card); border:1px solid var(--border); padding:16px; border-radius:var(--radius); font-size:13px; color:var(--text-secondary);">
+                        Sistem mendeteksi ada total <strong><?= $total_siswa_count; ?></strong> siswa terdaftar di dalam platform ITacademy.
                     </div>
                     <div class="student-row">
                         <div class="user-avatar" style="width:36px;height:36px;font-size:13px;flex-shrink:0;">AP</div>

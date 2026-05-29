@@ -31,7 +31,7 @@
                         </div>
                         
                         <div class="tugas-meta">
-                            Siswa: <span><?= htmlspecialchars($row['nama_siswa']); ?></span> &bull; File: <a href="#"><?= htmlspecialchars($row['file_tugas']); ?></a>
+                            Siswa: <span><?= htmlspecialchars($row['nama_siswa']); ?></span> &bull; File: <a href="#"><?= htmlspecialchars($row['nama_file']); ?></a>
                         </div>
                         
                         <p class="tugas-desc">
@@ -40,8 +40,13 @@
                         
                         <div class="btn-group">
                             <button class="btn-action btn-feedback">Beri Feedback</button>
-                            <a href="<?= BASEURL ?>/index.php?page=reviewTugasMentor&id_tugas=<?= $row['id']; ?>&aksi=setuju" class="btn-action btn-approve">Setujui & Terbitkan Sertifikat</a>
-                            <a href="<?= BASEURL ?>/index.php?page=reviewTugasMentor&id_tugas=<?= $row['id']; ?>&aksi=tolak" class="btn-action btn-reject">Tolak & Minta Revisi</a>
+
+                            <?php if ($row['status'] == 'Menunggu') : ?>
+                                <a href="<?= BASEURL; ?>/index.php?page=reviewTugasMentor&aksi=setuju&id_tugas=<?= $row['id_tugas']; ?>" class="btn-action btn-approve">Setujui & Terbitkan Sertifikat</a>
+                                <a href="<?= BASEURL; ?>/index.php?page=reviewTugasMentor&aksi=tolak&id_tugas=<?= $row['id_tugas']; ?>" class="btn-action btn-reject">Tolak & Minta Revisi</a>
+                            <?php else : ?>
+                                <span style="font-size: 14px; color: gray; font-weight: 600; padding: 6px 12px;">Tugas telah di-review</span>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php 

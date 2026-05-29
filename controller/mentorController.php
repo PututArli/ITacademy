@@ -15,26 +15,55 @@ class mentorController {
     }
 
     public function dashboardMentor() {
-        $nama_user = $_SESSION['nama'];
-        require_once 'model/tugasModel.php';
-        $tugasModel = new tugasModel();
-        $total_tugas_menunggu = $tugasModel->getTotalTugasMenunggu();
-        require_once 'view/mentor/dashboardMentor.php';
-    }
+    $nama_user = $_SESSION['nama'];
+    
+    require_once 'model/tugasModel.php';
+    $tugasModel = new tugasModel();
+    $tugas_menunggu_count = $tugasModel->hitungTugasByStatus('Menunggu');
+    $tugas_selesai_count = $tugasModel->hitungTugasByStatus('Selesai');
+    $total_siswa_count = $tugasModel->hitungTotalSiswa();
+    $tugas_masuk = $tugasModel->getTugasMenungguDashboard();
+    
+    require_once 'view/mentor/dashboardMentor.php';
+}
 
     public function reviewTugasMentor() {
-        $nama_user = $_SESSION['nama'];
+    $nama_user = $_SESSION['nama'];
 
-        if (isset($_GET['aksi']) && isset($_GET['id_tugas'])) {
-            $status = ($_GET['aksi'] == 'setuju') ? 'Selesai' : 'Revisi';
-            $this->tugasModel->updateStatusTugas($_GET['id_tugas'], $status);
-            header("Location: " . BASEURL . "/index.php?page=reviewTugasMentor");
-            exit();
+    require_once 'model/tugasModel.php';
+    $tugasModel = new tugasModel();
+
+    if (isset($_GET['aksi']) && isset($_GET['id_tugas'])) {
+        $id_tugas = $_GET['id_tugas'];
+
+        if ($_GET['aksi'] == 'setuju') {
+                $tugasModel->updateStatusTugas($id_tugas, 'Selesai');
+                $detailTugas = $tugasModel->getTugasById($id_tugas);
+                if (isset($detailTugas['id_siswa'])) {
+                    $id_siswa = $detailTugas['id_siswa'];
+                } elseif (isset($detailTugas['user_id'])) {
+                    $id_siswa = $detailTugas['user_id'];
+                } else {
+                    $id_siswa = 0;
+                }
+                
+                $no_sertifikat = "SERT-IT-" . date("Y") . "-" . rand(1000, 9999);
+                
+                require_once 'model/sertifikatModel.php';
+                $sertifikatModel = new sertifikatModel();
+                $sertifikatModel->tambahSertifikat($id_siswa, $id_tugas, $no_sertifikat);
+
+        } elseif ($_GET['aksi'] == 'tolak') {
+            $tugasModel->updateStatusTugas($id_tugas, 'Revisi');
         }
 
-        $ambil_tugas = $this->tugasModel->getAllTugas();
-        require_once 'view/mentor/reviewtugasMentor.php';
+        header("Location: " . BASEURL . "/index.php?page=reviewTugasMentor");
+        exit();
     }
+
+    $ambil_tugas = $tugasModel->getAllTugas();
+    require_once 'view/mentor/reviewTugasMentor.php';
+}
 
     public function siswaMentor() {
         $nama_user = $_SESSION['nama'];
@@ -42,7 +71,7 @@ class mentorController {
         require_once 'view/mentor/siswaMentor.php';
     }
 
-    public function profileMentor() {
+    public function profilMentor() {
         $nama_user = $_SESSION['nama'];
         global $conn;
         
@@ -50,7 +79,7 @@ class mentorController {
         $ambil_mentor = mysqli_query($conn, $query);
         $data_mentor = mysqli_fetch_assoc($ambil_mentor);
 
-        require_once 'view/mentor/profileMentor.php';
+        require_once 'view/mentor/profilMentor.php';
     }
 }
 ?>

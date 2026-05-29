@@ -103,6 +103,11 @@ switch ($page) {
         $userCtrl = new userController();
         $userCtrl->tugas();
         break;
+    case 'kirimTugas':
+        require_once 'controller/userController.php';
+        $userCtrl = new userController();
+        $userCtrl->kirimTugas();
+        break;
     case 'sertifikat':
         require_once 'controller/userController.php';
         $userCtrl = new userController();

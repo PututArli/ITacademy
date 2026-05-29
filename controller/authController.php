@@ -39,6 +39,7 @@ class authController {
                 $_SESSION['nama'] = $user['nama'];
                 $_SESSION['role'] = $user['role'];
                 $_SESSION['last_activity'] = time();
+                $_SESSION['id_siswa'] = $user['id']; 
 
                 $this->redirectByRole($user['role'], $user['nama']);
             } else {

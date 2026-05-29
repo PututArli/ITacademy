@@ -34,20 +34,30 @@
 
             <div class="stats-grid">
                 <a href="<?= BASEURL ?>/index.php?page=materi" class="stat-card" style="text-decoration:none;">
-                    <div class="stat-icon blue">📖</div>
+                    <div class="stat-icon blue"></div>
                     <div><div class="stat-value">8/12</div><div class="stat-label">Modul Selesai</div></div>
                 </a>
                 <a href="<?= BASEURL ?>/index.php?page=kuis" class="stat-card" style="text-decoration:none;">
-                    <div class="stat-icon purple">🧩</div>
+                    <div class="stat-icon purple"></div>
                     <div><div class="stat-value">2/3</div><div class="stat-label">Kuis Lulus</div></div>
                 </a>
                 <a href="<?= BASEURL ?>/index.php?page=tugas" class="stat-card" style="text-decoration:none;">
-                    <div class="stat-icon gold">📁</div>
-                    <div><div class="stat-value">1</div><div class="stat-label">Tugas Dikirim</div></div>
+                    <div class="stat-icon gold"></div>
+                    <div>
+                        <div class="stat-value">
+                            <?= (isset($status_tugas) && $status_tugas != 'Belum Mengirim') ? '1' : '0'; ?>
+                        </div>
+                        <div class="stat-label">Tugas Dikirim</div>
+                    </div>
                 </a>
                 <a href="<?= BASEURL ?>/index.php?page=sertifikat" class="stat-card" style="text-decoration:none;">
-                    <div class="stat-icon green">🎓</div>
-                    <div><div class="stat-value">0</div><div class="stat-label">Sertifikat</div></div>
+                    <div class="stat-icon green"></div>
+                    <div>
+                        <div class="stat-value">
+                            <?= (isset($status_tugas) && $status_tugas == 'Selesai') ? '1' : '0'; ?>
+                        </div>
+                        <div class="stat-label">Sertifikat</div>
+                    </div>
                 </a>
             </div>
 
