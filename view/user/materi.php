@@ -15,7 +15,10 @@
             <div class="topbar-title">Materi Belajar</div>
             <div class="topbar-actions">
                 <span class="badge badge-gold"><?= $status_keanggotaan; ?></span>
-                <div class="user-avatar"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
+                
+                <a href="<?= BASEURL ?>/index.php?page=profil">
+                    <div class="user-avatar" style="cursor:pointer;"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
+                </a>
             </div>
         </div>
 

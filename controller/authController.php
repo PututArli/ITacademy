@@ -13,7 +13,7 @@ class authController {
                 $_SESSION['last_activity'] = time();
             } else {
                 $durasi_diam = time() - $_SESSION['last_activity'];
-                $batas_maksimal = 1800;
+                $batas_maksimal = 1200;
 
                 if ($durasi_diam > $batas_maksimal) {
                     $this->logout(true);

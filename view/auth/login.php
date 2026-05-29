@@ -46,7 +46,7 @@
                     <input type="password" name="password" class="form-input" required placeholder="******">
                 </div>
                 
-                <button type="submit" class="btn btn-primary btn-full btn-lg" style="margin-top: 10px;">Masuk Sistem</button>
+                <button type="submit" class="btn btn-primary btn-full btn-lg" style="margin-top: 10px;">Masuk</button>
             </form>
             
             <div class="auth-footer" style="text-align: left; margin-top: 24px;">
