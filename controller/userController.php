@@ -26,10 +26,16 @@ class userController {
         require_once 'view/user/dashboard.php';
     }
 
-    public function materi() {
-        $nama_user = $_SESSION['nama'];
-        $status_keanggotaan = ($_SESSION['role'] === 'premium') ? 'Premium Member' : 'Free Member';
-        require_once 'view/user/materi.php';
+   public function materi() {
+    $nama_user = $_SESSION['nama'] ?? 'User';
+    $status_keanggotaan = ($_SESSION['role'] === 'premium') ? 'Premium Member' : 'Free Member';
+
+    require_once 'model/materiModel.php';
+    $materiModel = new materiModel($GLOBALS['conn']);
+    $id_materi = isset($_GET['id']) ? $_GET['id'] : 1;
+    $list_materi = $materiModel->getAllMateri();
+    $materi_aktif = $materiModel->getMateriById($id_materi);
+    require_once 'view/user/materi.php';
     }
 
     public function kuis() {
