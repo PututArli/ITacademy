@@ -54,7 +54,8 @@ switch ($page) {
         $authCtrl->register();
         break;
     case 'logout':
-        $authCtrl->logout();
+        $isTimeout = isset($_GET['timeout']) && $_GET['timeout'] == '1';
+        $authCtrl->logout($isTimeout);
         break;
     
     case 'dashboardAdmin':

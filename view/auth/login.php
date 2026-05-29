@@ -31,8 +31,9 @@
                 <?php endif; ?>
 
                 <?php if(isset($_GET['timeout'])): ?>
-                    <div style="color: #f59e0b; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.2); padding: 8px; border-radius: 8px; font-size: 12px; margin-bottom: 16px; text-align: center; font-weight: 600;">
-                        Sesi Anda berakhir karena tidak ada aktivitas selama 30 menit. Silakan masuk kembali.
+                    <div style="display:flex; align-items:flex-start; gap:10px; color: #f59e0b; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); padding: 12px 14px; border-radius: 10px; font-size: 13px; margin-bottom: 16px; font-weight: 600;">
+                        <span style="font-size:18px; flex-shrink:0;">⏱️</span>
+                        <span>Sesi Anda berakhir karena tidak ada aktivitas. Silakan masuk kembali untuk melanjutkan belajar.</span>
                     </div>
                 <?php endif; ?>
 

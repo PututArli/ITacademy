@@ -50,28 +50,38 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php
+                        // Load pengguna dari DB
+                        require_once 'model/userModel.php';
+                        $userModelLocal = new userModel();
+                        $semua_pengguna = $userModelLocal->getAllPengguna();
+
+                        if (!empty($semua_pengguna)):
+                            foreach ($semua_pengguna as $u):
+                        ?>
                         <tr>
-                            <td><strong style="color:var(--text-primary);">Rafael Arlianto</strong></td>
-                            <td>rafael@email.com</td>
-                            <td><span class="badge badge-gold">Premium</span></td>
-                            <td>66%</td>
+                            <td><strong style="color:var(--text-primary);"><?= htmlspecialchars($u['nama']); ?></strong></td>
+                            <td><?= htmlspecialchars($u['email']); ?></td>
+                            <td>
+                                <?php if ($u['role'] == 'premium'): ?>
+                                    <span class="badge badge-gold">Premium</span>
+                                <?php else: ?>
+                                    <span class="badge badge-blue">Free</span>
+                                <?php endif; ?>
+                            </td>
+                            <td>–</td>
                             <td><span class="badge badge-green">Aktif</span></td>
                             <td style="display:flex;gap:6px;">
-                                <button class="action-btn action-edit" onclick="editUser('Rafael Arlianto')">Edit</button>
+                                <button class="action-btn action-edit" onclick="editUser('<?= htmlspecialchars($u['nama']); ?>', '<?= $u['id']; ?>', '<?= $u['role']; ?>')">Edit</button>
                                 <button class="action-btn action-del" onclick="hapusUser(this)">Hapus</button>
                             </td>
                         </tr>
-                        <tr>
-                            <td><strong style="color:var(--text-primary);">Anisa Putri</strong></td>
-                            <td>anisa@email.com</td>
-                            <td><span class="badge badge-blue">Free</span></td>
-                            <td>50%</td>
-                            <td><span class="badge badge-green">Aktif</span></td>
-                            <td style="display:flex;gap:6px;">
-                                <button class="action-btn action-edit" onclick="editUser('Anisa Putri')">Edit</button>
-                                <button class="action-btn action-del" onclick="hapusUser(this)">Hapus</button>
-                            </td>
-                        </tr>
+                        <?php
+                            endforeach;
+                        else:
+                        ?>
+                        <tr><td colspan="6" style="text-align:center; padding:20px; color:var(--text-muted);">Belum ada siswa terdaftar.</td></tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
@@ -101,10 +111,10 @@
     <div class="modal-box" onclick="event.stopPropagation()">
         <div class="modal-title" id="modal-edit-title">Edit Pengguna</div>
         <div class="form-group"><label class="form-label">Nama</label><input type="text" class="form-input" id="edit-name"></div>
-        <div class="form-group"><label class="form-label">Status</label>
+        <div class="form-group"><label class="form-label">Tipe Akun</label>
             <select class="form-input" id="edit-status">
-                <option value="aktif">Aktif</option>
-                <option value="nonaktif">Non-aktif</option>
+                <option value="free">Free</option>
+                <option value="premium">Premium</option>
             </select>
         </div>
         <div style="display:flex;gap:10px;margin-top:8px;">
@@ -114,6 +124,10 @@
     </div>
 </div>
 
+<script>
+    window.itAcademyBaseUrl = '<?= BASEURL ?>';
+</script>
 <script src="<?= BASEURL ?>/assets/js/admin.js"></script>
+<script src="<?= BASEURL ?>/assets/js/session.js"></script>
 </body>
 </html>

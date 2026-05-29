@@ -11,8 +11,11 @@
     <?php require_once 'view/layouts/mentorSidebar.php'; ?>
     <div class="main-content">
         <div class="topbar">
-            <h1 style="font-size: 20px; font-weight: 700; margin: 0;">Review Tugas Masuk</h1>
-            <div style="background-color: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 600;">Mentor</div>
+            <div class="topbar-title">Review Tugas Masuk</div>
+            <div class="topbar-actions">
+                <span class="badge badge-blue">Mentor</span>
+                <div class="user-avatar"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
+            </div>
         </div>
 
         <div class="page-content">
@@ -60,6 +63,10 @@
     </div>
 </div>
 
+<script>
+    window.itAcademyBaseUrl = '<?= BASEURL ?>';
+</script>
 <script src="<?= BASEURL ?>/assets/js/mentor.js"></script>
+<script src="<?= BASEURL ?>/assets/js/session.js"></script>
 </body>
 </html>

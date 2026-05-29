@@ -83,6 +83,10 @@
         </div>
     </div>
 </div>
+<script>
+    window.itAcademyBaseUrl = '<?= BASEURL ?>';
+</script>
 <script src="<?= BASEURL ?>/assets/js/user.js"></script>
+<script src="<?= BASEURL ?>/assets/js/session.js"></script>
 </body>
 </html>

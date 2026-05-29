@@ -23,63 +23,71 @@ class tugasModel {
     }
 
     public function getTotalTugasMenunggu() {
-    $query = "SELECT COUNT(*) as total FROM tugas WHERE status = 'Menunggu'";
-    $result = mysqli_query($this->conn, $query);
-    $data = mysqli_query($this->conn, $query); 
-    $data = mysqli_fetch_assoc($result);
-    return $data['total'];
-}
-
-public function getTugasById($id_tugas) {
-    $query = "SELECT * FROM tugas WHERE id_tugas = '$id_tugas'";
-    $result = mysqli_query($this->conn, $query); 
-    return mysqli_fetch_assoc($result);
-}
-
-public function getTugasBySiswaId($id_siswa) {
-    if (empty($id_siswa)) {
-        return false;
+        $query = "SELECT COUNT(*) as total FROM tugas WHERE status = 'Menunggu'";
+        $result = mysqli_query($this->conn, $query);
+        $data = mysqli_fetch_assoc($result);
+        return $data['total'];
     }
-    $query = "SELECT * FROM tugas WHERE id_siswa = '$id_siswa' LIMIT 1";
-    $result = mysqli_query($this->conn, $query);
 
-    if ($result && mysqli_num_rows($result) > 0) {
+    public function getTugasById($id_tugas) {
+        $id = intval($id_tugas);
+        $query = "SELECT * FROM tugas WHERE id_tugas = '$id'";
+        $result = mysqli_query($this->conn, $query);
         return mysqli_fetch_assoc($result);
     }
-    return false;
-}
 
-public function tambahTugas($id_siswa, $judul_tugas, $nama_file) {
-    $koneksi_lokal = mysqli_connect("localhost", "root", "", "it_academy"); 
-    $id_siswa_paksa = 3; 
-    $id_mentor_paksa = 2; 
+    public function getTugasBySiswaId($id_siswa) {
+        if (empty($id_siswa)) {
+            return false;
+        }
+        $id = intval($id_siswa);
+        $query = "SELECT * FROM tugas WHERE id_siswa = '$id' ORDER BY id_tugas DESC LIMIT 1";
+        $result = mysqli_query($this->conn, $query);
 
-    $query = "INSERT INTO tugas (id_siswa, id_mentor, judul_tugas, nama_file, status) 
-              VALUES ('$id_siswa_paksa', '$id_mentor_paksa', '$judul_tugas', '$nama_file', 'Menunggu')";
-              
-    return mysqli_query($koneksi_lokal, $query);
-}
-public function getTugasMenungguDashboard() {
-    $query = "SELECT tugas.*, users.nama FROM tugas 
-              JOIN users ON tugas.id_siswa = users.id 
-              WHERE tugas.status = 'Menunggu' ORDER BY tugas.id_tugas DESC LIMIT 3";
-    $result = mysqli_query($this->conn, $query);
-    return mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
+        if ($result && mysqli_num_rows($result) > 0) {
+            return mysqli_fetch_assoc($result);
+        }
+        return false;
+    }
 
-public function hitungTugasByStatus($status) {
-    $query = "SELECT COUNT(*) as total FROM tugas WHERE status = '$status'";
-    $result = mysqli_query($this->conn, $query);
-    $data = mysqli_fetch_assoc($result);
-    return $data['total'];
-}
+    public function tambahTugas($id_siswa, $judul_tugas, $nama_file) {
+        $id_siswa = intval($id_siswa);
+        $judul_bersih = mysqli_real_escape_string($this->conn, $judul_tugas);
+        $file_bersih  = mysqli_real_escape_string($this->conn, $nama_file);
 
-public function hitungTotalSiswa() {
-    $query = "SELECT COUNT(*) as total FROM users WHERE role != 'mentor' AND role != 'admin'";
-    $result = mysqli_query($this->conn, $query);
-    $data = mysqli_fetch_assoc($result);
-    return $data['total'];
-}
+        // Ambil mentor pertama yang ada di database
+        $cek_mentor = mysqli_query($this->conn, "SELECT id FROM users WHERE role = 'mentor' LIMIT 1");
+        $mentor_row = $cek_mentor ? mysqli_fetch_assoc($cek_mentor) : null;
+        $id_mentor  = $mentor_row ? intval($mentor_row['id']) : 1;
+
+        $query = "INSERT INTO tugas (id_siswa, id_mentor, judul_tugas, nama_file, status)
+                  VALUES ('$id_siswa', '$id_mentor', '$judul_bersih', '$file_bersih', 'Menunggu')";
+
+        return mysqli_query($this->conn, $query);
+    }
+
+    public function getTugasMenungguDashboard() {
+        $query = "SELECT tugas.*, users.nama FROM tugas
+                  JOIN users ON tugas.id_siswa = users.id
+                  WHERE tugas.status = 'Menunggu' ORDER BY tugas.id_tugas DESC LIMIT 3";
+        $result = mysqli_query($this->conn, $query);
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
+    public function hitungTugasByStatus($status) {
+        $status_bersih = mysqli_real_escape_string($this->conn, $status);
+        $query = "SELECT COUNT(*) as total FROM tugas WHERE status = '$status_bersih'";
+        $result = mysqli_query($this->conn, $query);
+        $data = mysqli_fetch_assoc($result);
+        return $data['total'];
+    }
+
+    public function hitungTotalSiswa() {
+        $query = "SELECT COUNT(*) as total FROM users WHERE role != 'mentor' AND role != 'admin'";
+        $result = mysqli_query($this->conn, $query);
+        $data = mysqli_fetch_assoc($result);
+        return $data['total'];
+    }
 
 }
 ?>

@@ -38,10 +38,10 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">Paket Pilihan Kamu</label>
-                    <div style="padding: 12px 16px; background: rgba(59,130,246,0.1); border: 1.5px solid var(--accent-blue); border-radius: 10px; color: var(--accent-blue); font-weight: 700; text-transform: capitalize;">
-                        Paket <?= $plan_pilihan; ?>
-                    </div>
-                    <input type="hidden" name="role_hidden" value="<?= $plan_pilihan; ?>">
+                    <select name="role_hidden" class="form-input" style="font-weight: 600; cursor: pointer;">
+                        <option value="free" <?= $plan_pilihan == 'free' ? 'selected' : '' ?>>Paket Free (Gratis)</option>
+                        <option value="premium" <?= $plan_pilihan == 'premium' ? 'selected' : '' ?>>Paket Premium</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Password</label>
