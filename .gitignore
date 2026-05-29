@@ -1,0 +1,40 @@
+# IDE dan Code Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.bak
+
+# File System (OS generated files)
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Dependencies (Composer & Node)
+/vendor/
+/node_modules/
+
+# Environment Variables & Secrets
+.env
+.env.backup
+.env.local
+.env.production
+*.pem
+
+# Logs dan Database SQLite sementara
+*.log
+*.sqlite
+*.sqlite3
+/log/
+/logs/
+
+# Folder untuk file upload/cache (jika ada, uncomment baris di bawah)
+# /public/uploads/
+# /storage/
+# /cache/
