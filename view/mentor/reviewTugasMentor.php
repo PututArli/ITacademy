@@ -14,7 +14,9 @@
             <div class="topbar-title">Review Tugas Masuk</div>
             <div class="topbar-actions">
                 <span class="badge badge-blue">Mentor</span>
-                <div class="user-avatar"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
+                <a href="<?= BASEURL ?>/index.php?page=profilMentor">
+                    <div class="user-avatar" style="cursor:pointer;"><?= strtoupper(substr($nama_user, 0, 2)); ?></div>
+                </a>
             </div>
         </div>
 
