@@ -18,14 +18,18 @@ class materiModel {
     }
 
     public function tambahMateri($judul, $link, $deskripsi) {
+        // Ambil urutan terbaru
         $query_cek = "SELECT MAX(urutan) as max_urutan FROM materi";
-        $result = mysqli_query($this->conn, $query_cek);
-        $data = mysqli_fetch_assoc($result);
+        $result    = mysqli_query($this->conn, $query_cek);
+        $data      = mysqli_fetch_assoc($result);
         $urutan_baru = ($data['max_urutan'] ?? 0) + 1;
-        
-        $query = "INSERT INTO materi (judul_materi, link_embed_yt, deskripsi, urutan) VALUES (?, ?, ?, ?)";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("sssi", $judul, $link, $deskripsi, $urutan_baru);
-        $stmt->execute();
+
+        $judul    = mysqli_real_escape_string($this->conn, $judul);
+        $link     = mysqli_real_escape_string($this->conn, $link);
+        $deskripsi = mysqli_real_escape_string($this->conn, $deskripsi);
+
+        $query = "INSERT INTO materi (judul_materi, link_embed_yt, deskripsi, urutan) 
+                  VALUES ('$judul', '$link', '$deskripsi', '$urutan_baru')";
+        return mysqli_query($this->conn, $query);
     }
 }

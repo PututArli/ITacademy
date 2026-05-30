@@ -38,10 +38,10 @@
                     <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
                         <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Diberikan kepada:</p>
                         <div style="font-size: 24px; font-weight: 700; color: var(--accent-blue); margin-bottom: 8px;">
-                            <?= htmlspecialchars($nama_user); ?>
+                            <?= htmlspecialchars($sertifikatSiswa['nama_siswa'] ?? $nama_user); ?>
                         </div>
                         <p style="font-size: 14px; color: var(--text-secondary);">
-                            Atas keberhasilan menyelesaikan tugas proyek.
+                            Atas keberhasilan menyelesaikan tugas proyek Full-Stack Web Development di ITacademy.
                         </p>
                     </div>              
                     <button class="btn btn-primary btn-lg" onclick="window.print()">Unduh Sertifikat PDF</button>
@@ -50,9 +50,11 @@
                     <div class="cert-main-box">
                         <div style="font-size: 64px; margin-bottom: 16px;">⏳</div>
                         <div style="font-size: 22px; font-weight: 700; margin-bottom: 8px;">Sertifikat Belum Tersedia</div>
-                        <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6; max-width: 500px; margin: 0 auto;">
+                        <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6; max-width: 500px; margin: 0 auto 20px auto;">
                             Sertifikat akan diterbitkan secara otomatis setelah mentor menyetujui tugas proyekmu.
+                            Pastikan kamu sudah mengirim tugas terlebih dahulu.
                         </p>
+                        <a href="<?= BASEURL ?>/index.php?page=tugas" class="btn btn-primary" style="display:inline-block;">Lihat Status Tugasku</a>
                     </div>
                 <?php endif; ?>
             <?php else: ?>

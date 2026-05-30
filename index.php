@@ -84,6 +84,17 @@ switch ($page) {
         $adminCtrl->profilAdmin();
         break;
 
+    case 'penggunaAdminAksi':
+        require_once 'controller/adminController.php';
+        $adminCtrl = new adminController();
+        $adminCtrl->penggunaAdmin();
+        break;
+    case 'mentorAdminAksi':
+        require_once 'controller/adminController.php';
+        $adminCtrl = new adminController();
+        $adminCtrl->mentorAdmin();
+        break;
+
     case 'dashboard':
         require_once 'controller/userController.php';
         $userCtrl = new userController();
@@ -115,6 +126,11 @@ switch ($page) {
         $userCtrl->sertifikat();
         break;
     case 'profil':
+        require_once 'controller/userController.php';
+        $userCtrl = new userController();
+        $userCtrl->profil();
+        break;
+    case 'updateProfil':
         require_once 'controller/userController.php';
         $userCtrl = new userController();
         $userCtrl->profil();

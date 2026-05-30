@@ -85,8 +85,7 @@
                                 <td>0%</td>
                                 <td><span class="badge badge-green">Aktif</span></td>
                                 <td style="display:flex;gap:6px;">
-                                    <button class="action-btn action-edit" onclick="editUser('<?= htmlspecialchars($user['nama']); ?>')">Edit</button>
-                                    <button class="action-btn action-del" onclick="hapusUser(this)">Hapus</button>
+                                    <a href="<?= BASEURL ?>/index.php?page=penggunaAdmin" class="action-btn action-edit">Kelola</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -121,8 +120,7 @@
                                 <td><?= htmlspecialchars($mentor['email']); ?></td>
                                 <td style="color:var(--accent-gold);font-weight:600;">Menunggu Penilaian</td>
                                 <td style="display:flex;gap:6px;">
-                                    <button class="action-btn action-edit" onclick="editUser('<?= htmlspecialchars($mentor['nama']); ?>')">Edit</button>
-                                    <button class="action-btn action-del" onclick="hapusUser(this)">Hapus</button>
+                                    <a href="<?= BASEURL ?>/index.php?page=mentorAdmin" class="action-btn action-edit">Kelola</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -153,8 +151,8 @@
                             <?php foreach($daftar_tugas as $tugas): ?>
                             <tr>
                                 <td><strong style="color:var(--text-primary);"><?= htmlspecialchars($tugas['nama_siswa']); ?></strong></td>
-                                <td>Tugas #<?= $tugas['id']; ?></td>
-                                <td>Sistem Terbaru</td>
+                                <td><?= htmlspecialchars($tugas['judul_tugas'] ?? 'Tugas #' . $tugas['id_tugas']); ?></td>
+                                <td><?= isset($tugas['created_at']) ? date('d M Y', strtotime($tugas['created_at'])) : '-'; ?></td>
                                 <td><span class="badge badge-gold">Menunggu</span></td>
                             </tr>
                             <?php endforeach; ?>
@@ -172,40 +170,40 @@
 </div>
 
 <div class="modal-overlay" id="modal-tambah-user" onclick="closeModal('modal-tambah-user')">
-    <div class="modal-box" onclick="event.stopPropagation()">
+    <form class="modal-box" onclick="event.stopPropagation()" method="POST" action="<?= BASEURL ?>/index.php?page=penggunaAdmin">
+        <input type="hidden" name="aksi" value="tambah_user">
         <div class="modal-title">Tambah Pengguna Baru</div>
-        <div class="form-group"><label class="form-label">Nama</label><input type="text" class="form-input" id="new-user-name"></div>
-        <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input"></div>
-        <div style="display:flex;gap:10px;margin-top:8px;">
-            <button class="btn btn-primary" style="flex:1;" onclick="simpanUser()">Simpan</button>
-            <button class="btn btn-ghost" style="flex:1;" onclick="closeModal('modal-tambah-user')">Batal</button>
+        <div class="form-group"><label class="form-label">Nama</label><input type="text" name="nama" class="form-input" required></div>
+        <div class="form-group"><label class="form-label">Email</label><input type="email" name="email" class="form-input" required></div>
+        <div class="form-group"><label class="form-label">Password</label><input type="password" name="password" class="form-input" required></div>
+        <div class="form-group"><label class="form-label">Tipe Akun</label>
+            <select name="role" class="form-input">
+                <option value="free">Free</option>
+                <option value="premium">Premium</option>
+            </select>
         </div>
-    </div>
+        <div style="display:flex;gap:10px;margin-top:8px;">
+            <button type="submit" class="btn btn-primary" style="flex:1;">Simpan</button>
+            <button type="button" class="btn btn-ghost" style="flex:1;" onclick="closeModal('modal-tambah-user')">Batal</button>
+        </div>
+    </form>
 </div>
 
 <div class="modal-overlay" id="modal-tambah-mentor" onclick="closeModal('modal-tambah-mentor')">
-    <div class="modal-box" onclick="event.stopPropagation()">
+    <form class="modal-box" onclick="event.stopPropagation()" method="POST" action="<?= BASEURL ?>/index.php?page=mentorAdmin">
+        <input type="hidden" name="aksi" value="tambah_mentor">
         <div class="modal-title">Tambah Mentor Baru</div>
-        <div class="form-group"><label class="form-label">Nama Lengkap</label><input type="text" class="form-input" id="new-mentor-name"></div>
-        <div class="form-group"><label class="form-label">Spesialisasi</label><input type="text" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Nama Lengkap</label><input type="text" name="nama" class="form-input" required></div>
+        <div class="form-group"><label class="form-label">Email</label><input type="email" name="email" class="form-input" required></div>
+        <div class="form-group"><label class="form-label">Password</label><input type="password" name="password" class="form-input" required></div>
         <div style="display:flex;gap:10px;margin-top:8px;">
-            <button class="btn btn-primary" style="flex:1;" onclick="simpanMentor()">Simpan</button>
-            <button class="btn btn-ghost" style="flex:1;" onclick="closeModal('modal-tambah-mentor')">Batal</button>
+            <button type="submit" class="btn btn-primary" style="flex:1;">Simpan</button>
+            <button type="button" class="btn btn-ghost" style="flex:1;" onclick="closeModal('modal-tambah-mentor')">Batal</button>
         </div>
-    </div>
+    </form>
 </div>
 
-<div class="modal-overlay" id="modal-edit" onclick="closeModal('modal-edit')">
-    <div class="modal-box" onclick="event.stopPropagation()">
-        <div class="modal-title" id="modal-edit-title">Edit Pengguna</div>
-        <div class="form-group"><label class="form-label">Nama</label><input type="text" class="form-input" id="edit-name"></div>
-        <div style="display:flex;gap:10px;margin-top:8px;">
-            <button class="btn btn-primary" style="flex:1;" onclick="simpanEdit()">Simpan</button>
-            <button class="btn btn-ghost" style="flex:1;" onclick="closeModal('modal-edit')">Batal</button>
-        </div>
-    </div>
-</div>
-
+<div id="toast" style="display:none;position:fixed;bottom:24px;right:24px;padding:14px 22px;border-radius:10px;font-weight:600;z-index:9999;align-items:center;gap:8px;box-shadow:0 4px 15px rgba(0,0,0,.3);"></div>
 <script>
     window.itAcademyBaseUrl = '<?= BASEURL ?>';
 </script>

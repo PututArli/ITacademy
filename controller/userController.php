@@ -141,9 +141,50 @@ class userController {
     public function profil() {
         $nama_user = $_SESSION['nama'];
         $status_keanggotaan = ($_SESSION['role'] === 'premium') ? 'Premium Member' : 'Free Member';
+        $id_siswa = isset($_SESSION['id_siswa']) ? intval($_SESSION['id_siswa']) : null;
+        $pesan_sukses = '';
+        $pesan_error  = '';
 
-        $pecah_nama   = explode(" ", $nama_user);
-        $nama_depan   = $pecah_nama[0];
+        // Pastikan id_siswa terisi
+        if (empty($id_siswa) && !empty($nama_user)) {
+            global $conn;
+            $nama_bersih = mysqli_real_escape_string($conn, $nama_user);
+            $cek_user = mysqli_query($conn, "SELECT id FROM users WHERE nama = '$nama_bersih' LIMIT 1");
+            if ($row = mysqli_fetch_assoc($cek_user)) {
+                $id_siswa = intval($row['id']);
+                $_SESSION['id_siswa'] = $id_siswa;
+            }
+        }
+
+        // Ambil data user dari DB
+        require_once 'model/userModel.php';
+        $userModel = new userModel();
+        $data_user = $userModel->getUserById($id_siswa);
+
+        // Proses update profil
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['aksi']) && $_POST['aksi'] === 'update_profil') {
+            $nama_baru     = trim($_POST['nama'] ?? '');
+            $password_baru = trim($_POST['password_baru'] ?? '');
+            $konfirmasi    = trim($_POST['konfirmasi'] ?? '');
+
+            if (!$nama_baru) {
+                $pesan_error = "Nama tidak boleh kosong.";
+            } elseif ($password_baru && $password_baru !== $konfirmasi) {
+                $pesan_error = "Konfirmasi password tidak cocok.";
+            } else {
+                if ($userModel->updateProfilUser($id_siswa, $nama_baru, $password_baru)) {
+                    $_SESSION['nama'] = $nama_baru;
+                    $nama_user = $nama_baru;
+                    $data_user = $userModel->getUserById($id_siswa);
+                    $pesan_sukses = "Profil berhasil diperbarui.";
+                } else {
+                    $pesan_error = "Gagal memperbarui profil.";
+                }
+            }
+        }
+
+        $pecah_nama    = explode(" ", $nama_user);
+        $nama_depan    = $pecah_nama[0];
         $nama_belakang = isset($pecah_nama[1]) ? implode(" ", array_slice($pecah_nama, 1)) : "";
 
         require_once 'view/user/profil.php';

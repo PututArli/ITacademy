@@ -15,30 +15,25 @@ class mentorController {
     }
 
     public function dashboardMentor() {
-    $nama_user = $_SESSION['nama'];
-    
-    require_once 'model/tugasModel.php';
-    $tugasModel = new tugasModel();
-    $tugas_menunggu_count = $tugasModel->hitungTugasByStatus('Menunggu');
-    $tugas_selesai_count = $tugasModel->hitungTugasByStatus('Selesai');
-    $total_siswa_count = $tugasModel->hitungTotalSiswa();
-    $tugas_masuk = $tugasModel->getTugasMenungguDashboard();
-    
-    require_once 'view/mentor/dashboardMentor.php';
-}
+        $nama_user = $_SESSION['nama'];
+        
+        $tugas_menunggu_count = $this->tugasModel->hitungTugasByStatus('Menunggu');
+        $tugas_selesai_count  = $this->tugasModel->hitungTugasByStatus('Selesai');
+        $total_siswa_count    = $this->tugasModel->hitungTotalSiswa();
+        $tugas_masuk          = $this->tugasModel->getTugasMenungguDashboard();
+        
+        require_once 'view/mentor/dashboardMentor.php';
+    }
 
     public function reviewTugasMentor() {
-    $nama_user = $_SESSION['nama'];
+        $nama_user = $_SESSION['nama'];
 
-    require_once 'model/tugasModel.php';
-    $tugasModel = new tugasModel();
+        if (isset($_GET['aksi']) && isset($_GET['id_tugas'])) {
+            $id_tugas = intval($_GET['id_tugas']);
 
-    if (isset($_GET['aksi']) && isset($_GET['id_tugas'])) {
-        $id_tugas = $_GET['id_tugas'];
-
-        if ($_GET['aksi'] == 'setuju') {
-                $tugasModel->updateStatusTugas($id_tugas, 'Selesai');
-                $detailTugas = $tugasModel->getTugasById($id_tugas);
+            if ($_GET['aksi'] == 'setuju') {
+                $this->tugasModel->updateStatusTugas($id_tugas, 'Selesai');
+                $detailTugas = $this->tugasModel->getTugasById($id_tugas);
                 if (isset($detailTugas['id_siswa'])) {
                     $id_siswa = $detailTugas['id_siswa'];
                 } elseif (isset($detailTugas['user_id'])) {
@@ -53,17 +48,17 @@ class mentorController {
                 $sertifikatModel = new sertifikatModel();
                 $sertifikatModel->tambahSertifikat($id_siswa, $id_tugas, $no_sertifikat);
 
-        } elseif ($_GET['aksi'] == 'tolak') {
-            $tugasModel->updateStatusTugas($id_tugas, 'Revisi');
+            } elseif ($_GET['aksi'] == 'tolak') {
+                $this->tugasModel->updateStatusTugas($id_tugas, 'Revisi');
+            }
+
+            header("Location: " . BASEURL . "/index.php?page=reviewTugasMentor");
+            exit();
         }
 
-        header("Location: " . BASEURL . "/index.php?page=reviewTugasMentor");
-        exit();
+        $ambil_tugas = $this->tugasModel->getAllTugas();
+        require_once 'view/mentor/reviewTugasMentor.php';
     }
-
-    $ambil_tugas = $tugasModel->getAllTugas();
-    require_once 'view/mentor/reviewTugasMentor.php';
-}
 
     public function siswaMentor() {
         $nama_user = $_SESSION['nama'];
@@ -73,31 +68,67 @@ class mentorController {
 
     public function profilMentor() {
         $nama_user = $_SESSION['nama'];
-        global $conn;
-        
-        $query = "SELECT * FROM users WHERE nama = '" . mysqli_real_escape_string($conn, $nama_user) . "' AND role = 'mentor' LIMIT 1";
-        $ambil_mentor = mysqli_query($conn, $query);
-        $data_mentor = mysqli_fetch_assoc($ambil_mentor);
+        $id_mentor = isset($_SESSION['id_siswa']) ? intval($_SESSION['id_siswa']) : 0;
+        $pesan_sukses = '';
+        $pesan_error  = '';
+
+        // Ambil data mentor dari DB berdasarkan id session
+        $data_mentor = $this->userModel->getUserById($id_mentor);
+
+        // Jika tidak ditemukan by id, cari by nama
+        if (!$data_mentor) {
+            global $conn;
+            $nama_bersih = mysqli_real_escape_string($conn, $nama_user);
+            $res = mysqli_query($conn, "SELECT * FROM users WHERE nama = '$nama_bersih' AND role = 'mentor' LIMIT 1");
+            $data_mentor = mysqli_fetch_assoc($res);
+            if ($data_mentor) {
+                $id_mentor = intval($data_mentor['id']);
+                $_SESSION['id_siswa'] = $id_mentor;
+            }
+        }
+
+        // Proses update profil mentor
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['aksi']) && $_POST['aksi'] === 'update_profil_mentor') {
+            $nama_baru     = trim($_POST['nama'] ?? '');
+            $password_baru = trim($_POST['password_baru'] ?? '');
+            $konfirmasi    = trim($_POST['konfirmasi'] ?? '');
+
+            if (!$nama_baru) {
+                $pesan_error = "Nama tidak boleh kosong.";
+            } elseif ($password_baru && $password_baru !== $konfirmasi) {
+                $pesan_error = "Konfirmasi password tidak cocok.";
+            } else {
+                if ($this->userModel->updateProfilUser($id_mentor, $nama_baru, $password_baru)) {
+                    $_SESSION['nama'] = $nama_baru;
+                    $nama_user = $nama_baru;
+                    $data_mentor = $this->userModel->getUserById($id_mentor);
+                    $pesan_sukses = "Profil berhasil diperbarui.";
+                } else {
+                    $pesan_error = "Gagal memperbarui profil.";
+                }
+            }
+        }
 
         require_once 'view/mentor/profilMentor.php';
     }
 
     public function prosesTambahMateri() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $judul = $_POST['judul'];
-        $link = $_POST['link'];
-        $deskripsi = $_POST['deskripsi'];
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $judul    = $_POST['judul'];
+            $link     = $_POST['link'];
+            $deskripsi = $_POST['deskripsi'];
 
-        require_once 'model/materiModel.php';
-        $materiModel = new materiModel($GLOBALS['conn']);
-        $materiModel->tambahMateri($judul, $link, $deskripsi);
-        
-        header("Location: " . BASEURL . "/index.php?page=dashboardMentor&status=sukses");
-    }
+            require_once 'model/materiModel.php';
+            $materiModel = new materiModel($GLOBALS['conn']);
+            $materiModel->tambahMateri($judul, $link, $deskripsi);
+            
+            header("Location: " . BASEURL . "/index.php?page=dashboardMentor&status=sukses");
+            exit();
+        }
     }
 
    public function tambahMateri() {
-    require_once 'view/mentor/tambahMateri.php';
+        require_once 'view/mentor/tambahMateri.php';
     }
 
 }

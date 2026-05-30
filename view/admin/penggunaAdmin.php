@@ -23,6 +23,17 @@
         </div>
 
         <div class="page-content">
+
+            <?php if (!empty($pesan_sukses)): ?>
+                <div id="toast-msg" style="background:#10b981;color:#fff;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;">
+                    ✅ <?= htmlspecialchars($pesan_sukses); ?>
+                </div>
+            <?php elseif (!empty($pesan_error)): ?>
+                <div id="toast-msg" style="background:#ef4444;color:#fff;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;">
+                    ❌ <?= htmlspecialchars($pesan_error); ?>
+                </div>
+            <?php endif; ?>
+
             <div class="summary-grid">
                 <div class="summary-card">
                     <div class="summary-val" style="color:var(--accent-blue);"><?= isset($total_pengguna) ? $total_pengguna : 0; ?></div>
@@ -46,43 +57,32 @@
                             <th>Nama</th>
                             <th>Email</th>
                             <th>Tipe Akun</th>
-                            <th>Progress Belajar</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        // Load pengguna dari DB
-                        require_once 'model/userModel.php';
-                        $userModelLocal = new userModel();
-                        $semua_pengguna = $userModelLocal->getAllPengguna();
-
-                        if (!empty($semua_pengguna)):
-                            foreach ($semua_pengguna as $u):
-                        ?>
-                        <tr>
-                            <td><strong style="color:var(--text-primary);"><?= htmlspecialchars($u['nama']); ?></strong></td>
-                            <td><?= htmlspecialchars($u['email']); ?></td>
-                            <td>
-                                <?php if ($u['role'] == 'premium'): ?>
-                                    <span class="badge badge-gold">Premium</span>
-                                <?php else: ?>
-                                    <span class="badge badge-blue">Free</span>
-                                <?php endif; ?>
-                            </td>
-                            <td>–</td>
-                            <td><span class="badge badge-green">Aktif</span></td>
-                            <td style="display:flex;gap:6px;">
-                                <button class="action-btn action-edit" onclick="editUser('<?= htmlspecialchars($u['nama']); ?>', '<?= $u['id']; ?>', '<?= $u['role']; ?>')">Edit</button>
-                                <button class="action-btn action-del" onclick="hapusUser(this)">Hapus</button>
-                            </td>
-                        </tr>
-                        <?php
-                            endforeach;
-                        else:
-                        ?>
-                        <tr><td colspan="6" style="text-align:center; padding:20px; color:var(--text-muted);">Belum ada siswa terdaftar.</td></tr>
+                        <?php if (!empty($semua_pengguna)): ?>
+                            <?php foreach ($semua_pengguna as $u): ?>
+                            <tr id="row-user-<?= $u['id']; ?>">
+                                <td><strong style="color:var(--text-primary);"><?= htmlspecialchars($u['nama']); ?></strong></td>
+                                <td><?= htmlspecialchars($u['email']); ?></td>
+                                <td>
+                                    <?php if ($u['role'] == 'premium'): ?>
+                                        <span class="badge badge-gold">Premium</span>
+                                    <?php else: ?>
+                                        <span class="badge badge-blue">Free</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td><span class="badge badge-green">Aktif</span></td>
+                                <td style="display:flex;gap:6px;">
+                                    <button class="action-btn action-edit" onclick="editUser('<?= htmlspecialchars($u['nama']); ?>', '<?= $u['id']; ?>', '<?= $u['role']; ?>')">Edit</button>
+                                    <button class="action-btn action-del" onclick="hapusUser(<?= $u['id']; ?>, this)">Hapus</button>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                        <tr><td colspan="5" style="text-align:center; padding:20px; color:var(--text-muted);">Belum ada siswa terdaftar.</td></tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
@@ -91,43 +91,84 @@
     </div>
 </div>
 
+<!-- Modal Tambah User -->
 <div class="modal-overlay" id="modal-tambah-user" onclick="closeModal('modal-tambah-user')">
     <div class="modal-box" onclick="event.stopPropagation()">
         <div class="modal-title">Tambah Pengguna Baru</div>
-        <div class="form-group"><label class="form-label">Nama Lengkap</label><input type="text" class="form-input" id="new-user-name" placeholder="Nama lengkap"></div>
-        <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="new-user-email" placeholder="email@contoh.com"></div>
-        <div class="form-group"><label class="form-label">Tipe Akun</label>
-            <select class="form-input" id="new-user-tipe">
-                <option value="free">Free</option>
-                <option value="premium">Premium</option>
-            </select>
-        </div>
-        <div style="display:flex;gap:10px;margin-top:8px;">
-            <button class="btn btn-primary" style="flex:1;" onclick="simpanUser()">Simpan</button>
-            <button class="btn btn-ghost" style="flex:1;" onclick="closeModal('modal-tambah-user')">Batal</button>
-        </div>
+        <form id="form-tambah-user" action="<?= BASEURL ?>/index.php?page=penggunaAdmin" method="POST">
+            <input type="hidden" name="aksi" value="tambah_user">
+            <div class="form-group"><label class="form-label">Nama Lengkap</label><input type="text" class="form-input" name="nama" id="new-user-name" placeholder="Nama lengkap" required></div>
+            <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" name="email" id="new-user-email" placeholder="email@contoh.com" required></div>
+            <div class="form-group"><label class="form-label">Password</label><input type="password" class="form-input" name="password" placeholder="Password" required></div>
+            <div class="form-group"><label class="form-label">Tipe Akun</label>
+                <select class="form-input" name="role" id="new-user-tipe">
+                    <option value="free">Free</option>
+                    <option value="premium">Premium</option>
+                </select>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:8px;">
+                <button type="submit" class="btn btn-primary" style="flex:1;">Simpan</button>
+                <button type="button" class="btn btn-ghost" style="flex:1;" onclick="closeModal('modal-tambah-user')">Batal</button>
+            </div>
+        </form>
     </div>
 </div>
 
+<!-- Modal Edit User -->
 <div class="modal-overlay" id="modal-edit" onclick="closeModal('modal-edit')">
     <div class="modal-box" onclick="event.stopPropagation()">
         <div class="modal-title" id="modal-edit-title">Edit Pengguna</div>
-        <div class="form-group"><label class="form-label">Nama</label><input type="text" class="form-input" id="edit-name"></div>
-        <div class="form-group"><label class="form-label">Tipe Akun</label>
-            <select class="form-input" id="edit-status">
-                <option value="free">Free</option>
-                <option value="premium">Premium</option>
-            </select>
-        </div>
-        <div style="display:flex;gap:10px;margin-top:8px;">
-            <button class="btn btn-primary" style="flex:1;" onclick="simpanEdit()">Simpan</button>
-            <button class="btn btn-ghost" style="flex:1;" onclick="closeModal('modal-edit')">Batal</button>
-        </div>
+        <form id="form-edit-user" action="<?= BASEURL ?>/index.php?page=penggunaAdmin" method="POST">
+            <input type="hidden" name="aksi" value="edit_user">
+            <input type="hidden" name="id" id="edit-user-id">
+            <div class="form-group"><label class="form-label">Nama</label><input type="text" class="form-input" name="nama" id="edit-name"></div>
+            <div class="form-group"><label class="form-label">Tipe Akun</label>
+                <select class="form-input" name="role" id="edit-status">
+                    <option value="free">Free</option>
+                    <option value="premium">Premium</option>
+                </select>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:8px;">
+                <button type="submit" class="btn btn-primary" style="flex:1;">Simpan</button>
+                <button type="button" class="btn btn-ghost" style="flex:1;" onclick="closeModal('modal-edit')">Batal</button>
+            </div>
+        </form>
     </div>
 </div>
 
+<!-- Form Hapus User (hidden) -->
+<form id="form-hapus-user" action="<?= BASEURL ?>/index.php?page=penggunaAdmin" method="POST" style="display:none;">
+    <input type="hidden" name="aksi" value="hapus_user">
+    <input type="hidden" name="id" id="hapus-user-id">
+</form>
+
+<div id="toast" style="display:none;position:fixed;bottom:24px;right:24px;padding:14px 22px;border-radius:10px;font-weight:600;z-index:9999;align-items:center;gap:8px;box-shadow:0 4px 15px rgba(0,0,0,.3);"></div>
+
 <script>
     window.itAcademyBaseUrl = '<?= BASEURL ?>';
+
+    function editUser(nama, id, role) {
+        document.getElementById('edit-name').value = nama;
+        document.getElementById('edit-user-id').value = id;
+        const sel = document.getElementById('edit-status');
+        for (let opt of sel.options) {
+            if (opt.value === role) { opt.selected = true; break; }
+        }
+        document.getElementById('modal-edit-title').textContent = 'Edit: ' + nama;
+        openModal('modal-edit');
+    }
+
+    function hapusUser(id, btn) {
+        if (!confirm('Yakin ingin menghapus pengguna ini?')) return;
+        document.getElementById('hapus-user-id').value = id;
+        document.getElementById('form-hapus-user').submit();
+    }
+
+    // Auto-hide pesan setelah 4 detik
+    setTimeout(function() {
+        const msg = document.getElementById('toast-msg');
+        if (msg) msg.style.transition = 'opacity .5s', msg.style.opacity = '0', setTimeout(() => msg.remove(), 500);
+    }, 4000);
 </script>
 <script src="<?= BASEURL ?>/assets/js/admin.js"></script>
 <script src="<?= BASEURL ?>/assets/js/session.js"></script>
