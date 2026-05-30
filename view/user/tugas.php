@@ -23,6 +23,28 @@
         </div>
 
         <div class="page-content">
+
+            <?php
+            // Tampilkan pesan error upload
+            $upload_errors = [
+                'judul_kosong'          => 'Judul proyek tidak boleh kosong.',
+                'file_gagal'            => 'Gagal membaca file. Coba lagi.',
+                'file_terlalu_besar'    => 'Ukuran file melebihi batas maksimal 20MB.',
+                'format_tidak_didukung' => 'Format file tidak didukung. Gunakan .zip, .rar, atau .pdf.',
+                'upload_gagal'          => 'Gagal menyimpan file. Hubungi administrator.',
+            ];
+            $error_key = $_GET['error'] ?? '';
+            if ($error_key && isset($upload_errors[$error_key])):
+            ?>
+                <div id="toast-msg" style="background:#ef4444;color:#fff;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;">
+                    &#10060; <?= htmlspecialchars($upload_errors[$error_key]); ?>
+                </div>
+            <?php elseif (isset($_GET['upload']) && $_GET['upload'] === 'sukses'): ?>
+                <div id="toast-msg" style="background:#10b981;color:#fff;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;">
+                    &#10003; Tugas berhasil dikirim! Mentor akan segera mereview.
+                </div>
+            <?php endif; ?>
+
             <div class="tugas-layout">
                 <div>
                     <div class="section-header">
@@ -52,7 +74,7 @@
                                         <div class="file-name" id="fileName">—</div>
                                         <div class="file-size" id="fileSize">—</div>
                                     </div>
-                                    <div class="file-remove" onclick="removeFile()" title="Hapus">✕</div>
+                                    <div class="file-remove" onclick="removeFile()" title="Hapus">&#10005;</div>
                                 </div>
                             </div>
 
@@ -61,11 +83,18 @@
 
                     <!-- KONDISI 2: JIKA STATUSNYA REVISI, BERIKAN TOMBOL UNTUK KIRIM ULANG -->
                     <?php elseif (isset($status_tugas) && $status_tugas == 'Revisi') : ?>
-                        <div style="background:var(--bg-card); border:1px solid #ef4444; border-radius:var(--radius); padding:24px; margin-bottom:20px; text-align:center;">
-                            <div style="font-weight:600; color:#ef4444; font-size:16px;">Tugas Perlu Revisi</div>
-                            <p style="color:var(--text-secondary); font-size:13px; margin-top:5px; margin-bottom:15px;">Silakan perbaiki proyek Anda dan unggah ulang file terbaru di bawah ini.</p>
+                        <div style="background:var(--bg-card); border:1.5px solid #ef4444; border-radius:var(--radius); padding:24px; margin-bottom:20px;">
+                            <div style="font-weight:700; color:#ef4444; font-size:16px; margin-bottom:6px;">&#10005; Tugas Perlu Revisi</div>
+                            <?php if (!empty($tugasSiswa['catatan_mentor'])): ?>
+                            <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:12px 14px;margin-top:8px;margin-bottom:14px;">
+                                <div style="font-size:11px;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;">Catatan dari Mentor:</div>
+                                <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;"><?= nl2br(htmlspecialchars($tugasSiswa['catatan_mentor'])); ?></div>
+                            </div>
+                            <?php else: ?>
+                            <p style="color:var(--text-secondary);font-size:13px;margin-top:5px;margin-bottom:12px;">Silakan perbaiki proyek Anda dan unggah ulang file terbaru.</p>
+                            <?php endif; ?>
                         </div>
-                        
+
                         <form action="<?= BASEURL; ?>/index.php?page=kirimTugas" method="POST" enctype="multipart/form-data" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;">
                             <div class="form-group">
                                 <label class="form-label">Judul Proyek (Revisi)</label>
@@ -73,7 +102,21 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Upload File Proyek Terbaru</label>
-                                <input type="file" name="file_tugas" accept=".zip,.rar,.pdf" required>
+                                <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInputRevisi').click()"
+                                    ondragover="event.preventDefault();this.classList.add('drag')"
+                                    ondragleave="this.classList.remove('drag')"
+                                    ondrop="handleDrop(event)">
+                                    <div class="upload-title">Klik untuk pilih file atau drag dan drop</div>
+                                    <div class="upload-hint">Format: .zip, .rar, .pdf &nbsp;&middot;&nbsp; Maksimal 20MB</div>
+                                    <input type="file" class="upload-input" id="fileInputRevisi" name="file_tugas" accept=".zip,.rar,.pdf" onchange="handleFile(this.files[0])" required>
+                                </div>
+                                <div id="filePreview" style="display:none;" class="file-preview">
+                                    <div>
+                                        <div class="file-name" id="fileName">&mdash;</div>
+                                        <div class="file-size" id="fileSize">&mdash;</div>
+                                    </div>
+                                    <div class="file-remove" onclick="removeFile()" title="Hapus">&#10005;</div>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-full">Kirim Ulang Revisi</button>
                         </form>

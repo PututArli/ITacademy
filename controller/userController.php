@@ -87,25 +87,70 @@ class userController {
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $judul_tugas = $_POST['judul_tugas'];
-            $nama_file   = $_FILES['file_tugas']['name'];
-            $tmp_name    = $_FILES['file_tugas']['tmp_name'];
+            $judul_tugas = trim($_POST['judul_tugas'] ?? '');
+            $file        = $_FILES['file_tugas'] ?? null;
+
+            // ---- Validasi Input ----
+            if (!$judul_tugas) {
+                header("Location: " . BASEURL . "/index.php?page=tugas&error=judul_kosong");
+                exit();
+            }
+            if (!$file || $file['error'] !== UPLOAD_ERR_OK) {
+                header("Location: " . BASEURL . "/index.php?page=tugas&error=file_gagal");
+                exit();
+            }
+
+            // Validasi ukuran: maks 20MB
+            $maks_ukuran = 20 * 1024 * 1024;
+            if ($file['size'] > $maks_ukuran) {
+                header("Location: " . BASEURL . "/index.php?page=tugas&error=file_terlalu_besar");
+                exit();
+            }
+
+            // Validasi ekstensi
+            $ekstensi = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+            $ekstensi_diizinkan = ['zip', 'rar', 'pdf'];
+            if (!in_array($ekstensi, $ekstensi_diizinkan)) {
+                header("Location: " . BASEURL . "/index.php?page=tugas&error=format_tidak_didukung");
+                exit();
+            }
+
+            // Validasi MIME type
+            $mime_diizinkan = ['application/zip', 'application/x-zip-compressed', 'application/x-rar-compressed',
+                               'application/vnd.rar', 'application/pdf', 'application/octet-stream'];
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime  = finfo_file($finfo, $file['tmp_name']);
+            finfo_close($finfo);
+            if (!in_array($mime, $mime_diizinkan) && $ekstensi !== 'rar') {
+                header("Location: " . BASEURL . "/index.php?page=tugas&error=format_tidak_didukung");
+                exit();
+            }
+
+            // Sanitasi dan buat nama file unik
+            $nama_bersih_file = preg_replace('/[^a-zA-Z0-9_\-]/', '_', pathinfo($file['name'], PATHINFO_FILENAME));
+            $nama_final  = $nama_bersih_file . '_' . time() . '.' . $ekstensi;
             $target_dir  = "assets/uploads/";
 
             if (!is_dir($target_dir)) {
                 mkdir($target_dir, 0755, true);
             }
 
-            // Buat nama file unik agar tidak tertimpa
-            $ekstensi   = pathinfo($nama_file, PATHINFO_EXTENSION);
-            $nama_bersih = pathinfo($nama_file, PATHINFO_FILENAME);
-            $nama_final  = $nama_bersih . '_' . time() . '.' . $ekstensi;
-
-            move_uploaded_file($tmp_name, $target_dir . $nama_final);
+            if (!move_uploaded_file($file['tmp_name'], $target_dir . $nama_final)) {
+                header("Location: " . BASEURL . "/index.php?page=tugas&error=upload_gagal");
+                exit();
+            }
 
             require_once 'model/tugasModel.php';
             $tugasModel = new tugasModel();
-            $tugasModel->tambahTugas($id_siswa, $judul_tugas, $nama_final);
+
+            // Cek apakah ini re-submit (status Revisi) atau submit baru
+            $tugas_lama = $tugasModel->getTugasBySiswaId($id_siswa);
+            if ($tugas_lama && $tugas_lama['status'] === 'Revisi') {
+                // Update tugas lama, bukan insert baru
+                $tugasModel->updateTugasRevisi($tugas_lama['id_tugas'], $judul_tugas, $nama_final);
+            } else {
+                $tugasModel->tambahTugas($id_siswa, $judul_tugas, $nama_final);
+            }
 
             header("Location: " . BASEURL . "/index.php?page=tugas&upload=sukses");
             exit();

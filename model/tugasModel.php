@@ -89,5 +89,20 @@ class tugasModel {
         return $data['total'];
     }
 
+    public function simpanFeedback($id_tugas, $catatan) {
+        $id = intval($id_tugas);
+        $catatan_bersih = mysqli_real_escape_string($this->conn, $catatan);
+        $query = "UPDATE tugas SET catatan_mentor = '$catatan_bersih' WHERE id_tugas = '$id'";
+        return mysqli_query($this->conn, $query);
+    }
+
+    public function updateTugasRevisi($id_tugas, $judul_baru, $nama_file_baru) {
+        $id    = intval($id_tugas);
+        $judul = mysqli_real_escape_string($this->conn, $judul_baru);
+        $file  = mysqli_real_escape_string($this->conn, $nama_file_baru);
+        $query = "UPDATE tugas SET judul_tugas = '$judul', nama_file = '$file', status = 'Menunggu', catatan_mentor = NULL WHERE id_tugas = '$id'";
+        return mysqli_query($this->conn, $query);
+    }
+
 }
 ?>

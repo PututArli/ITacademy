@@ -25,7 +25,7 @@
                 <?php if ($sertifikatSiswa): ?>
                     <div class="cert-main-box" id="printable-cert">
                         <div class="cert-badge-status">
-                            <span style="font-size:16px;">🏆</span> Tersedia
+                            <span style="font-size:16px;">&#9733;</span> Tersedia
                         </div>
                         <div class="cert-title">Sertifikat Kelulusan</div>
                         <p class="cert-meta">
@@ -49,7 +49,7 @@
                     </div>
                 <?php else: ?>
                     <div class="cert-main-box">
-                        <div style="font-size: 64px; margin-bottom: 16px;">⏳</div>
+                        <div style="font-size: 64px; margin-bottom: 16px;">&#8987;</div>
                         <div style="font-size: 22px; font-weight: 700; margin-bottom: 8px;">Sertifikat Belum Tersedia</div>
                         <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6; max-width: 500px; margin: 0 auto 20px auto;">
                             Sertifikat akan diterbitkan secara otomatis setelah mentor menyetujui tugas proyekmu.
@@ -60,7 +60,7 @@
                 <?php endif; ?>
             <?php else: ?>
                 <div class="cert-main-box locked-container">
-                    <div style="font-size: 64px; margin-bottom: 16px;">🔒</div>
+                    <div style="font-size: 64px; margin-bottom: 16px;">&#128274;</div>
                     <div style="font-size: 22px; font-weight: 700; color: #f87171; margin-bottom: 8px;">Fitur Sertifikat Terkunci</div>
                     <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6; max-width: 520px; margin: 0 auto;">
                         Halo <strong><?= htmlspecialchars($nama_user); ?></strong>, fitur klaim sertifikat digital resmi ITacademy hanya terbuka untuk anggota <strong>Premium</strong>.

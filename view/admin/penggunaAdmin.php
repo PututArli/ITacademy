@@ -53,7 +53,7 @@
             <!-- Filter Bar -->
             <div class="filter-card">
                 <div class="filter-search-wrap">
-                    <span class="filter-search-icon">🔍</span>
+                    <span class="filter-search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
                     <input type="text" id="filterSearch" class="filter-input-search" placeholder="Cari nama atau email siswa...">
                 </div>
                 <div class="filter-select-wrap">

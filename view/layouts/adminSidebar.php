@@ -8,11 +8,12 @@
         <div class="nav-label">Manajemen</div>
         <a href="<?= BASEURL ?>/index.php?page=dashboardAdmin" class="nav-item <?= ($halaman == 'dashboardAdmin') ? 'active' : '' ?>"><span class="nav-icon">&#9776;</span> Dashboard</a>
         <a href="<?= BASEURL ?>/index.php?page=penggunaAdmin" class="nav-item <?= ($halaman == 'penggunaAdmin') ? 'active' : '' ?>"><span class="nav-icon">&#9786;</span> Pengguna</a>
-        <a href="<?= BASEURL ?>/index.php?page=mentorAdmin" class="nav-item <?= ($halaman == 'mentorAdmin') ? 'active' : '' ?>"><span class="nav-icon">&#9998;</span> Mentor</a>
-        <a href="<?= BASEURL ?>/index.php?page=kursusAdmin" class="nav-item <?= ($halaman == 'kursusAdmin') ? 'active' : '' ?>"><span class="nav-icon">&#9650;</span> Kursus</a>
-        
+        <a href="<?= BASEURL ?>/index.php?page=mentorAdmin"   class="nav-item <?= ($halaman == 'mentorAdmin')   ? 'active' : '' ?>"><span class="nav-icon">&#9998;</span> Mentor</a>
+        <a href="<?= BASEURL ?>/index.php?page=kursusAdmin"   class="nav-item <?= ($halaman == 'kursusAdmin')   ? 'active' : '' ?>"><span class="nav-icon">&#9654;</span> Kursus</a>
+
         <div class="nav-label">Akun</div>
         <a href="<?= BASEURL ?>/index.php?page=profilAdmin" class="nav-item <?= ($halaman == 'profilAdmin') ? 'active' : '' ?>"><span class="nav-icon">&#9651;</span> Profil Admin</a>
+        <a href="#" class="nav-item" style="color:#f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon">&#8592;</span> Keluar</a>
     </nav>
     <div class="sidebar-footer">
         <div class="user-info">

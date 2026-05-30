@@ -27,38 +27,70 @@ class mentorController {
 
     public function reviewTugasMentor() {
         $nama_user = $_SESSION['nama'];
+        $pesan_sukses = '';
 
-        if (isset($_GET['aksi']) && isset($_GET['id_tugas'])) {
+        // ---- Handler GET: Setuju (terbitkan sertifikat) ----
+        if (isset($_GET['aksi']) && $_GET['aksi'] == 'setuju' && isset($_GET['id_tugas'])) {
             $id_tugas = intval($_GET['id_tugas']);
+            $this->tugasModel->updateStatusTugas($id_tugas, 'Selesai');
+            $detailTugas = $this->tugasModel->getTugasById($id_tugas);
 
-            if ($_GET['aksi'] == 'setuju') {
-                $this->tugasModel->updateStatusTugas($id_tugas, 'Selesai');
-                $detailTugas = $this->tugasModel->getTugasById($id_tugas);
-                if (isset($detailTugas['id_siswa'])) {
-                    $id_siswa = $detailTugas['id_siswa'];
-                } elseif (isset($detailTugas['user_id'])) {
-                    $id_siswa = $detailTugas['user_id'];
-                } else {
-                    $id_siswa = 0;
-                }
-                
-                $no_sertifikat = "SERT-IT-" . date("Y") . "-" . rand(1000, 9999);
-                
-                require_once 'model/sertifikatModel.php';
-                $sertifikatModel = new sertifikatModel();
-                $sertifikatModel->tambahSertifikat($id_siswa, $id_tugas, $no_sertifikat);
-
-            } elseif ($_GET['aksi'] == 'tolak') {
-                $this->tugasModel->updateStatusTugas($id_tugas, 'Revisi');
+            if (isset($detailTugas['id_siswa'])) {
+                $id_siswa = $detailTugas['id_siswa'];
+            } elseif (isset($detailTugas['user_id'])) {
+                $id_siswa = $detailTugas['user_id'];
+            } else {
+                $id_siswa = 0;
             }
 
-            header("Location: " . BASEURL . "/index.php?page=reviewTugasMentor");
+            $no_sertifikat = "SERT-IT-" . date("Y") . "-" . rand(1000, 9999);
+            require_once 'model/sertifikatModel.php';
+            $sertifikatModel = new sertifikatModel();
+            $sertifikatModel->tambahSertifikat($id_siswa, $id_tugas, $no_sertifikat);
+
+            header("Location: " . BASEURL . "/index.php?page=reviewTugasMentor&sukses=setuju");
             exit();
+        }
+
+        // ---- Handler POST: Beri Feedback ----
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['aksi'])) {
+
+            if ($_POST['aksi'] === 'beri_feedback') {
+                $id_tugas = intval($_POST['id_tugas'] ?? 0);
+                $catatan  = trim($_POST['catatan_mentor'] ?? '');
+                if ($id_tugas && $catatan) {
+                    $this->tugasModel->simpanFeedback($id_tugas, $catatan);
+                }
+                header("Location: " . BASEURL . "/index.php?page=reviewTugasMentor&sukses=feedback");
+                exit();
+            }
+
+            // ---- Handler POST: Tolak + Catatan Wajib ----
+            if ($_POST['aksi'] === 'tolak_tugas') {
+                $id_tugas = intval($_POST['id_tugas'] ?? 0);
+                $catatan  = trim($_POST['catatan_mentor'] ?? '');
+                if ($id_tugas) {
+                    $this->tugasModel->updateStatusTugas($id_tugas, 'Revisi');
+                    if ($catatan) {
+                        $this->tugasModel->simpanFeedback($id_tugas, $catatan);
+                    }
+                }
+                header("Location: " . BASEURL . "/index.php?page=reviewTugasMentor&sukses=tolak");
+                exit();
+            }
+        }
+
+        if (isset($_GET['sukses'])) {
+            $jenis = $_GET['sukses'];
+            if ($jenis === 'setuju') $pesan_sukses = 'Tugas disetujui dan sertifikat telah diterbitkan.';
+            if ($jenis === 'tolak')  $pesan_sukses = 'Tugas ditolak dan siswa diminta revisi.';
+            if ($jenis === 'feedback') $pesan_sukses = 'Feedback berhasil disimpan.';
         }
 
         $ambil_tugas = $this->tugasModel->getAllTugas();
         require_once 'view/mentor/reviewTugasMentor.php';
     }
+
 
     public function siswaMentor() {
         $nama_user = $_SESSION['nama'];
