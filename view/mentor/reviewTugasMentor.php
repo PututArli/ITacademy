@@ -21,6 +21,23 @@
         </div>
 
         <div class="page-content">
+            
+            <!-- Filter Bar -->
+            <div class="filter-card">
+                <div class="filter-search-wrap">
+                    <span class="filter-search-icon">🔍</span>
+                    <input type="text" id="filterSearch" class="filter-input-search" placeholder="Cari nama siswa atau judul tugas...">
+                </div>
+                <div class="filter-select-wrap">
+                    <select id="filterStatus" class="filter-input-select">
+                        <option value="all">Semua Status</option>
+                        <option value="menunggu">Menunggu</option>
+                        <option value="selesai">Selesai</option>
+                        <option value="revisi">Revisi</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="tugas-list">
                 <?php 
                 if ($ambil_tugas && mysqli_num_rows($ambil_tugas) > 0) {
@@ -29,7 +46,7 @@
                         if ($row['status'] == 'Selesai') $status_class = 'selesai';
                         if ($row['status'] == 'Revisi') $status_class = 'revisi';
                 ?>
-                    <div class="tugas-card">
+                    <div class="tugas-card" data-siswa="<?= strtolower(htmlspecialchars($row['nama_siswa'])); ?>" data-judul="<?= strtolower(htmlspecialchars($row['judul_tugas'])); ?>" data-status="<?= strtolower($row['status']); ?>">
                         <div class="tugas-header">
                             <h3 class="tugas-title"><?= htmlspecialchars($row['judul_tugas']); ?></h3>
                             <span class="badge-status <?= $status_class; ?>"><?= htmlspecialchars($row['status']); ?></span>
@@ -57,9 +74,10 @@
                 <?php 
                     }
                 } else {
-                    echo "<div style='background: var(--bg-card); padding: 24px; border-radius: 8px; text-align: center; color: var(--text-muted);'>Belum ada data tugas yang masuk di database.</div>";
+                    echo "<div class='empty-state-db' style='background: var(--bg-card); padding: 24px; border-radius: 8px; text-align: center; color: var(--text-muted);'>Belum ada data tugas yang masuk di database.</div>";
                 }
                 ?>
+                <div id="no-data-filter" style="display:none; background: var(--bg-card); padding: 24px; border-radius: 8px; text-align: center; color: var(--text-muted);">Pencarian tidak menemukan tugas yang sesuai.</div>
             </div>
         </div>
     </div>
@@ -67,6 +85,44 @@
 
 <script>
     window.itAcademyBaseUrl = '<?= BASEURL ?>';
+
+    // Fitur Filter Real-Time
+    const filterSearch = document.getElementById('filterSearch');
+    const filterStatus = document.getElementById('filterStatus');
+    const taskCards = document.querySelectorAll('.tugas-list .tugas-card');
+    const noDataRow = document.getElementById('no-data-filter');
+
+    function applyFilter() {
+        const searchTerm = filterSearch.value.toLowerCase();
+        const statusFilter = filterStatus.value;
+        let visibleCount = 0;
+
+        taskCards.forEach(card => {
+            const siswa = card.getAttribute('data-siswa');
+            const judul = card.getAttribute('data-judul');
+            const status = card.getAttribute('data-status');
+
+            const matchSearch = siswa.includes(searchTerm) || judul.includes(searchTerm);
+            const matchStatus = (statusFilter === 'all') || (status === statusFilter);
+
+            if (matchSearch && matchStatus) {
+                card.style.display = '';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        if (visibleCount === 0 && taskCards.length > 0) {
+            noDataRow.style.display = 'block';
+        } else {
+            noDataRow.style.display = 'none';
+        }
+    }
+
+    if (filterSearch) filterSearch.addEventListener('input', applyFilter);
+    if (filterStatus) filterStatus.addEventListener('change', applyFilter);
+
 </script>
 <script src="<?= BASEURL ?>/assets/js/mentor.js"></script>
 <script src="<?= BASEURL ?>/assets/js/session.js"></script>

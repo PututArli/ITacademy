@@ -39,6 +39,14 @@
                 <button class="btn btn-primary" style="font-size:13px;" onclick="openModal('modal-tambah-kursus')">+ Tambah Kursus Baru</button>
             </div>
 
+            <!-- Filter Bar -->
+            <div class="filter-card">
+                <div class="filter-search-wrap">
+                    <span class="filter-search-icon">🔍</span>
+                    <input type="text" id="filterSearch" class="filter-input-search" placeholder="Cari nama kursus atau kategori...">
+                </div>
+            </div>
+
             <div class="data-table-wrap">
                 <table>
                     <thead>
@@ -51,8 +59,8 @@
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
+                    <tbody id="tabelDataKursus">
+                        <tr class="data-row" data-nama="full-stack web development" data-kategori="programming">
                             <td><strong style="color:var(--text-primary);">Full-Stack Web Development</strong></td>
                             <td>Programming</td>
                             <td>12 Modul</td>
@@ -63,6 +71,7 @@
                                 <button class="action-btn action-del" onclick="hapusKursus(this)">Hapus</button>
                             </td>
                         </tr>
+                        <tr id="no-data-filter" style="display:none;"><td colspan="6" style="text-align:center; padding:30px; color:var(--text-muted);">Pencarian tidak menemukan kursus yang sesuai.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -101,6 +110,37 @@
 
 <script>
     window.itAcademyBaseUrl = '<?= BASEURL ?>';
+
+    // Fitur Filter Real-Time
+    const filterSearch = document.getElementById('filterSearch');
+    const tableRows = document.querySelectorAll('#tabelDataKursus .data-row');
+    const noDataRow = document.getElementById('no-data-filter');
+
+    function applyFilter() {
+        const searchTerm = filterSearch.value.toLowerCase();
+        let visibleCount = 0;
+
+        tableRows.forEach(row => {
+            const nama = row.getAttribute('data-nama');
+            const kategori = row.getAttribute('data-kategori');
+
+            if (nama.includes(searchTerm) || kategori.includes(searchTerm)) {
+                row.style.display = '';
+                visibleCount++;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        if (visibleCount === 0 && tableRows.length > 0) {
+            noDataRow.style.display = '';
+        } else {
+            noDataRow.style.display = 'none';
+        }
+    }
+
+    if (filterSearch) filterSearch.addEventListener('input', applyFilter);
+
 </script>
 <script src="<?= BASEURL ?>/assets/js/admin.js"></script>
 <script src="<?= BASEURL ?>/assets/js/session.js"></script>

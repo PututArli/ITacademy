@@ -49,6 +49,14 @@
                 <button class="btn btn-primary" style="font-size:13px;" onclick="openModal('modal-tambah-mentor')">+ Tambah Mentor Baru</button>
             </div>
 
+            <!-- Filter Bar -->
+            <div class="filter-card">
+                <div class="filter-search-wrap">
+                    <span class="filter-search-icon">🔍</span>
+                    <input type="text" id="filterSearch" class="filter-input-search" placeholder="Cari nama atau email mentor...">
+                </div>
+            </div>
+
             <div class="data-table-wrap">
                 <table>
                     <thead>
@@ -59,10 +67,10 @@
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tabelDataMentor">
                         <?php if (!empty($semua_mentor)): ?>
                             <?php foreach ($semua_mentor as $mentor): ?>
-                            <tr id="row-mentor-<?= $mentor['id']; ?>">
+                            <tr id="row-mentor-<?= $mentor['id']; ?>" class="data-row" data-nama="<?= strtolower(htmlspecialchars($mentor['nama'])); ?>" data-email="<?= strtolower(htmlspecialchars($mentor['email'])); ?>">
                                 <td><strong style="color:var(--text-primary);"><?= htmlspecialchars($mentor['nama']); ?></strong></td>
                                 <td><?= htmlspecialchars($mentor['email']); ?></td>
                                 <td><span class="badge badge-green">Aktif</span></td>
@@ -73,8 +81,9 @@
                             </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
-                            <tr><td colspan="4" style="text-align:center; padding:20px; color:var(--text-muted);">Belum ada mentor terdaftar.</td></tr>
+                            <tr class="empty-state-db"><td colspan="4" style="text-align:center; padding:20px; color:var(--text-muted);">Belum ada mentor terdaftar di database.</td></tr>
                         <?php endif; ?>
+                        <tr id="no-data-filter" style="display:none;"><td colspan="4" style="text-align:center; padding:30px; color:var(--text-muted);">Pencarian tidak menemukan mentor yang sesuai.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -153,6 +162,37 @@
         const msg = document.getElementById('toast-msg');
         if (msg) msg.style.transition = 'opacity .5s', msg.style.opacity = '0', setTimeout(() => msg.remove(), 500);
     }, 4000);
+
+    // Fitur Filter Real-Time
+    const filterSearch = document.getElementById('filterSearch');
+    const tableRows = document.querySelectorAll('#tabelDataMentor .data-row');
+    const noDataRow = document.getElementById('no-data-filter');
+
+    function applyFilter() {
+        const searchTerm = filterSearch.value.toLowerCase();
+        let visibleCount = 0;
+
+        tableRows.forEach(row => {
+            const nama = row.getAttribute('data-nama');
+            const email = row.getAttribute('data-email');
+
+            if (nama.includes(searchTerm) || email.includes(searchTerm)) {
+                row.style.display = '';
+                visibleCount++;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        if (visibleCount === 0 && tableRows.length > 0) {
+            noDataRow.style.display = '';
+        } else {
+            noDataRow.style.display = 'none';
+        }
+    }
+
+    if (filterSearch) filterSearch.addEventListener('input', applyFilter);
+
 </script>
 <script src="<?= BASEURL ?>/assets/js/admin.js"></script>
 <script src="<?= BASEURL ?>/assets/js/session.js"></script>

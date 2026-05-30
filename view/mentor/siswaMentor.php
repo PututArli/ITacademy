@@ -23,6 +23,21 @@
         <div class="page-content">
             <p style="color: var(--text-muted); font-size: 14px; margin: 0 0 20px 0;">Seluruh siswa aktif yang terdaftar di platform ITacademy.</p>
             
+            <!-- Filter Bar -->
+            <div class="filter-card">
+                <div class="filter-search-wrap">
+                    <span class="filter-search-icon">🔍</span>
+                    <input type="text" id="filterSearch" class="filter-input-search" placeholder="Cari nama atau email siswa...">
+                </div>
+                <div class="filter-select-wrap">
+                    <select id="filterRole" class="filter-input-select">
+                        <option value="all">Semua Tipe Akun</option>
+                        <option value="free">Free Account</option>
+                        <option value="premium">Premium</option>
+                    </select>
+                </div>
+            </div>
+
             <table class="siswa-table">
                 <thead>
                     <tr>
@@ -32,12 +47,12 @@
                         <th>Status Kelas</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tabelDataSiswa">
                     <?php 
                     if (!empty($daftar_siswa)) {
                         foreach($daftar_siswa as $row) {
                     ?>
-                        <tr>
+                        <tr class="data-row" data-nama="<?= strtolower(htmlspecialchars($row['nama'])); ?>" data-email="<?= strtolower(htmlspecialchars($row['email'])); ?>" data-role="<?= $row['role']; ?>">
                             <td style="font-weight: 600; color: var(--text-muted);">#<?= $row['id']; ?></td>
                             <td style="font-weight: 600; color: var(--text-primary);"><?= htmlspecialchars($row['nama']); ?></td>
                             <td><?= htmlspecialchars($row['email']); ?></td>
@@ -52,9 +67,10 @@
                     <?php 
                         }
                     } else {
-                        echo "<tr><td colspan='4' style='text-align: center; color: var(--text-muted); padding: 24px;'>Belum ada data siswa.</td></tr>";
+                        echo "<tr class='empty-state-db'><td colspan='4' style='text-align: center; color: var(--text-muted); padding: 24px;'>Belum ada data siswa.</td></tr>";
                     }
                     ?>
+                    <tr id="no-data-filter" style="display:none;"><td colspan="4" style="text-align:center; padding:30px; color:var(--text-muted);">Pencarian tidak menemukan siswa yang sesuai.</td></tr>
                 </tbody>
             </table>
         </div>
@@ -62,6 +78,44 @@
 </div>
 <script>
     window.itAcademyBaseUrl = '<?= BASEURL ?>';
+
+    // Fitur Filter Real-Time
+    const filterSearch = document.getElementById('filterSearch');
+    const filterRole = document.getElementById('filterRole');
+    const tableRows = document.querySelectorAll('#tabelDataSiswa .data-row');
+    const noDataRow = document.getElementById('no-data-filter');
+
+    function applyFilter() {
+        const searchTerm = filterSearch.value.toLowerCase();
+        const roleFilter = filterRole.value;
+        let visibleCount = 0;
+
+        tableRows.forEach(row => {
+            const nama = row.getAttribute('data-nama');
+            const email = row.getAttribute('data-email');
+            const role = row.getAttribute('data-role');
+
+            const matchSearch = nama.includes(searchTerm) || email.includes(searchTerm);
+            const matchRole = (roleFilter === 'all') || (role === roleFilter);
+
+            if (matchSearch && matchRole) {
+                row.style.display = '';
+                visibleCount++;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        if (visibleCount === 0 && tableRows.length > 0) {
+            noDataRow.style.display = '';
+        } else {
+            noDataRow.style.display = 'none';
+        }
+    }
+
+    if (filterSearch) filterSearch.addEventListener('input', applyFilter);
+    if (filterRole) filterRole.addEventListener('change', applyFilter);
+
 </script>
 <script src="<?= BASEURL ?>/assets/js/mentor.js"></script>
 <script src="<?= BASEURL ?>/assets/js/session.js"></script>

@@ -50,6 +50,21 @@
                 <button class="btn btn-primary" style="font-size:13px;" onclick="openModal('modal-tambah-user')">+ Tambah Siswa Baru</button>
             </div>
 
+            <!-- Filter Bar -->
+            <div class="filter-card">
+                <div class="filter-search-wrap">
+                    <span class="filter-search-icon">🔍</span>
+                    <input type="text" id="filterSearch" class="filter-input-search" placeholder="Cari nama atau email siswa...">
+                </div>
+                <div class="filter-select-wrap">
+                    <select id="filterRole" class="filter-input-select">
+                        <option value="all">Semua Tipe Akun</option>
+                        <option value="free">Free Account</option>
+                        <option value="premium">Premium</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="data-table-wrap">
                 <table>
                     <thead>
@@ -61,10 +76,10 @@
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tabelDataSiswa">
                         <?php if (!empty($semua_pengguna)): ?>
                             <?php foreach ($semua_pengguna as $u): ?>
-                            <tr id="row-user-<?= $u['id']; ?>">
+                            <tr id="row-user-<?= $u['id']; ?>" class="data-row" data-nama="<?= strtolower(htmlspecialchars($u['nama'])); ?>" data-email="<?= strtolower(htmlspecialchars($u['email'])); ?>" data-role="<?= $u['role']; ?>">
                                 <td><strong style="color:var(--text-primary);"><?= htmlspecialchars($u['nama']); ?></strong></td>
                                 <td><?= htmlspecialchars($u['email']); ?></td>
                                 <td>
@@ -82,8 +97,9 @@
                             </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
-                        <tr><td colspan="5" style="text-align:center; padding:20px; color:var(--text-muted);">Belum ada siswa terdaftar.</td></tr>
+                            <tr class="empty-state-db"><td colspan="5" style="text-align:center; padding:20px; color:var(--text-muted);">Belum ada siswa terdaftar di database.</td></tr>
                         <?php endif; ?>
+                        <tr id="no-data-filter" style="display:none;"><td colspan="5" style="text-align:center; padding:30px; color:var(--text-muted);">Pencarian tidak menemukan siswa yang sesuai.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -169,6 +185,44 @@
         const msg = document.getElementById('toast-msg');
         if (msg) msg.style.transition = 'opacity .5s', msg.style.opacity = '0', setTimeout(() => msg.remove(), 500);
     }, 4000);
+
+    // Fitur Filter Real-Time
+    const filterSearch = document.getElementById('filterSearch');
+    const filterRole = document.getElementById('filterRole');
+    const tableRows = document.querySelectorAll('#tabelDataSiswa .data-row');
+    const noDataRow = document.getElementById('no-data-filter');
+
+    function applyFilter() {
+        const searchTerm = filterSearch.value.toLowerCase();
+        const roleFilter = filterRole.value;
+        let visibleCount = 0;
+
+        tableRows.forEach(row => {
+            const nama = row.getAttribute('data-nama');
+            const email = row.getAttribute('data-email');
+            const role = row.getAttribute('data-role');
+
+            const matchSearch = nama.includes(searchTerm) || email.includes(searchTerm);
+            const matchRole = (roleFilter === 'all') || (role === roleFilter);
+
+            if (matchSearch && matchRole) {
+                row.style.display = '';
+                visibleCount++;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        if (visibleCount === 0 && tableRows.length > 0) {
+            noDataRow.style.display = '';
+        } else {
+            noDataRow.style.display = 'none';
+        }
+    }
+
+    if (filterSearch) filterSearch.addEventListener('input', applyFilter);
+    if (filterRole) filterRole.addEventListener('change', applyFilter);
+
 </script>
 <script src="<?= BASEURL ?>/assets/js/admin.js"></script>
 <script src="<?= BASEURL ?>/assets/js/session.js"></script>
