@@ -45,6 +45,14 @@
                 </div>
             <?php endif; ?>
 
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'free'): ?>
+                <div class="upgrade-card" style="background:var(--bg-card);border:1px solid var(--accent-gold);border-radius:var(--radius);padding:40px 24px;text-align:center;margin-top:20px;">
+                    <div style="font-size:48px;margin-bottom:16px;">🚀</div>
+                    <h3 style="color:var(--text-primary);margin-bottom:8px;font-size:24px;">Fitur Tugas Proyek Terkunci</h3>
+                    <p style="color:var(--text-secondary);font-size:16px;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto;">Upload tugas proyek dan dapatkan review kode langsung dari Mentor Profesional eksklusif untuk akun Premium.</p>
+                    <a href="<?= BASEURL ?>/index.php?page=profil" class="btn btn-primary" style="background:var(--accent-gold);color:#000;font-size:16px;padding:12px 24px;">Upgrade ke Premium Sekarang</a>
+                </div>
+            <?php else: ?>
             <div class="tugas-layout">
                 <div>
                     <div class="section-header">
@@ -162,6 +170,7 @@
                 </div>
             </div>
         </div>
+        <?php endif; ?>
     </div>  
 </div>
 

@@ -114,8 +114,15 @@
                     <div class="task-section">
                         <div class="section-header">
                             <div class="section-title">Tugas Proyek</div>
-                            <a href="<?= BASEURL ?>/index.php?page=tugas" class="btn btn-ghost" style="font-size:13px;padding:6px 12px;">Kirim Tugas</a>
+                            <a href="<?= BASEURL ?>/index.php?page=tugas" class="btn btn-ghost" style="font-size:13px;padding:6px 12px;"><?= ($_SESSION['role'] === 'free') ? 'Buka Premium' : 'Kirim Tugas' ?></a>
                         </div>
+                        <?php if ($_SESSION['role'] === 'free'): ?>
+                        <div class="task-card" style="text-align:center; padding:30px 20px; border:1px dashed var(--border);">
+                            <div style="font-size:32px; margin-bottom:12px;">🔒</div>
+                            <div style="font-weight:600; margin-bottom:6px;">Tugas Proyek Terkunci</div>
+                            <div style="font-size:13px; color:var(--text-muted);">Upgrade ke Premium untuk membuka tugas proyek akhir dan review mentor.</div>
+                        </div>
+                        <?php else: ?>
                         <div class="task-card">
                             <div class="task-status">
                                 <span class="badge badge-gold" style="background: rgba(245,158,11,0.15); color: #f59e0b; padding: 4px 8px; border-radius: 6px; font-size: 12px;">Sedang Direview</span>
@@ -131,6 +138,7 @@
                                 Kode responsifnya sudah rapi di tampilan mobile. Saya cek struktur kodenya dulu ya, besok siang saya kabari lagi hasilnya.
                             </div>
                         </div>
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -142,7 +150,13 @@
                     <div class="cert-box locked">
                         <div class="cert-icon" style="font-size: 48px; margin-bottom: 10px;">🔒</div>
                         <div class="cert-title">Belum Tersedia</div>
-                        <p class="cert-desc">Sertifikat digital akan otomatis terbuka setelah tugas proyek akhir kamu dinyatakan LULUS oleh mentor.</p>
+                        <p class="cert-desc">
+                            <?php if ($_SESSION['role'] === 'free'): ?>
+                                Sertifikat digital adalah fitur eksklusif. Upgrade ke Premium untuk mendapatkan sertifikat setelah lulus.
+                            <?php else: ?>
+                                Sertifikat digital akan otomatis terbuka setelah tugas proyek akhir kamu dinyatakan LULUS oleh mentor.
+                            <?php endif; ?>
+                        </p>
                     </div>
 
                     <div style="margin-top:24px;">
@@ -164,14 +178,15 @@
                             </div>
                         </div>
                         <div class="progress-ring">
-                            <div class="ring-num" style="color:#f59e0b;">1/1</div>
+                            <div class="ring-num" style="color:#f59e0b;"><?= ($_SESSION['role'] === 'free') ? '🔒' : '1/1' ?></div>
                             <div>
                                 <div class="ring-title">Proyek Akhir</div>
-                                <div class="ring-label">Menunggu persetujuan mentor</div>
+                                <div class="ring-label"><?= ($_SESSION['role'] === 'free') ? 'Premium Only' : 'Menunggu persetujuan mentor' ?></div>
                             </div>
                         </div>
                     </div>
 
+                    <?php if ($_SESSION['role'] === 'premium'): ?>
                     <div style="margin-top:24px;">
                         <div class="section-header">
                             <div class="section-title">Mentor Kamu</div>
@@ -184,6 +199,7 @@
                             </div>
                         </div>
                     </div>
+                    <?php endif; ?>
                 </div>
 
             </div>

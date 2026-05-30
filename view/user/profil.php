@@ -88,10 +88,7 @@
                             <h3 style="color:var(--accent-gold); margin:0 0 8px 0; font-size:18px;">Upgrade ke Premium ✨</h3>
                             <p style="color:var(--text-muted); margin:0; font-size:14px;">Buka akses ke semua materi, tugas proyek, klaim sertifikat, dan mentorship eksklusif.</p>
                         </div>
-                        <form action="<?= BASEURL ?>/index.php?page=profil" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin upgrade ke akun Premium?');">
-                            <input type="hidden" name="aksi" value="upgrade_premium">
-                            <button type="submit" class="btn-primary" style="background:var(--accent-gold); color:#000; border:none; padding:10px 20px; font-weight:600; border-radius:8px; cursor:pointer;">Upgrade Sekarang</button>
-                        </form>
+                        <button type="button" class="btn-primary" style="background:var(--accent-gold); color:#000; border:none; padding:10px 20px; font-weight:600; border-radius:8px; cursor:pointer;" onclick="bukaModalUpgrade()">Upgrade Sekarang</button>
                     </div>
                 </div>
                 <?php endif; ?>
@@ -99,12 +96,92 @@
         </div>
     </div>
 </div>
+<div class="modal-overlay" id="modalUpgrade">
+    <div class="modal-box" style="max-width: 420px; padding: 0; overflow: hidden; background: var(--bg-card); border: 1px solid var(--accent-gold); box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 40px rgba(245,158,11,0.1);">
+        
+        <!-- Header Image/Gradient -->
+        <div style="background: linear-gradient(135deg, rgba(245,158,11,0.2) 0%, rgba(245,158,11,0) 100%); padding: 30px 24px 20px; text-align: center; position: relative;">
+            <button onclick="tutupModalUpgrade()" style="position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.1); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; transition: 0.2s; z-index: 10;">&times;</button>
+            <div style="font-size: 48px; line-height: 1; margin-bottom: 12px; filter: drop-shadow(0 4px 8px rgba(245,158,11,0.3));">✨</div>
+            <h3 style="margin: 0; font-size: 24px; color: var(--accent-gold); font-weight: 700; letter-spacing: -0.5px;">Premium Member</h3>
+            <p style="margin: 8px 0 0; color: var(--text-secondary); font-size: 14px;">Upgrade untuk membuka semua akses</p>
+        </div>
+        
+        <div style="padding: 24px;">
+            <!-- Receipt Box -->
+            <div style="background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 24px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px;">
+                    <span style="color: var(--text-muted);">Biaya Langganan</span>
+                    <span style="color: var(--text-primary);">Rp 99.000</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px;">
+                    <span style="color: var(--text-muted);">Pajak & Biaya Admin</span>
+                    <span style="color: var(--text-primary);">Rp 0</span>
+                </div>
+                <div style="height: 1px; background: var(--border); margin: 12px 0;"></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="color: var(--text-secondary); font-weight: 500;">Total Tagihan</span>
+                    <span style="color: var(--accent-gold); font-weight: 800; font-size: 20px;">Rp 99.000</span>
+                </div>
+            </div>
+
+            <form id="formUpgrade" action="<?= BASEURL ?>/index.php?page=profil" method="POST">
+                <input type="hidden" name="aksi" value="upgrade_premium">
+                
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label style="font-size: 13px; color: var(--text-secondary); font-weight: 600; margin-bottom: 8px; display: block;">Metode Pembayaran</label>
+                    <select class="form-input" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border); padding: 12px 16px; border-radius: 10px; font-size: 14px; cursor: pointer; color: var(--text-primary);">
+                        <option>Transfer Bank Virtual Account</option>
+                        <option>Kartu Kredit / Debit</option>
+                        <option>GoPay / OVO / Dana</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 24px;">
+                    <label style="font-size: 13px; color: var(--text-secondary); font-weight: 600; margin-bottom: 8px; display: block;">Konfirmasi PIN</label>
+                    <input type="password" id="pinPembayaran" class="form-input" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;" maxlength="6" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border); padding: 14px; border-radius: 10px; text-align: center; letter-spacing: 12px; font-size: 24px; color: var(--accent-gold);" autocomplete="off">
+                </div>
+
+                <button type="button" id="btnProsesPembayaran" class="btn-primary" style="width: 100%; justify-content: center; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; font-size: 16px; font-weight: 700; padding: 14px; border-radius: 12px; border: none; box-shadow: 0 8px 16px rgba(245,158,11,0.2); transition: 0.3s;" onclick="prosesPembayaran()">Konfirmasi & Bayar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
     window.itAcademyBaseUrl = '<?= BASEURL ?>';
     function gabungNama() {
         const depan   = document.getElementById('inputNamaDepan').value.trim();
         const belakang = document.getElementById('inputNamaBelakang').value.trim();
         document.getElementById('inputNamaGabung').value = belakang ? (depan + ' ' + belakang) : depan;
+    }
+
+    function bukaModalUpgrade() {
+        document.getElementById('modalUpgrade').classList.add('show');
+        setTimeout(() => document.getElementById('pinPembayaran').focus(), 100);
+    }
+
+    function tutupModalUpgrade() {
+        document.getElementById('modalUpgrade').classList.remove('show');
+    }
+
+    function prosesPembayaran() {
+        const pin = document.getElementById('pinPembayaran').value;
+        if(pin.length < 4) {
+            alert("Harap masukkan PIN pembayaran yang valid!");
+            return;
+        }
+        
+        const btn = document.getElementById('btnProsesPembayaran');
+        btn.innerHTML = 'Memproses... ⏳';
+        btn.style.opacity = '0.7';
+        btn.style.cursor = 'not-allowed';
+        btn.disabled = true;
+        
+        // Simulasi loading gateway pembayaran 1.5 detik
+        setTimeout(() => {
+            document.getElementById('formUpgrade').submit();
+        }, 1500);
     }
 </script>
 <script src="<?= BASEURL ?>/assets/js/user.js"></script>
