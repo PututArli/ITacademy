@@ -42,7 +42,7 @@ class sertifikatModel {
                   FROM sertifikat s 
                   LEFT JOIN users u ON s.id_siswa = u.id
                   WHERE s.id_siswa = '$id_siswa' 
-                  ORDER BY s.id DESC LIMIT 1";
+                  ORDER BY s.id_sertifikat DESC LIMIT 1";
         $result = mysqli_query($this->conn, $query);
         return mysqli_fetch_assoc($result);
     }

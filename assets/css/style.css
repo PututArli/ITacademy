@@ -1041,3 +1041,42 @@ tbody tr:hover { background: var(--glass); }
 .badge-siswa { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: capitalize; display: inline-block; }
 .badge-premium { background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); border: 1px solid rgba(245, 158, 11, 0.3); }
 .badge-free { background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); border: 1px solid rgba(59, 130, 246, 0.3); }
+
+/* Print Media Query for Certificate */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    .sidebar, .topbar, .btn {
+        display: none !important;
+    }
+    .app-layout {
+        display: block !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+    .main-content {
+        display: block !important;
+        overflow: visible !important;
+    }
+    .page-content {
+        padding: 0 !important;
+        overflow: visible !important;
+    }
+    .cert-main-box {
+        border: none !important;
+        background: transparent !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        color: black !important;
+        max-width: none !important;
+    }
+    .cert-badge-status {
+        display: none !important;
+    }
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}
