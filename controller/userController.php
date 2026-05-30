@@ -206,24 +206,35 @@ class userController {
         $userModel = new userModel();
         $data_user = $userModel->getUserById($id_siswa);
 
-        // Proses update profil
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['aksi']) && $_POST['aksi'] === 'update_profil') {
-            $nama_baru     = trim($_POST['nama'] ?? '');
-            $password_baru = trim($_POST['password_baru'] ?? '');
-            $konfirmasi    = trim($_POST['konfirmasi'] ?? '');
+        // Proses POST request
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['aksi'])) {
+            if ($_POST['aksi'] === 'update_profil') {
+                $nama_baru     = trim($_POST['nama'] ?? '');
+                $password_baru = trim($_POST['password_baru'] ?? '');
+                $konfirmasi    = trim($_POST['konfirmasi'] ?? '');
 
-            if (!$nama_baru) {
-                $pesan_error = "Nama tidak boleh kosong.";
-            } elseif ($password_baru && $password_baru !== $konfirmasi) {
-                $pesan_error = "Konfirmasi password tidak cocok.";
-            } else {
-                if ($userModel->updateProfilUser($id_siswa, $nama_baru, $password_baru)) {
-                    $_SESSION['nama'] = $nama_baru;
-                    $nama_user = $nama_baru;
-                    $data_user = $userModel->getUserById($id_siswa);
-                    $pesan_sukses = "Profil berhasil diperbarui.";
+                if (!$nama_baru) {
+                    $pesan_error = "Nama tidak boleh kosong.";
+                } elseif ($password_baru && $password_baru !== $konfirmasi) {
+                    $pesan_error = "Konfirmasi password tidak cocok.";
                 } else {
-                    $pesan_error = "Gagal memperbarui profil.";
+                    if ($userModel->updateProfilUser($id_siswa, $nama_baru, $password_baru)) {
+                        $_SESSION['nama'] = $nama_baru;
+                        $nama_user = $nama_baru;
+                        $data_user = $userModel->getUserById($id_siswa);
+                        $pesan_sukses = "Profil berhasil diperbarui.";
+                    } else {
+                        $pesan_error = "Gagal memperbarui profil.";
+                    }
+                }
+            } elseif ($_POST['aksi'] === 'upgrade_premium') {
+                if ($userModel->upgradeToPremium($id_siswa)) {
+                    $_SESSION['role'] = 'premium';
+                    $status_keanggotaan = 'Premium Member';
+                    $data_user = $userModel->getUserById($id_siswa);
+                    $pesan_sukses = "Berhasil upgrade ke Premium! Nikmati akses penuh ke semua fitur.";
+                } else {
+                    $pesan_error = "Gagal memproses upgrade. Silakan coba lagi.";
                 }
             }
         }

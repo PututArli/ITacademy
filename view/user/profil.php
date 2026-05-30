@@ -80,6 +80,21 @@
 
                     <button type="submit" class="btn-save" onclick="gabungNama()">Simpan Perubahan</button>
                 </form>
+
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'free'): ?>
+                <div class="upgrade-card" style="margin-top: 24px; background: linear-gradient(135deg, var(--bg-card), rgba(245, 158, 11, 0.05)); border: 1px solid var(--accent-gold); border-radius: 12px; padding: 24px;">
+                    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+                        <div>
+                            <h3 style="color:var(--accent-gold); margin:0 0 8px 0; font-size:18px;">Upgrade ke Premium ✨</h3>
+                            <p style="color:var(--text-muted); margin:0; font-size:14px;">Buka akses ke semua materi, tugas proyek, klaim sertifikat, dan mentorship eksklusif.</p>
+                        </div>
+                        <form action="<?= BASEURL ?>/index.php?page=profil" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin upgrade ke akun Premium?');">
+                            <input type="hidden" name="aksi" value="upgrade_premium">
+                            <button type="submit" class="btn-primary" style="background:var(--accent-gold); color:#000; border:none; padding:10px 20px; font-weight:600; border-radius:8px; cursor:pointer;">Upgrade Sekarang</button>
+                        </form>
+                    </div>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

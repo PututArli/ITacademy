@@ -126,6 +126,12 @@ class userModel {
         return mysqli_query($this->db, $query);
     }
 
+    public function upgradeToPremium($id) {
+        $id = intval($id);
+        $query = "UPDATE users SET role = 'premium' WHERE id = '$id'";
+        return mysqli_query($this->db, $query);
+    }
+
     public function updateProfilAdmin($id, $nama, $password_baru = '') {
         return $this->updateProfilUser($id, $nama, $password_baru);
     }
