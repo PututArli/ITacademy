@@ -19,11 +19,16 @@ function switchTab(el, name) {
 
 function handleFile(file) {
     if (!file) return;
+    const mb = file.size / 1024 / 1024;
+    if (mb > 20) {
+        alert("Ukuran file terlalu besar! Maksimal adalah 20MB.");
+        removeFile();
+        return;
+    }
     document.getElementById('filePreview').style.display = 'flex';
     document.getElementById('uploadZone').style.display = 'none';
     document.getElementById('fileName').textContent = file.name;
-    const mb = (file.size / 1024 / 1024).toFixed(2);
-    document.getElementById('fileSize').textContent = mb + ' MB';
+    document.getElementById('fileSize').textContent = mb.toFixed(2) + ' MB';
 }
 function handleDrop(e) {
     e.preventDefault();
@@ -34,7 +39,10 @@ function handleDrop(e) {
 function removeFile() {
     document.getElementById('filePreview').style.display = 'none';
     document.getElementById('uploadZone').style.display = 'block';
-    document.getElementById('fileInput').value = '';
+    const f1 = document.getElementById('fileInput');
+    if (f1) f1.value = '';
+    const f2 = document.getElementById('fileInputRevisi');
+    if (f2) f2.value = '';
 }
 function submitTugas() {
     const judul = document.getElementById('judulInput').value.trim();
