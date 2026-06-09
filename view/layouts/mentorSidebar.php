@@ -6,14 +6,14 @@
     </div>
     <nav class="sidebar-nav">
         <div class="nav-label">Mentor</div>
-        <a href="<?= BASEURL ?>/index.php?page=dashboardMentor"   class="nav-item <?= ($halaman == 'dashboardMentor')   ? 'active' : '' ?>"><span class="nav-icon">&#9776;</span> Dashboard</a>
-        <a href="<?= BASEURL ?>/index.php?page=reviewTugasMentor" class="nav-item <?= ($halaman == 'reviewTugasMentor') ? 'active' : '' ?>"><span class="nav-icon">&#9998;</span> Review Tugas</a>
-        <a href="<?= BASEURL ?>/index.php?page=siswaMentor"       class="nav-item <?= ($halaman == 'siswaMentor')       ? 'active' : '' ?>"><span class="nav-icon">&#9786;</span> Siswa Saya</a>
-        <a href="<?= BASEURL ?>/index.php?page=tambahMateri"      class="nav-item <?= ($halaman == 'tambahMateri')      ? 'active' : '' ?>"><span class="nav-icon">&#9654;</span> Tambah Materi</a>
+        <a href="<?= BASEURL ?>/index.php?page=dashboardMentor"   class="nav-item <?= ($halaman == 'dashboardMentor')   ? 'active' : '' ?>"><span class="nav-icon"><iconify-icon icon="lucide:layout-dashboard"></iconify-icon></span> Dashboard</a>
+        <a href="<?= BASEURL ?>/index.php?page=reviewTugasMentor" class="nav-item <?= ($halaman == 'reviewTugasMentor') ? 'active' : '' ?>"><span class="nav-icon"><iconify-icon icon="lucide:pencil-line"></iconify-icon></span> Review Tugas</a>
+        <a href="<?= BASEURL ?>/index.php?page=siswaMentor"       class="nav-item <?= ($halaman == 'siswaMentor')       ? 'active' : '' ?>"><span class="nav-icon"><iconify-icon icon="lucide:users"></iconify-icon></span> Siswa Saya</a>
+        <a href="<?= BASEURL ?>/index.php?page=tambahMateri"      class="nav-item <?= ($halaman == 'tambahMateri')      ? 'active' : '' ?>"><span class="nav-icon"><iconify-icon icon="lucide:book-open"></iconify-icon></span> Tambah Materi</a>
 
         <div class="nav-label">Akun</div>
-        <a href="<?= BASEURL ?>/index.php?page=profilMentor" class="nav-item <?= ($halaman == 'profilMentor') ? 'active' : '' ?>"><span class="nav-icon">&#9651;</span> Profil</a>
-        <a href="#" class="nav-item" style="color:#f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon">&#8592;</span> Keluar</a>
+        <a href="<?= BASEURL ?>/index.php?page=profilMentor" class="nav-item <?= ($halaman == 'profilMentor') ? 'active' : '' ?>"><span class="nav-icon"><iconify-icon icon="lucide:user"></iconify-icon></span> Profil</a>
+        <a href="#" class="nav-item" style="color:#f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon"><iconify-icon icon="lucide:log-out"></iconify-icon></span> Keluar</a>
     </nav>
     <div class="sidebar-footer">
         <div class="user-info">
@@ -24,7 +24,7 @@
                 <div class="user-name"><?= isset($nama_user) ? htmlspecialchars($nama_user) : 'Mentor'; ?></div>
                 <div class="user-role">Mentor</div>
             </div>
-            <a href="#" class="user-logout" title="Keluar" onclick="bukaModalLogout(event)">&#8592;</a>
+            <a href="#" class="user-logout" title="Keluar" onclick="bukaModalLogout(event)"><iconify-icon icon="lucide:log-out"></iconify-icon></a>
         </div>
     </div>
 </aside>
@@ -40,3 +40,4 @@
     </div>
 </div>
 <div id="toast" style="position:fixed; bottom:28px; right:28px; padding:12px 20px; border-radius:10px; font-size:14px; font-weight:600; z-index:2000; display:none; align-items:center; gap:8px; box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>

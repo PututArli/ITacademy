@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuis Latihan - ITacademy</title>
-    <link rel="stylesheet" href="<?= BASEURL; ?>/assets/css/style.css">
+    <link class="iconify" rel="stylesheet" href="<?= BASEURL; ?>/assets/css/style.css">
 </head>
 <body>
 <div class="app-layout">
@@ -29,16 +29,16 @@
             </div>
             <div class="kuis-list">
                 <div class="kuis-item">
-                    <div class="kuis-icon" style="background:rgba(16,185,129,0.15);">🌐</div>
+                    <div class="kuis-icon" style="background:rgba(16,185,129,0.15); color:#10b981; display:flex; align-items:center; justify-content:center;"><iconify-icon icon="lucide:globe"></iconify-icon></div>
                     <div style="flex:1;">
                         <div style="font-size:15px;font-weight:600;margin-bottom:2px;">Kuis Modul 1: HTML Dasar</div>
                         <div style="font-size:13px;color:var(--text-muted);">5 soal · Skor kamu: 92/100</div>
                     </div>
-                    <span class="badge badge-green">Lulus ✓</span>
+                    <span class="badge badge-green">Lulus &check;</span>
                     <button class="btn btn-ghost" style="font-size:13px;" onclick="startKuis(1,'Kuis Modul 1: HTML Dasar')">Ulangi</button>
                 </div>
                 <div class="kuis-item">
-                    <div class="kuis-icon" style="background:rgba(59,130,246,0.15);">📐</div>
+                    <div class="kuis-icon" style="background:rgba(59,130,246,0.15); color:var(--accent-blue); display:flex; align-items:center; justify-content:center;"><iconify-icon icon="lucide:ruler"></iconify-icon></div>
                     <div style="flex:1;">
                         <div style="font-size:15px;font-weight:600;margin-bottom:2px;">Kuis Modul 3: Flexbox & Grid</div>
                         <div style="font-size:13px;color:var(--text-muted);">5 soal · Belum dikerjakan</div>
@@ -66,20 +66,20 @@
                 <div id="questionsContainer"></div>
 
                 <div style="display:flex;gap:10px;margin-top:8px;" id="navButtons">
-                    <button class="btn btn-ghost" id="prevBtn" onclick="prevQ()" style="flex:1;" disabled>← Sebelumnya</button>
-                    <button class="btn btn-primary" id="nextBtn" onclick="nextQ()" style="flex:1;">Berikutnya →</button>
+                    <button class="btn btn-ghost" id="prevBtn" onclick="prevQ()" style="flex:1;" disabled>&larr; Sebelumnya</button>
+                    <button class="btn btn-primary" id="nextBtn" onclick="nextQ()" style="flex:1;">Berikutnya &rarr;</button>
                 </div>
                 <div style="margin-top:10px;">
                     <button class="btn btn-outline btn-full" onclick="cancelKuis()">Batalkan & Kembali</button>
                 </div>
 
                 <div class="result-card" id="resultCard">
-                    <div class="result-icon" id="resultIcon">🎉</div>
+                    <div class="result-icon" id="resultIcon" style="color:var(--accent-gold);"><iconify-icon icon="lucide:party-popper"></iconify-icon></div>
                     <div class="result-score" id="resultScore">—</div>
                     <div class="result-label" id="resultLabel">—</div>
                     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
                         <button class="btn btn-ghost" onclick="cancelKuis()">Kembali ke Daftar</button>
-                        <a href="<?= BASEURL ?>/index.php?page=materi" class="btn btn-primary">Lanjut Belajar →</a>
+                        <a href="<?= BASEURL ?>/index.php?page=materi" class="btn btn-primary">Lanjut Belajar &rarr;</a>
                     </div>
                 </div>
             </div>

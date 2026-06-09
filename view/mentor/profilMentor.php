@@ -25,11 +25,11 @@
 
                 <?php if (!empty($pesan_sukses)): ?>
                     <div style="background:#10b981;color:#fff;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;">
-                        ✅ <?= htmlspecialchars($pesan_sukses); ?>
+                        <iconify-icon icon="lucide:check-circle" style="vertical-align: middle; margin-right: 4px;"></iconify-icon> <?= htmlspecialchars($pesan_sukses); ?>
                     </div>
                 <?php elseif (!empty($pesan_error)): ?>
                     <div style="background:#ef4444;color:#fff;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;">
-                        ❌ <?= htmlspecialchars($pesan_error); ?>
+                        <iconify-icon icon="lucide:alert-circle" style="vertical-align: middle; margin-right: 4px;"></iconify-icon> <?= htmlspecialchars($pesan_error); ?>
                     </div>
                 <?php endif; ?>
 
@@ -58,7 +58,7 @@
                     
                     <div style="margin-bottom: 20px;">
                         <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 6px;">Peran Sistem (Role)</div>
-                        <div style="font-size: 16px; color: var(--accent-blue); background-color: var(--bg-secondary); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border); font-weight: 600; text-transform: uppercase;">💼 <?= htmlspecialchars($data_mentor['role'] ?? 'MENTOR'); ?></div>
+                        <div style="font-size: 16px; color: var(--accent-blue); background-color: var(--bg-secondary); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border); font-weight: 600; text-transform: uppercase;"><iconify-icon icon="lucide:briefcase" style="vertical-align: middle; margin-right: 4px;"></iconify-icon> <?= htmlspecialchars($data_mentor['role'] ?? 'MENTOR'); ?></div>
                     </div>
 
                     <div class="form-grid">

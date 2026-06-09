@@ -24,11 +24,11 @@
 
             <?php if (!empty($pesan_sukses)): ?>
                 <div id="toast-msg" style="background:#10b981;color:#fff;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;">
-                    &#10003; <?= htmlspecialchars($pesan_sukses); ?>
+                    <iconify-icon icon="lucide:check-circle" style="vertical-align: middle; margin-right: 4px;"></iconify-icon> <?= htmlspecialchars($pesan_sukses); ?>
                 </div>
             <?php elseif (!empty($pesan_error)): ?>
                 <div id="toast-msg" style="background:#ef4444;color:#fff;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;">
-                    &#10060; <?= htmlspecialchars($pesan_error); ?>
+                    <iconify-icon icon="lucide:alert-circle" style="vertical-align: middle; margin-right: 4px;"></iconify-icon> <?= htmlspecialchars($pesan_error); ?>
                 </div>
             <?php endif; ?>
 
@@ -82,11 +82,11 @@
                                 <a href="<?= BASEURL; ?>/index.php?page=reviewTugasMentor&aksi=setuju&id_tugas=<?= $id_t; ?>"
                                    class="btn-action btn-approve"
                                    onclick="return confirm('Setujui tugas ini dan terbitkan sertifikat?')">
-                                   &#10003; Setujui &amp; Terbitkan Sertifikat
+                                   <iconify-icon icon="lucide:check-circle" style="vertical-align: middle; margin-right: 4px;"></iconify-icon> Setujui &amp; Terbitkan Sertifikat
                                 </a>
 
                                 <button class="btn-action btn-reject" onclick="togglePanel('tolak-<?= $id_t; ?>')">
-                                    &#10005; Tolak &amp; Minta Revisi
+                                    <iconify-icon icon="lucide:x-circle" style="vertical-align: middle; margin-right: 4px;"></iconify-icon> Tolak &amp; Minta Revisi
                                 </button>
 
                                 <div id="tolak-<?= $id_t; ?>" class="feedback-panel" style="display:none;">
@@ -96,7 +96,7 @@
                                         <label class="feedback-label">Alasan Penolakan / Catatan Revisi (wajib):</label>
                                         <textarea name="catatan_mentor" class="feedback-textarea" rows="3" placeholder="Jelaskan apa yang perlu diperbaiki siswa..." required></textarea>
                                         <div style="display:flex;gap:8px;margin-top:8px;">
-                                            <button type="submit" class="btn-action btn-reject">Konfirmasi Tolak</button>
+                                            <button type="submit" class="btn-action btn-reject"><iconify-icon icon="lucide:x-circle" style="vertical-align: middle; margin-right: 4px;"></iconify-icon> Konfirmasi Tolak</button>
                                             <button type="button" class="btn-action btn-feedback" onclick="togglePanel('tolak-<?= $id_t; ?>')">Batal</button>
                                         </div>
                                     </form>
@@ -109,7 +109,7 @@
                             <?php endif; ?>
 
                             <button class="btn-action btn-feedback" onclick="togglePanel('feedback-<?= $id_t; ?>')">
-                                &#9998; <?= $catatan_ada ? 'Edit Feedback' : 'Beri Feedback'; ?>
+                                <iconify-icon icon="lucide:pencil-line" style="vertical-align: middle; margin-right: 4px;"></iconify-icon> <?= $catatan_ada ? 'Edit Feedback' : 'Beri Feedback'; ?>
                             </button>
 
                             <div id="feedback-<?= $id_t; ?>" class="feedback-panel" style="display:none;">

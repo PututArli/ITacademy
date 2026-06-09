@@ -23,7 +23,6 @@
         <div class="page-content">
             <p style="color: var(--text-muted); font-size: 14px; margin: 0 0 20px 0;">Seluruh siswa aktif yang terdaftar di platform ITacademy.</p>
             
-            <!-- Filter Bar -->
             <div class="filter-card">
                 <div class="filter-search-wrap">
                     <span class="filter-search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
@@ -58,7 +57,7 @@
                             <td><?= htmlspecialchars($row['email']); ?></td>
                             <td>
                                 <?php if ($row['role'] == 'premium'): ?>
-                                    <span class="badge-siswa badge-premium">⭐ Premium</span>
+                                    <span class="badge-siswa badge-premium"><iconify-icon icon="lucide:star" style="vertical-align:middle; font-size:14px; margin-right:4px;"></iconify-icon>Premium</span>
                                 <?php else: ?>
                                     <span class="badge-siswa badge-free">Free Account</span>
                                 <?php endif; ?>
@@ -79,7 +78,6 @@
 <script>
     window.itAcademyBaseUrl = '<?= BASEURL ?>';
 
-    // Fitur Filter Real-Time
     const filterSearch = document.getElementById('filterSearch');
     const filterRole = document.getElementById('filterRole');
     const tableRows = document.querySelectorAll('#tabelDataSiswa .data-row');

@@ -6,15 +6,15 @@
     </div>
     <nav class="sidebar-nav">
         <div class="nav-label">Belajar</div>
-        <a href="<?= BASEURL ?>/index.php?page=dashboard"   class="nav-item <?= ($halaman == 'dashboard')   ? 'active' : '' ?>"><span class="nav-icon">&#9776;</span> Dashboard</a>
-        <a href="<?= BASEURL ?>/index.php?page=materi"      class="nav-item <?= ($halaman == 'materi')      ? 'active' : '' ?>"><span class="nav-icon">&#9654;</span> Materi Belajar</a>
-        <a href="<?= BASEURL ?>/index.php?page=kuis"        class="nav-item <?= ($halaman == 'kuis')        ? 'active' : '' ?>"><span class="nav-icon">&#9998;</span> Kuis Latihan</a>
-        <a href="<?= BASEURL ?>/index.php?page=tugas"       class="nav-item <?= ($halaman == 'tugas')       ? 'active' : '' ?>"><span class="nav-icon">&#9650;</span> Tugas Proyek</a>
-        <a href="<?= BASEURL ?>/index.php?page=sertifikat"  class="nav-item <?= ($halaman == 'sertifikat')  ? 'active' : '' ?>"><span class="nav-icon">&#9733;</span> Sertifikat</a>
+        <a href="<?= BASEURL ?>/index.php?page=dashboard"   class="nav-item <?= ($halaman == 'dashboard')   ? 'active' : '' ?>"><span class="nav-icon"><iconify-icon icon="lucide:layout-dashboard"></iconify-icon></span> Dashboard</a>
+        <a href="<?= BASEURL ?>/index.php?page=materi"      class="nav-item <?= ($halaman == 'materi')      ? 'active' : '' ?>"><span class="nav-icon"><iconify-icon icon="lucide:book-open"></iconify-icon></span> Materi Belajar</a>
+        <a href="<?= BASEURL ?>/index.php?page=kuis"        class="nav-item <?= ($halaman == 'kuis')        ? 'active' : '' ?>"><span class="nav-icon"><iconify-icon icon="lucide:pencil-line"></iconify-icon></span> Kuis Latihan</a>
+        <a href="<?= BASEURL ?>/index.php?page=tugas"       class="nav-item <?= ($halaman == 'tugas')       ? 'active' : '' ?>"><span class="nav-icon"><iconify-icon icon="lucide:file-code"></iconify-icon></span> Tugas Proyek</a>
+        <a href="<?= BASEURL ?>/index.php?page=sertifikat"  class="nav-item <?= ($halaman == 'sertifikat')  ? 'active' : '' ?>"><span class="nav-icon"><iconify-icon icon="lucide:award"></iconify-icon></span> Sertifikat</a>
 
         <div class="nav-label">Akun</div>
-        <a href="<?= BASEURL ?>/index.php?page=profil" class="nav-item <?= ($halaman == 'profil') ? 'active' : '' ?>"><span class="nav-icon">&#9786;</span> Profil Saya</a>
-        <a href="#" class="nav-item" style="color:#f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon">&#8592;</span> Keluar</a>
+        <a href="<?= BASEURL ?>/index.php?page=profil" class="nav-item <?= ($halaman == 'profil') ? 'active' : '' ?>"><span class="nav-icon"><iconify-icon icon="lucide:user"></iconify-icon></span> Profil Saya</a>
+        <a href="#" class="nav-item" style="color:#f87171;" onclick="bukaModalLogout(event)"><span class="nav-icon"><iconify-icon icon="lucide:log-out"></iconify-icon></span> Keluar</a>
     </nav>
     <div class="sidebar-footer">
         <div class="user-info">
@@ -29,7 +29,7 @@
 
 <div class="modal-overlay" id="modalLogout">
     <div class="modal-box">
-        <div class="modal-icon" style="text-align:center; font-size:40px; margin-bottom:16px;">&#128075;</div>
+        <div class="modal-icon" style="text-align:center; font-size:48px; margin-bottom:16px; color:#ef4444;"><iconify-icon icon="lucide:log-out"></iconify-icon></div>
         <div class="modal-title" style="text-align:center; font-size:22px; margin-bottom:8px; font-weight:700;">Yakin ingin keluar?</div>
         <p style="text-align:center; font-size:14px; color:var(--text-secondary); margin-bottom:24px; line-height:1.6;">Sesi belajar kamu akan disimpan. Kamu harus masuk kembali untuk melanjutkan.</p>
         <div style="display:flex; gap:12px;">
@@ -39,3 +39,4 @@
     </div>
 </div>
 <div id="toast" style="position:fixed; bottom:28px; right:28px; padding:12px 20px; border-radius:10px; font-size:14px; font-weight:600; z-index:2000; display:none; align-items:center; gap:8px; box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>

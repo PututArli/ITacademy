@@ -25,11 +25,11 @@
 
                 <?php if (!empty($pesan_sukses)): ?>
                     <div style="background:#10b981;color:#fff;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;">
-                        ✅ <?= htmlspecialchars($pesan_sukses); ?>
+                        <iconify-icon icon="lucide:check-circle" style="vertical-align: middle; margin-right: 4px;"></iconify-icon> <?= htmlspecialchars($pesan_sukses); ?>
                     </div>
                 <?php elseif (!empty($pesan_error)): ?>
                     <div style="background:#ef4444;color:#fff;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;">
-                        ❌ <?= htmlspecialchars($pesan_error); ?>
+                        <iconify-icon icon="lucide:alert-circle" style="vertical-align: middle; margin-right: 4px;"></iconify-icon> <?= htmlspecialchars($pesan_error); ?>
                     </div>
                 <?php endif; ?>
 
@@ -43,7 +43,6 @@
 
                 <form action="<?= BASEURL ?>/index.php?page=profil" method="POST">
                     <input type="hidden" name="aksi" value="update_profil">
-                    <!-- Hidden field nama gabungan -->
                     <input type="hidden" name="nama" id="inputNamaGabung" value="<?= htmlspecialchars($nama_user); ?>">
 
                     <div class="form-grid">
@@ -85,7 +84,7 @@
                 <div class="upgrade-card" style="margin-top: 24px; background: linear-gradient(135deg, var(--bg-card), rgba(245, 158, 11, 0.05)); border: 1px solid var(--accent-gold); border-radius: 12px; padding: 24px;">
                     <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
                         <div>
-                            <h3 style="color:var(--accent-gold); margin:0 0 8px 0; font-size:18px;">Upgrade ke Premium ✨</h3>
+                            <h3 style="color:var(--accent-gold); margin:0 0 8px 0; font-size:18px;">Upgrade ke Premium <iconify-icon icon="lucide:sparkles" style="vertical-align: middle; margin-left: 4px; color: var(--accent-gold);"></iconify-icon></h3>
                             <p style="color:var(--text-muted); margin:0; font-size:14px;">Buka akses ke semua materi, tugas proyek, klaim sertifikat, dan mentorship eksklusif.</p>
                         </div>
                         <button type="button" class="btn-primary" style="background:var(--accent-gold); color:#000; border:none; padding:10px 20px; font-weight:600; border-radius:8px; cursor:pointer;" onclick="bukaModalUpgrade()">Upgrade Sekarang</button>
@@ -99,16 +98,14 @@
 <div class="modal-overlay" id="modalUpgrade">
     <div class="modal-box" style="max-width: 420px; padding: 0; overflow: hidden; background: var(--bg-card); border: 1px solid var(--accent-gold); box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 40px rgba(245,158,11,0.1);">
         
-        <!-- Header Image/Gradient -->
         <div style="background: linear-gradient(135deg, rgba(245,158,11,0.2) 0%, rgba(245,158,11,0) 100%); padding: 30px 24px 20px; text-align: center; position: relative;">
-            <button onclick="tutupModalUpgrade()" style="position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.1); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; transition: 0.2s; z-index: 10;">&times;</button>
-            <div style="font-size: 48px; line-height: 1; margin-bottom: 12px; filter: drop-shadow(0 4px 8px rgba(245,158,11,0.3));">✨</div>
+            <button onclick="tutupModalUpgrade()" style="position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.1); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; transition: 0.2s; z-index: 10;"><iconify-icon icon="lucide:x"></iconify-icon></button>
+            <div style="font-size: 48px; line-height: 1; margin-bottom: 12px; filter: drop-shadow(0 4px 8px rgba(245,158,11,0.3)); color: var(--accent-gold);"><iconify-icon icon="lucide:sparkles"></iconify-icon></div>
             <h3 style="margin: 0; font-size: 24px; color: var(--accent-gold); font-weight: 700; letter-spacing: -0.5px;">Premium Member</h3>
             <p style="margin: 8px 0 0; color: var(--text-secondary); font-size: 14px;">Upgrade untuk membuka semua akses</p>
         </div>
         
         <div style="padding: 24px;">
-            <!-- Receipt Box -->
             <div style="background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 24px;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px;">
                     <span style="color: var(--text-muted);">Biaya Langganan</span>
@@ -178,7 +175,6 @@
         btn.style.cursor = 'not-allowed';
         btn.disabled = true;
         
-        // Simulasi loading gateway pembayaran 1.5 detik
         setTimeout(() => {
             document.getElementById('formUpgrade').submit();
         }, 1500);

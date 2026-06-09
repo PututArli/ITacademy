@@ -9,7 +9,6 @@
 <body>
 <div class="app-layout">
 
-    <!-- Memanggil Sidebar User -->
     <?php require_once 'view/layouts/userSidebar.php'; ?>
 
     <div class="main-content">
@@ -26,7 +25,7 @@
 
             <div class="welcome-bar">
                 <div>
-                    <div class="welcome-text">Selamat datang, <?= htmlspecialchars($nama_user); ?>! 👋</div>
+                    <div class="welcome-text">Selamat datang, <?= htmlspecialchars($nama_user); ?>! <iconify-icon icon="twemoji:waving-hand" style="font-size:24px; vertical-align:middle;"></iconify-icon></div>
                     <div class="welcome-sub">Lanjutkan progress belajarmu hari ini. Fokus pada proyek akhir!</div>
                 </div>
                 <a href="<?= BASEURL ?>/index.php?page=materi" class="btn btn-primary" style="background: var(--accent-blue); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none;">Lanjut Belajar</a>
@@ -34,15 +33,15 @@
 
             <div class="stats-grid">
                 <a href="<?= BASEURL ?>/index.php?page=materi" class="stat-card" style="text-decoration:none;">
-                    <div class="stat-icon blue"></div>
+                    <div class="stat-icon blue"><iconify-icon icon="lucide:book-open"></iconify-icon></div>
                     <div><div class="stat-value">8/12</div><div class="stat-label">Modul Selesai</div></div>
                 </a>
                 <a href="<?= BASEURL ?>/index.php?page=kuis" class="stat-card" style="text-decoration:none;">
-                    <div class="stat-icon purple"></div>
+                    <div class="stat-icon purple"><iconify-icon icon="lucide:pencil-line"></iconify-icon></div>
                     <div><div class="stat-value">2/3</div><div class="stat-label">Kuis Lulus</div></div>
                 </a>
                 <a href="<?= BASEURL ?>/index.php?page=tugas" class="stat-card" style="text-decoration:none;">
-                    <div class="stat-icon gold"></div>
+                    <div class="stat-icon gold"><iconify-icon icon="lucide:file-code"></iconify-icon></div>
                     <div>
                         <div class="stat-value">
                             <?= (isset($status_tugas) && $status_tugas != 'Belum Mengirim') ? '1' : '0'; ?>
@@ -51,7 +50,7 @@
                     </div>
                 </a>
                 <a href="<?= BASEURL ?>/index.php?page=sertifikat" class="stat-card" style="text-decoration:none;">
-                    <div class="stat-icon green"></div>
+                    <div class="stat-icon green"><iconify-icon icon="lucide:award"></iconify-icon></div>
                     <div>
                         <div class="stat-value">
                             <?= (isset($status_tugas) && $status_tugas == 'Selesai') ? '1' : '0'; ?>
@@ -66,7 +65,6 @@
             </div>
 
             <div class="two-col">
-                <!-- Kolom Kiri: Modul dan Tugas -->
                 <div>
                     <div class="module-list">
                         <div class="module-row">
@@ -118,7 +116,7 @@
                         </div>
                         <?php if ($_SESSION['role'] === 'free'): ?>
                         <div class="task-card" style="text-align:center; padding:30px 20px; border:1px dashed var(--border);">
-                            <div style="font-size:32px; margin-bottom:12px;">🔒</div>
+                            <div style="font-size:32px; margin-bottom:12px; color:var(--text-muted);"><iconify-icon icon="lucide:lock"></iconify-icon></div>
                             <div style="font-weight:600; margin-bottom:6px;">Tugas Proyek Terkunci</div>
                             <div style="font-size:13px; color:var(--text-muted);">Upgrade ke Premium untuk membuka tugas proyek akhir dan review mentor.</div>
                         </div>
@@ -130,7 +128,7 @@
                             </div>
                             <div style="font-size:15px;font-weight:600;margin-top:10px;margin-bottom:8px;">Landing Page Portfolio Bisnis</div>
                             <div class="task-file">
-                                <span class="task-file-icon">📁</span>
+                                <span class="task-file-icon"><iconify-icon icon="lucide:folder"></iconify-icon></span>
                                 <span>portfolio-<?= strtolower(explode(' ', $nama_user)[0]); ?>-v2.zip (3.1 MB)</span>
                             </div>
                             <div class="task-feedback">
@@ -142,13 +140,12 @@
                     </div>
                 </div>
 
-                <!-- Kolom Kanan: Sertifikat, Progress, Mentor -->
                 <div>
                     <div class="section-header">
                         <div class="section-title">Sertifikat Kelulusan</div>
                     </div>
                     <div class="cert-box locked">
-                        <div class="cert-icon" style="font-size: 48px; margin-bottom: 10px;">🔒</div>
+                        <div class="cert-icon" style="font-size: 48px; margin-bottom: 10px; color:var(--text-muted);"><iconify-icon icon="lucide:lock"></iconify-icon></div>
                         <div class="cert-title">Belum Tersedia</div>
                         <p class="cert-desc">
                             <?php if ($_SESSION['role'] === 'free'): ?>
@@ -178,7 +175,7 @@
                             </div>
                         </div>
                         <div class="progress-ring">
-                            <div class="ring-num" style="color:#f59e0b;"><?= ($_SESSION['role'] === 'free') ? '🔒' : '1/1' ?></div>
+                            <div class="ring-num" style="color:#f59e0b;"><?= ($_SESSION['role'] === 'free') ? '<iconify-icon icon="lucide:lock"></iconify-icon>' : '1/1' ?></div>
                             <div>
                                 <div class="ring-title">Proyek Akhir</div>
                                 <div class="ring-label"><?= ($_SESSION['role'] === 'free') ? 'Premium Only' : 'Menunggu persetujuan mentor' ?></div>

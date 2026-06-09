@@ -24,19 +24,19 @@
         <div class="page-content">
             <div class="stats-grid" style="margin-bottom:24px;">
                 <div class="stat-card">
-                    <div class="stat-icon purple">&#9998;</div>
+                    <div class="stat-icon purple"><iconify-icon icon="lucide:pencil-line"></iconify-icon></div>
                     <div><div class="stat-value"><?= $tugas_menunggu_count; ?></div><div class="stat-label">Tugas Menunggu Review</div></div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon blue">&#9786;</div>
+                    <div class="stat-icon blue"><iconify-icon icon="lucide:users"></iconify-icon></div>
                     <div><div class="stat-value"><?= $total_siswa_count; ?></div><div class="stat-label">Total Siswa</div></div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon green">&#10003;</div>
+                    <div class="stat-icon green"><iconify-icon icon="lucide:check-circle"></iconify-icon></div>
                     <div><div class="stat-value"><?= $tugas_selesai_count; ?></div><div class="stat-label">Tugas Direview</div></div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon gold">&#9733;</div>
+                    <div class="stat-icon gold"><iconify-icon icon="lucide:star"></iconify-icon></div>
                     <div><div class="stat-value">4.8</div><div class="stat-label">Rating Mentor</div></div>
                 </div>
             </div>

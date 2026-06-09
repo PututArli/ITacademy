@@ -25,7 +25,6 @@
         <div class="page-content">
 
             <?php
-            // Tampilkan pesan error upload
             $upload_errors = [
                 'judul_kosong'          => 'Judul proyek tidak boleh kosong.',
                 'file_gagal'            => 'Gagal membaca file. Coba lagi.',
@@ -37,17 +36,17 @@
             if ($error_key && isset($upload_errors[$error_key])):
             ?>
                 <div id="toast-msg" style="background:#ef4444;color:#fff;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;">
-                    &#10060; <?= htmlspecialchars($upload_errors[$error_key]); ?>
+                    <iconify-icon icon="lucide:alert-circle" style="vertical-align: middle; margin-right: 4px;"></iconify-icon> <?= htmlspecialchars($upload_errors[$error_key]); ?>
                 </div>
             <?php elseif (isset($_GET['upload']) && $_GET['upload'] === 'sukses'): ?>
                 <div id="toast-msg" style="background:#10b981;color:#fff;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;">
-                    &#10003; Tugas berhasil dikirim! Mentor akan segera mereview.
+                    <iconify-icon icon="lucide:check-circle" style="vertical-align: middle; margin-right: 4px;"></iconify-icon> Tugas berhasil dikirim! Mentor akan segera mereview.
                 </div>
             <?php endif; ?>
 
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'free'): ?>
                 <div class="upgrade-card" style="background:var(--bg-card);border:1px solid var(--accent-gold);border-radius:var(--radius);padding:40px 24px;text-align:center;margin-top:20px;">
-                    <div style="font-size:48px;margin-bottom:16px;">🚀</div>
+                    <div style="font-size:48px;margin-bottom:16px;color:var(--accent-gold);"><iconify-icon icon="lucide:rocket"></iconify-icon></div>
                     <h3 style="color:var(--text-primary);margin-bottom:8px;font-size:24px;">Fitur Tugas Proyek Terkunci</h3>
                     <p style="color:var(--text-secondary);font-size:16px;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto;">Upload tugas proyek dan dapatkan review kode langsung dari Mentor Profesional eksklusif untuk akun Premium.</p>
                     <a href="<?= BASEURL ?>/index.php?page=profil" class="btn btn-primary" style="background:var(--accent-gold);color:#000;font-size:16px;padding:12px 24px;">Upgrade ke Premium Sekarang</a>
@@ -59,7 +58,6 @@
                         <div class="section-title">Kirim Tugas Proyek</div>
                     </div>
 
-                    <!-- KONDISI 1: JIKA SISWA BELUM KIRIM TUGAS / STATUS NYA BELUM MENGIRIM -->
                     <?php if (isset($status_tugas) && $status_tugas == 'Belum Mengirim') : ?>
                         <form action="<?= BASEURL; ?>/index.php?page=kirimTugas" method="POST" enctype="multipart/form-data" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;">
                             <div class="form-group">
@@ -82,17 +80,16 @@
                                         <div class="file-name" id="fileName">—</div>
                                         <div class="file-size" id="fileSize">—</div>
                                     </div>
-                                    <div class="file-remove" onclick="removeFile()" title="Hapus">&#10005;</div>
+                                    <div class="file-remove" onclick="removeFile()" title="Hapus"><iconify-icon icon="lucide:x-circle"></iconify-icon></div>
                                 </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-full btn-lg">Kirim Tugas ke Mentor</button>
                         </form>
 
-                    <!-- KONDISI 2: JIKA STATUSNYA REVISI, BERIKAN TOMBOL UNTUK KIRIM ULANG -->
                     <?php elseif (isset($status_tugas) && $status_tugas == 'Revisi') : ?>
                         <div style="background:var(--bg-card); border:1.5px solid #ef4444; border-radius:var(--radius); padding:24px; margin-bottom:20px;">
-                            <div style="font-weight:700; color:#ef4444; font-size:16px; margin-bottom:6px;">&#10005; Tugas Perlu Revisi</div>
+                            <div style="font-weight:700; color:#ef4444; font-size:16px; margin-bottom:6px;"><iconify-icon icon="lucide:alert-circle" style="vertical-align: middle; margin-right: 4px;"></iconify-icon> Tugas Perlu Revisi</div>
                             <?php if (!empty($tugasSiswa['catatan_mentor'])): ?>
                             <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:12px 14px;margin-top:8px;margin-bottom:14px;">
                                 <div style="font-size:11px;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;">Catatan dari Mentor:</div>
@@ -123,13 +120,12 @@
                                         <div class="file-name" id="fileName">&mdash;</div>
                                         <div class="file-size" id="fileSize">&mdash;</div>
                                     </div>
-                                    <div class="file-remove" onclick="removeFile()" title="Hapus">&#10005;</div>
+                                    <div class="file-remove" onclick="removeFile()" title="Hapus"><iconify-icon icon="lucide:x-circle"></iconify-icon></div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-full">Kirim Ulang Revisi</button>
                         </form>
 
-                    <!-- KONDISI 3: JIKA TUGAS SUDAH MENUNGGU ATAU SELESAI, FORM DIKUNCI -->
                     <?php else : ?>
                         <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:40px; text-align:center;">
                             <?php if ($status_tugas == 'Selesai') : ?>
@@ -143,20 +139,19 @@
                     <?php endif; ?>
                 </div>
 
-                <!-- BAGIAN KANAN: STATUS SERTIFIKASI DINAMIS -->
                 <div>
                     <div class="section-header"><div class="section-title">Status Sertifikasi</div></div>
                     <div class="step-track">
                         <div class="step-track-item">
-                            <div class="step-track-left"><div class="step-dot done">✓</div><div class="step-line done"></div></div>
+                            <div class="step-track-left"><div class="step-dot done"><iconify-icon icon="lucide:check"></iconify-icon></div><div class="step-line done"></div></div>
                             <div class="step-body"><div class="step-sname">Selesaikan Materi</div></div>
                         </div>
                         <div class="step-track-item">
                             <div class="step-track-left">
                                 <?php if (isset($status_tugas) && $status_tugas == 'Selesai') : ?>
-                                    <div class="step-dot done">✓</div><div class="step-line done"></div>
+                                    <div class="step-dot done"><iconify-icon icon="lucide:check"></iconify-icon></div><div class="step-line done"></div>
                                 <?php elseif (isset($status_tugas) && $status_tugas == 'Revisi') : ?>
-                                    <div class="step-dot" style="background:#ef4444; color:white; display:flex; align-items:center; justify-content:center; border-radius:50%; width:24px; height:24px; font-weight:bold;">✕</div><div class="step-line"></div>
+                                    <div class="step-dot" style="background:#ef4444; color:white; display:flex; align-items:center; justify-content:center; border-radius:50%; width:24px; height:24px; font-weight:bold;"><iconify-icon icon="lucide:x"></iconify-icon></div><div class="step-line"></div>
                                 <?php else : ?>
                                     <div class="step-dot wait">-</div><div class="step-line"></div>
                                 <?php endif; ?>
