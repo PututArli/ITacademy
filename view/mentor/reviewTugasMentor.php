@@ -26,9 +26,12 @@
                 <div id="toast-msg" style="background:#10b981;color:#fff;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;">
                     &#10003; <?= htmlspecialchars($pesan_sukses); ?>
                 </div>
+            <?php elseif (!empty($pesan_error)): ?>
+                <div id="toast-msg" style="background:#ef4444;color:#fff;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;">
+                    &#10060; <?= htmlspecialchars($pesan_error); ?>
+                </div>
             <?php endif; ?>
 
-            <!-- Filter Bar -->
             <div class="filter-card">
                 <div class="filter-search-wrap">
                     <span class="filter-search-icon">
@@ -76,19 +79,16 @@
 
                         <div class="btn-group" style="margin-top:14px;">
                             <?php if ($row['status'] == 'Menunggu'): ?>
-                                <!-- Tombol Setujui -->
                                 <a href="<?= BASEURL; ?>/index.php?page=reviewTugasMentor&aksi=setuju&id_tugas=<?= $id_t; ?>"
                                    class="btn-action btn-approve"
                                    onclick="return confirm('Setujui tugas ini dan terbitkan sertifikat?')">
                                    &#10003; Setujui &amp; Terbitkan Sertifikat
                                 </a>
 
-                                <!-- Tombol Tolak (buka form tolak) -->
                                 <button class="btn-action btn-reject" onclick="togglePanel('tolak-<?= $id_t; ?>')">
                                     &#10005; Tolak &amp; Minta Revisi
                                 </button>
 
-                                <!-- Panel Tolak (inline) -->
                                 <div id="tolak-<?= $id_t; ?>" class="feedback-panel" style="display:none;">
                                     <form method="POST" action="<?= BASEURL ?>/index.php?page=reviewTugasMentor">
                                         <input type="hidden" name="aksi" value="tolak_tugas">
@@ -108,12 +108,10 @@
                                 </span>
                             <?php endif; ?>
 
-                            <!-- Tombol Beri Feedback (selalu tampil) -->
                             <button class="btn-action btn-feedback" onclick="togglePanel('feedback-<?= $id_t; ?>')">
                                 &#9998; <?= $catatan_ada ? 'Edit Feedback' : 'Beri Feedback'; ?>
                             </button>
 
-                            <!-- Panel Feedback (inline) -->
                             <div id="feedback-<?= $id_t; ?>" class="feedback-panel" style="display:none;">
                                 <form method="POST" action="<?= BASEURL ?>/index.php?page=reviewTugasMentor">
                                     <input type="hidden" name="aksi" value="beri_feedback">
@@ -202,13 +200,11 @@
         el.style.display = el.style.display === 'none' ? 'block' : 'none';
     }
 
-    // Auto-hide pesan sukses
     setTimeout(function() {
         const msg = document.getElementById('toast-msg');
         if (msg) { msg.style.transition = 'opacity .5s'; msg.style.opacity = '0'; setTimeout(() => msg.remove(), 500); }
     }, 4000);
 
-    // Fitur Filter Real-Time
     const filterSearch = document.getElementById('filterSearch');
     const filterStatus = document.getElementById('filterStatus');
     const taskCards = document.querySelectorAll('.tugas-list .tugas-card');

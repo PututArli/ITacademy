@@ -28,53 +28,57 @@ class mentorController {
     public function reviewTugasMentor() {
         $nama_user = $_SESSION['nama'];
         $pesan_sukses = '';
+        $pesan_error = '';
 
-        // ---- Handler GET: Setuju (terbitkan sertifikat) ----
         if (isset($_GET['aksi']) && $_GET['aksi'] == 'setuju' && isset($_GET['id_tugas'])) {
             $id_tugas = intval($_GET['id_tugas']);
-            $this->tugasModel->updateStatusTugas($id_tugas, 'Selesai');
             $detailTugas = $this->tugasModel->getTugasById($id_tugas);
 
-            if (isset($detailTugas['id_siswa'])) {
-                $id_siswa = $detailTugas['id_siswa'];
-            } elseif (isset($detailTugas['user_id'])) {
-                $id_siswa = $detailTugas['user_id'];
-            } else {
-                $id_siswa = 0;
-            }
+            if ($detailTugas && $detailTugas['status'] !== 'Selesai') {
+                $this->tugasModel->updateStatusTugas($id_tugas, 'Selesai');
+                if (isset($detailTugas['id_siswa'])) {
+                    $id_siswa = $detailTugas['id_siswa'];
+                } elseif (isset($detailTugas['user_id'])) {
+                    $id_siswa = $detailTugas['user_id'];
+                } else {
+                    $id_siswa = 0;
+                }
 
-            $no_sertifikat = "SERT-IT-" . date("Y") . "-" . rand(1000, 9999);
-            require_once 'model/sertifikatModel.php';
-            $sertifikatModel = new sertifikatModel();
-            $sertifikatModel->tambahSertifikat($id_siswa, $id_tugas, $no_sertifikat);
+                $no_sertifikat = "SERT-IT-" . date("Y") . "-" . rand(1000, 9999);
+                require_once 'model/sertifikatModel.php';
+                $sertifikatModel = new sertifikatModel();
+                $sertifikatModel->tambahSertifikat($id_siswa, $id_tugas, $no_sertifikat);
+            }
 
             header("Location: " . BASEURL . "/index.php?page=reviewTugasMentor&sukses=setuju");
             exit();
         }
 
-        // ---- Handler POST: Beri Feedback ----
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['aksi'])) {
 
             if ($_POST['aksi'] === 'beri_feedback') {
                 $id_tugas = intval($_POST['id_tugas'] ?? 0);
                 $catatan  = trim($_POST['catatan_mentor'] ?? '');
-                if ($id_tugas && $catatan) {
+                if ($id_tugas) {
                     $this->tugasModel->simpanFeedback($id_tugas, $catatan);
                 }
                 header("Location: " . BASEURL . "/index.php?page=reviewTugasMentor&sukses=feedback");
                 exit();
             }
 
-            // ---- Handler POST: Tolak + Catatan Wajib ----
             if ($_POST['aksi'] === 'tolak_tugas') {
                 $id_tugas = intval($_POST['id_tugas'] ?? 0);
                 $catatan  = trim($_POST['catatan_mentor'] ?? '');
-                if ($id_tugas) {
-                    $this->tugasModel->updateStatusTugas($id_tugas, 'Revisi');
-                    if ($catatan) {
-                        $this->tugasModel->simpanFeedback($id_tugas, $catatan);
-                    }
+                if (!$id_tugas) {
+                    header("Location: " . BASEURL . "/index.php?page=reviewTugasMentor");
+                    exit();
                 }
+                if (empty($catatan)) {
+                    header("Location: " . BASEURL . "/index.php?page=reviewTugasMentor&error=catatan_wajib");
+                    exit();
+                }
+                $this->tugasModel->updateStatusTugas($id_tugas, 'Revisi');
+                $this->tugasModel->simpanFeedback($id_tugas, $catatan);
                 header("Location: " . BASEURL . "/index.php?page=reviewTugasMentor&sukses=tolak");
                 exit();
             }
@@ -87,10 +91,14 @@ class mentorController {
             if ($jenis === 'feedback') $pesan_sukses = 'Feedback berhasil disimpan.';
         }
 
+        if (isset($_GET['error'])) {
+            $jenis = $_GET['error'];
+            if ($jenis === 'catatan_wajib') $pesan_error = 'Alasan penolakan / catatan revisi wajib diisi!';
+        }
+
         $ambil_tugas = $this->tugasModel->getAllTugas();
         require_once 'view/mentor/reviewTugasMentor.php';
     }
-
 
     public function siswaMentor() {
         $nama_user = $_SESSION['nama'];
@@ -104,10 +112,8 @@ class mentorController {
         $pesan_sukses = '';
         $pesan_error  = '';
 
-        // Ambil data mentor dari DB berdasarkan id session
         $data_mentor = $this->userModel->getUserById($id_mentor);
 
-        // Jika tidak ditemukan by id, cari by nama
         if (!$data_mentor) {
             global $conn;
             $nama_bersih = mysqli_real_escape_string($conn, $nama_user);
@@ -119,7 +125,6 @@ class mentorController {
             }
         }
 
-        // Proses update profil mentor
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['aksi']) && $_POST['aksi'] === 'update_profil_mentor') {
             $nama_baru     = trim($_POST['nama'] ?? '');
             $password_baru = trim($_POST['password_baru'] ?? '');
