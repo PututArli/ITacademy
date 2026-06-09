@@ -18,7 +18,6 @@ class materiModel {
     }
 
     public function tambahMateri($judul, $link, $deskripsi) {
-        // Ambil urutan terbaru
         $query_cek = "SELECT MAX(urutan) as max_urutan FROM materi";
         $result    = mysqli_query($this->conn, $query_cek);
         $data      = mysqli_fetch_assoc($result);

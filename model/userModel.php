@@ -78,7 +78,6 @@ class userModel {
         $nama     = mysqli_real_escape_string($this->db, $nama);
         $email    = mysqli_real_escape_string($this->db, $email);
         $role     = mysqli_real_escape_string($this->db, $role);
-        // Hash password sebelum disimpan
         $hashed   = password_hash($password, PASSWORD_BCRYPT);
         $query = "INSERT INTO users (nama, email, password, role) VALUES ('$nama', '$email', '$hashed', '$role')";
         return mysqli_query($this->db, $query);
@@ -115,7 +114,6 @@ class userModel {
         $id   = intval($id);
         $nama = mysqli_real_escape_string($this->db, $nama);
         if ($password_baru) {
-            // Hash password baru sebelum update
             $pw = password_hash($password_baru, PASSWORD_BCRYPT);
             $query = "UPDATE users SET nama = '$nama', password = '$pw' WHERE id = '$id'";
         } else {

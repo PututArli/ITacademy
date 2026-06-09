@@ -35,16 +35,12 @@ class authController {
 
             $user = $this->authModel->getUserByEmail($email);
 
-            // Dukung password lama (plaintext) DAN baru (bcrypt hash)
             $login_valid = false;
             if ($user) {
                 if (password_verify($password, $user['password'])) {
-                    // Password sudah di-hash — cara baru
                     $login_valid = true;
                 } elseif (!empty($password) && $user['password'] === $password) {
-                    // Password masih plaintext (akun lama belum dimigrate)
                     $login_valid = true;
-                    // Upgrade otomatis ke hash setelah login berhasil
                     global $conn;
                     $new_hash = password_hash($password, PASSWORD_BCRYPT);
                     $new_hash_esc = mysqli_real_escape_string($conn, $new_hash);
@@ -80,7 +76,6 @@ class authController {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $nama       = $_POST['nama'];
             $email      = $_POST['email'];
-            $role       = $_POST['role'];
             $password   = $_POST['password'];
             $konfirmasi = $_POST['konfirmasi'];
             $role       = $_POST['role_hidden'];

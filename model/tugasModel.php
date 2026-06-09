@@ -55,7 +55,6 @@ class tugasModel {
         $judul_bersih = mysqli_real_escape_string($this->conn, $judul_tugas);
         $file_bersih  = mysqli_real_escape_string($this->conn, $nama_file);
 
-        // Ambil mentor pertama yang ada di database
         $cek_mentor = mysqli_query($this->conn, "SELECT id FROM users WHERE role = 'mentor' LIMIT 1");
         $mentor_row = $cek_mentor ? mysqli_fetch_assoc($cek_mentor) : null;
         $id_mentor  = $mentor_row ? intval($mentor_row['id']) : 1;

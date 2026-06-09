@@ -12,12 +12,10 @@ class sertifikatModel {
         $id_tugas = intval($id_tugas);
         $no_sertifikat = mysqli_real_escape_string($this->conn, $no_sertifikat);
 
-        // Ambil id_mentor dari tugas
         $res_tugas = mysqli_query($this->conn, "SELECT id_mentor FROM tugas WHERE id_tugas = '$id_tugas' LIMIT 1");
         $row_tugas = $res_tugas ? mysqli_fetch_assoc($res_tugas) : null;
         $id_mentor = $row_tugas ? intval($row_tugas['id_mentor']) : 0;
 
-        // Jika tidak ada dari tugas, ambil mentor pertama
         if (!$id_mentor) {
             $res_mentor = mysqli_query($this->conn, "SELECT id FROM users WHERE role = 'mentor' LIMIT 1");
             $row_mentor = $res_mentor ? mysqli_fetch_assoc($res_mentor) : null;
