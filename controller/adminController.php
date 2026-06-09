@@ -41,6 +41,8 @@ class adminController {
 
             if (!$nama || !$email || !$password) {
                 $pesan_error = "Semua field wajib diisi.";
+            } elseif (strlen($password) < 8) {
+                $pesan_error = "Password minimal harus 8 karakter.";
             } elseif ($this->userModel->isEmailExists($email)) {
                 $pesan_error = "Email sudah terdaftar.";
             } else {
@@ -97,6 +99,8 @@ class adminController {
 
             if (!$nama || !$email || !$password) {
                 $pesan_error = "Semua field wajib diisi.";
+            } elseif (strlen($password) < 8) {
+                $pesan_error = "Password minimal harus 8 karakter.";
             } elseif ($this->userModel->isEmailExists($email)) {
                 $pesan_error = "Email sudah terdaftar.";
             } else {
@@ -162,6 +166,8 @@ class adminController {
 
             if (!$nama_baru) {
                 $pesan_error = "Nama tidak boleh kosong.";
+            } elseif ($password_baru && strlen($password_baru) < 8) {
+                $pesan_error = "Password baru minimal harus 8 karakter.";
             } elseif ($password_baru && $password_baru !== $konfirmasi) {
                 $pesan_error = "Konfirmasi password tidak cocok.";
             } else {

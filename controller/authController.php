@@ -41,7 +41,7 @@ class authController {
                 if (password_verify($password, $user['password'])) {
                     // Password sudah di-hash — cara baru
                     $login_valid = true;
-                } elseif ($user['password'] === $password) {
+                } elseif (!empty($password) && $user['password'] === $password) {
                     // Password masih plaintext (akun lama belum dimigrate)
                     $login_valid = true;
                     // Upgrade otomatis ke hash setelah login berhasil
@@ -85,7 +85,9 @@ class authController {
             $konfirmasi = $_POST['konfirmasi'];
             $role       = $_POST['role_hidden'];
 
-            if ($password !== $konfirmasi) {
+            if (strlen($password) < 8) {
+                $error = "Password minimal harus 8 karakter!";
+            } elseif ($password !== $konfirmasi) {
                 $error = "Konfirmasi password tidak cocok!";
             } else {
                 if ($this->authModel->isEmailRegistered($email)) {

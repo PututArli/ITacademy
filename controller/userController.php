@@ -215,6 +215,8 @@ class userController {
 
                 if (!$nama_baru) {
                     $pesan_error = "Nama tidak boleh kosong.";
+                } elseif ($password_baru && strlen($password_baru) < 8) {
+                    $pesan_error = "Password baru minimal harus 8 karakter.";
                 } elseif ($password_baru && $password_baru !== $konfirmasi) {
                     $pesan_error = "Konfirmasi password tidak cocok.";
                 } else {
